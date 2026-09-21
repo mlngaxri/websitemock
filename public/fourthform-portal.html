@@ -44,6 +44,9 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(102,92,246,.55);
 .context-view{position:absolute;inset:0;padding:22px 18px;overflow:auto;opacity:0;transform:translateX(12px);pointer-events:none;transition:opacity .24s ease,transform .34s var(--ease)}
 .context-view.active{opacity:1;transform:none;pointer-events:auto}
 .context h2{font-size:13px;font-weight:600;margin:0 0 4px}.sub{font-size:10px;color:var(--muted);line-height:1.5;margin:0 0 20px}
+.context-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}.context-title h2{margin:0}.draft-count{font-size:9px;color:var(--muted)}
+.direction-list{border-top:1px solid var(--line);margin:14px 0 20px}.direction-row{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;padding:13px 1px;text-align:left;transition:padding .2s var(--ease),color .18s ease}.direction-row:hover{padding-left:5px}.direction-row small{display:block;font-size:8px;letter-spacing:.09em;color:var(--muted);margin-bottom:5px}.direction-row b{display:block;font-size:10px;font-weight:500}.direction-row span{display:block;font-size:9px;color:var(--muted);margin-top:4px}.direction-row.active b{color:var(--accent)}
+.selected-target{border-top:1px solid var(--line);padding-top:17px;margin-top:2px}.selected-target small{font-size:8px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}.selected-target b{display:block;font-size:11px;margin:6px 0 12px}
 .canvasbar{height:54px;flex:0 0 54px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:rgba(250,249,245,.5)}
 .canvasbar .leftbits,.canvasbar .rightbits{display:flex;align-items:center;gap:7px}
 .pill{height:30px;border:1px solid var(--line);background:rgba(250,249,245,.86);border-radius:999px;padding:0 10px;font-size:10px;color:#66635c;display:inline-flex;align-items:center;gap:6px;transition:background .18s ease,border-color .18s ease,color .18s ease}
@@ -249,10 +252,17 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
 
   <aside class="context" id="contextRail">
     <div class="context-view active" data-context="review">
-      <h2>Replacement image</h2>
-      <p class="sub">Drag this onto the dining-room image. Fourthform only responds when the drop target is valid.</p>
-      <div class="asset" id="asset" draggable="true" role="button" tabindex="0"><div class="thumb"></div><div class="assetmeta"><b>evening-room.jpg</b><span>4.8 MB</span></div></div>
-      <button class="upload" id="uploadBtn" type="button">Try your own image</button><input id="fileInput" type="file" accept="image/*" hidden>
+      <div class="context-title"><h2>Directions</h2><span class="draft-count">2 draft</span></div>
+      <p class="sub">Feedback stays attached to the part of the website it refers to.</p>
+      <div class="direction-list">
+        <button class="direction-row active" type="button" data-direction-focus="image"><small>HOME · HERO IMAGE</small><b>Use the evening room image here.</b><span>Draft · Image replacement</span></button>
+        <button class="direction-row" type="button" data-direction-focus="heading"><small>HOME · HEADING</small><b>Make this feel quieter.</b><span>Draft · Text direction</span></button>
+      </div>
+      <div class="selected-target">
+        <small>Selected target</small><b>Dining room image</b>
+        <div class="asset" id="asset" draggable="true" role="button" tabindex="0"><div class="thumb"></div><div class="assetmeta"><b>evening-room.jpg</b><span>4.8 MB</span></div></div>
+        <button class="upload" id="uploadBtn" type="button">Try your own image</button><input id="fileInput" type="file" accept="image/*" hidden>
+      </div>
       <div class="note" id="intentNote"><button type="button" id="intentBtn"><span>Interaction intent</span><span>+</span></button><p>Hover is precise and quiet. On a valid drop, one short depth response and membrane ripple acknowledge the action, then the site settles completely still.</p></div>
     </div>
     <div class="context-view" data-context="overview"><h2>Project status</h2><p class="sub">Mori House is currently in Review.</p><div class="quiet-card"><div class="status-row"><span>Current stage</span><span>Review</span></div><div class="status-row"><span>Revision</span><span>01 / 03</span></div><div class="status-row"><span>Directions</span><span>2 draft</span></div></div></div>
@@ -357,6 +367,16 @@ qs('#mobileMenu').addEventListener('click',()=>{leftRail.classList.toggle('open'
 qs('#mobileContext').addEventListener('click',()=>{contextRail.classList.toggle('open');leftRail.classList.remove('open')});
 qs('#saveBtn').addEventListener('click',()=>{saveState.textContent='Saving…';setTimeout(()=>notify('Saved'),520)});
 qs('#intentBtn').addEventListener('click',()=>{qs('#intentNote').classList.toggle('open');qs('#intentBtn span:last-child').textContent=qs('#intentNote').classList.contains('open')?'−':'+'});
+qsa('[data-direction-focus]').forEach(button=>button.addEventListener('click',()=>{
+  qsa('[data-direction-focus]').forEach(x=>x.classList.toggle('active',x===button));
+  if(button.dataset.directionFocus==='image'){
+    activeDrop(true);setTimeout(()=>activeDrop(false),720);notify('Image Direction selected');
+  }else{
+    const title=qs('#siteTitle');
+    title.animate([{background:'rgba(102,92,246,0)',transform:'translateY(0)'},{background:'rgba(102,92,246,.07)',transform:'translateY(-1px)'},{background:'rgba(102,92,246,0)',transform:'translateY(0)'}],{duration:720,easing:'cubic-bezier(.22,1,.36,1)'});
+    notify('Heading Direction selected');
+  }
+}));
 
 function openModal(id){qs(id).classList.add('open')}
 function closeModal(id){qs(id).classList.remove('open')}
