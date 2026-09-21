@@ -400,9 +400,10 @@ function applyEditMode(){
   moriSite.classList.toggle('editing',editing);
   qsa('[data-edit-text]',moriSite).forEach(el=>el.setAttribute('contenteditable',editing?'plaintext-only':'false'));
   qsa('[data-edit-image]',moriSite).forEach(el=>el.tabIndex=editing?0:-1);
+  const previewAsset=qs('#asset');
+  if(previewAsset){const browse=currentMode==='Browse mode';previewAsset.setAttribute('aria-disabled',browse?'true':'false');previewAsset.draggable=!browse}
 }
 function bindSite(){
-  qsa('[data-site-page]',moriSite).forEach(b=>b.addEventListener('click',()=>selectPage(b.dataset.sitePage)));
   applyEditMode();
   requestAnimationFrame(()=>updateTargetOverlay(currentImageTarget));
 }
@@ -448,6 +449,8 @@ function selectPage(page){
 qsa('[data-page]').forEach(b=>b.addEventListener('click',()=>selectPage(b.dataset.page)));
 moriSite.addEventListener('input',e=>{if(e.target.matches('[data-edit-text]'))markDirty()});
 moriSite.addEventListener('click',e=>{
+  const pageButton=e.target.closest('[data-site-page]');
+  if(pageButton){e.preventDefault();selectPage(pageButton.dataset.sitePage);return}
   const target=e.target.closest('[data-edit-image]');
   if(!target||currentMode!=='Edit site')return;
   e.preventDefault();pendingImageTarget=target;fileInput.click();
@@ -492,7 +495,9 @@ qs('#intentBtn').addEventListener('click',()=>{qs('#intentNote').classList.toggl
 qsa('[data-direction-focus]').forEach(button=>button.addEventListener('click',()=>{
   qsa('[data-direction-focus]').forEach(x=>x.classList.toggle('active',x===button));
   if(button.dataset.directionFocus==='image'){
-    activeDrop(true);setTimeout(()=>activeDrop(false),720);notify('Image Direction selected');
+    const target=qs('[data-edit-image]',moriPage);
+    if(target){target.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{activeDrop(true,target);setTimeout(()=>activeDrop(false,target),720)},240)}
+    notify('Image Direction selected');
   }else{
     const title=qs('.mori-home-hero h1,.mori-page-hero h1',moriSite);
     if(title){title.scrollIntoView({behavior:'smooth',block:'center'});title.animate([{background:'rgba(102,92,246,0)'},{background:'rgba(102,92,246,.08)'},{background:'rgba(102,92,246,0)'}],{duration:720,easing:'cubic-bezier(.22,1,.36,1)'})}
