@@ -86,6 +86,26 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
 .modal-backdrop{position:fixed;inset:0;z-index:100;background:rgba(23,23,21,.18);backdrop-filter:blur(3px);display:grid;place-items:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s ease}.modal-backdrop.open{opacity:1;pointer-events:auto}.modal{width:min(460px,100%);border:1px solid rgba(23,23,21,.09);border-radius:16px;background:var(--surface);box-shadow:0 28px 90px rgba(23,23,21,.18);padding:22px;transform:translateY(12px) scale(.985);transition:transform .34s var(--ease)}.modal-backdrop.open .modal{transform:none}.modal-step{display:none}.modal-step.active{display:block;animation:modalIn .32s var(--ease)}@keyframes modalIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}.modal small{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.modal h2{font-size:22px;letter-spacing:-.04em;font-weight:500;margin:12px 0 8px}.modal p{font-size:11px;line-height:1.6;color:var(--muted);margin:0}.modal-list{margin:17px 0;border-top:1px solid var(--line)}.modal-list div{padding:11px 0;border-bottom:1px solid var(--line);font-size:10px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.hold{position:relative;overflow:hidden}.hold:before{content:"";position:absolute;inset:0 auto 0 0;width:var(--hold,0%);background:rgba(102,92,246,.18);transition:width .06s linear}.hold span{position:relative}
 .toast{position:fixed;z-index:120;left:50%;bottom:18px;transform:translate(-50%,12px);padding:8px 11px;border-radius:999px;background:rgba(32,32,29,.92);color:var(--surface);font-size:10px;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .28s var(--ease)}.toast.show{opacity:1;transform:translate(-50%,0)}
 .mobile-dock{display:none}
+/* Real editable Mori House site */
+.site{display:block!important;background:#151512!important;overflow:hidden!important}
+.site-scroll{height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(250,249,245,.24) transparent}
+.site-scroll::-webkit-scrollbar{width:6px}.site-scroll::-webkit-scrollbar-track{background:transparent}.site-scroll::-webkit-scrollbar-thumb{background:rgba(250,249,245,.20);border-radius:20px}
+.mori-site{min-height:100%;background:#f1ede4;color:#171715;font-family:var(--sans);position:relative}
+.mori-site *{box-sizing:border-box}
+.mori-nav{height:58px;position:sticky;top:0;z-index:8;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 4.2%;background:rgba(241,237,228,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(23,23,21,.09)}
+.mori-mark{font-family:var(--serif);font-size:18px;letter-spacing:-.02em}.mori-links{display:flex;gap:22px}.mori-links button{border:0;background:transparent;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#5d5951;padding:8px 0}.mori-links button:hover{color:#171715}.mori-reserve{justify-self:end;border:0;background:#171715;color:#f6f2e9;border-radius:999px;padding:8px 11px;font-size:9px}
+.mori-home-hero{min-height:calc(100% - 58px);height:520px;display:grid;grid-template-columns:.82fr 1.18fr;padding:3.2% 3.2% 4.2% 4.4%;gap:3.4%;background:#1b1a17;color:#f5f0e6}
+.mori-hero-copy{display:flex;flex-direction:column;justify-content:flex-end;padding:4% 3% 3% 0}.mori-overline{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:#aaa398;margin-bottom:20px}.mori-hero-copy h1{font-family:var(--serif);font-size:clamp(42px,5.2vw,78px);font-weight:400;line-height:.88;letter-spacing:-.035em;margin:0 0 18px}.mori-hero-copy p{font-size:11px;line-height:1.6;color:#b9b3a8;max-width:330px;margin:0}.mori-hero-copy .mori-inline{margin-top:24px;font-size:9px;color:#ece7dd;display:flex;gap:18px;align-items:center}.mori-inline i{width:34px;height:1px;background:#8c867d}
+.mori-photo{margin:0;position:relative;overflow:hidden;background:#5d574f}.mori-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease),filter .25s ease}.mori-photo:hover img{transform:scale(1.012)}.mori-photo figcaption{position:absolute;left:12px;bottom:10px;color:rgba(255,255,255,.82);font-size:7px;letter-spacing:.05em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.mori-intro{display:grid;grid-template-columns:.72fr 1.28fr;gap:7%;padding:10% 8% 11%;align-items:start}.mori-intro .index{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#8b867d}.mori-intro h2{font-family:var(--serif);font-size:clamp(34px,4vw,60px);line-height:.94;font-weight:400;letter-spacing:-.025em;margin:0 0 25px}.mori-intro p{font-size:11px;line-height:1.75;color:#656159;max-width:460px;margin:0}
+.mori-feature{padding:0 4.2% 10%;display:grid;grid-template-columns:1.15fr .85fr;gap:3.2%;align-items:stretch}.mori-feature .mori-photo{min-height:410px}.mori-quote{background:#d9d0c0;padding:10% 9%;display:flex;flex-direction:column;justify-content:space-between}.mori-quote small{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#746d62}.mori-quote blockquote{font-family:var(--serif);font-size:clamp(27px,3vw,43px);line-height:.98;margin:30px 0;color:#23211e}.mori-quote p{font-size:10px;line-height:1.6;color:#6c655c;margin:0}
+.mori-menu-preview{background:#23211d;color:#f2ede4;padding:9% 8%}.mori-menu-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:45px}.mori-menu-head h2{font-family:var(--serif);font-size:clamp(38px,4.4vw,68px);font-weight:400;letter-spacing:-.03em;margin:0}.mori-menu-head button{border:0;background:transparent;color:#d2cbc0;border-bottom:1px solid #665f56;padding:5px 0;font-size:9px}.mori-dishes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.dish{border-top:1px solid #4c4841;padding-top:13px}.dish small{font-size:8px;color:#9f988e}.dish b{display:block;font-family:var(--serif);font-size:20px;font-weight:400;margin:9px 0 6px}.dish span{font-size:9px;line-height:1.45;color:#a9a299}
+.mori-pair{padding:9% 4.2%;display:grid;grid-template-columns:.85fr 1.15fr;gap:3.2%;background:#eee8dd}.mori-pair .mori-photo{height:390px}.mori-pair-copy{padding:6% 6% 5% 4%;display:flex;flex-direction:column;justify-content:center}.mori-pair-copy small{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#8b847a}.mori-pair-copy h2{font-family:var(--serif);font-size:clamp(34px,4vw,58px);font-weight:400;line-height:.95;margin:18px 0 20px}.mori-pair-copy p{font-size:10px;line-height:1.7;color:#68635b;max-width:390px}
+.mori-visit{padding:10% 8%;display:grid;grid-template-columns:1fr 1fr;gap:6%;background:#f5f1e9}.mori-visit h2{font-family:var(--serif);font-size:clamp(40px,5vw,72px);font-weight:400;line-height:.9;margin:0}.visit-details{display:grid;grid-template-columns:1fr 1fr;gap:25px}.visit-details small{font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#8a857c}.visit-details p{font-size:10px;line-height:1.65;margin:9px 0 0;color:#555149}.mori-footer{background:#171715;color:#aaa398;padding:28px 4.2%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:8px}.mori-footer b{font-family:var(--serif);font-size:17px;font-weight:400;color:#f1ece3}.mori-footer span:nth-child(2){text-align:center}.mori-footer span:last-child{text-align:right}
+.mori-page-hero{min-height:310px;background:#1d1c19;color:#f3eee5;padding:8% 8% 6%;display:flex;flex-direction:column;justify-content:flex-end}.mori-page-hero small{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#9f998f}.mori-page-hero h1{font-family:var(--serif);font-size:clamp(48px,6vw,84px);font-weight:400;line-height:.88;letter-spacing:-.035em;margin:18px 0 0}.mori-menu-list{padding:8%}.mori-menu-row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:20px 0;border-top:1px solid #d0c9bd}.mori-menu-row b{font-family:var(--serif);font-size:25px;font-weight:400}.mori-menu-row p{font-size:9px;line-height:1.5;color:#777168;margin:5px 0 0}.mori-menu-row strong{font-size:10px;font-weight:500}.mori-visit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:0}.mori-visit-grid .mori-photo{min-height:500px}.mori-visit-info{padding:11% 10%;background:#ebe4d8}.mori-visit-info h2{font-family:var(--serif);font-size:42px;font-weight:400;line-height:.95;margin:0 0 34px}.mori-visit-info .row{padding:15px 0;border-top:1px solid #cfc6b8;display:grid;grid-template-columns:100px 1fr;font-size:10px}.mori-visit-info .row span:first-child{color:#8a8378}
+.mori-site.editing [data-edit-text]{border-radius:3px;transition:box-shadow .15s ease,background .15s ease}.mori-site.editing [data-edit-text]:hover{box-shadow:0 0 0 1px rgba(102,92,246,.28);background:rgba(102,92,246,.035)}.mori-site.editing [data-edit-text]:focus{outline:none;box-shadow:0 0 0 2px rgba(102,92,246,.42);background:rgba(250,249,245,.08)}.mori-site.editing [data-edit-image]{cursor:copy}.mori-site.editing [data-edit-image]:hover img{filter:brightness(.82)}.mori-site.editing [data-edit-image]::after{content:"Replace";position:absolute;right:10px;top:10px;padding:5px 7px;border-radius:999px;background:rgba(23,23,21,.86);color:white;font-size:8px;opacity:0;transition:opacity .15s ease}.mori-site.editing [data-edit-image]:hover::after{opacity:1}
+.edit-local-badge{display:none}.mori-site.editing .edit-local-badge{display:block;position:sticky;top:66px;z-index:9;width:max-content;margin:8px 8px -30px auto;padding:5px 8px;border-radius:999px;background:rgba(102,92,246,.92);color:#fff;font-size:8px;letter-spacing:.05em}
+
 @media(max-width:1180px){.shell{grid-template-columns:184px minmax(0,1fr) 280px}.top{grid-template-columns:184px minmax(0,1fr) 280px}.brand{padding-left:18px}.stage{padding:26px}.site h1{font-size:clamp(32px,4vw,54px)}}
 @media(max-width:920px){
   .shell{grid-template-columns:1fr;grid-template-rows:60px minmax(0,1fr)}.top{grid-column:1;grid-template-columns:auto minmax(0,1fr) auto}.brand{display:none}.project{border-left:0;border-right:0;padding:0 12px}.project span{display:none}.mobile-menu,.mobile-context{display:inline-flex;border:1px solid var(--line);background:transparent;width:34px;height:34px;border-radius:8px;align-items:center;justify-content:center}.mobile-menu{margin-left:12px}.top-actions{padding-right:12px}.saved{display:none}.top-actions .top-button:not(.primary){display:none}
@@ -164,7 +184,8 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
         <div class="leftbits">
           <button class="pill active" id="modeBtn" type="button">Review mode <span>⌄</span></button>
           <button class="pill active" type="button" data-page="Home">Home</button>
-          <button class="pill" type="button" data-page="About">About</button>
+          <button class="pill" type="button" data-page="Menu">Menu</button>
+          <button class="pill" type="button" data-page="Visit">Visit</button>
         </div>
         <div class="rightbits">
           <button class="pill" id="viewportBtn" type="button"><span id="viewportLabel">1024 × 576</span> <span>⌄</span></button>
@@ -175,13 +196,22 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
         <div class="device-wrap" id="deviceWrap">
           <div class="device" id="device">
             <div class="site" id="site">
-              <section class="site-copy">
-                <div class="eyebrow">MORI HOUSE</div>
-                <h1 id="siteTitle">Quiet dinners,<br>considered slowly.</h1>
-                <p id="siteCopy">An intimate Japanese dining room built around seasonal produce and private evening service.</p>
-                <button class="cta" id="reserveBtn" type="button">Reserve a table</button>
-              </section>
-              <section class="visual"><div class="hero" id="hero"></div></section>
+              <div class="site-scroll" id="siteScroll">
+                <div class="mori-site" id="moriSite">
+                  <div class="edit-local-badge">Editing locally</div>
+                  <header class="mori-nav">
+                    <div class="mori-mark" data-edit-text>Mori House</div>
+                    <nav class="mori-links" aria-label="Mori House pages">
+                      <button type="button" data-site-page="Home">Home</button>
+                      <button type="button" data-site-page="Menu">Menu</button>
+                      <button type="button" data-site-page="Visit">Visit</button>
+                    </nav>
+                    <button class="mori-reserve" id="reserveBtn" type="button">Reserve</button>
+                  </header>
+                  <main id="moriPage"></main>
+                  <footer class="mori-footer"><b data-edit-text>Mori House</b><span>Brisbane · Dinner Tue–Sat</span><span>Photography via Unsplash</span></footer>
+                </div>
+              </div>
             </div>
             <div class="target-ring" id="ring"></div>
             <div class="replace-tag" id="replaceTag">Replace image</div>
@@ -193,12 +223,13 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
     </section>
 
     <section class="view" data-view-panel="pages">
-      <div class="panel-head"><h1>Pages</h1><span>2 pages</span></div>
+      <div class="panel-head"><h1>Pages</h1><span>3 pages</span></div>
       <div class="pages-body">
         <div class="hero-summary"><div class="kicker">Form / Pages</div><h2>Everything visible.<br>Nothing buried.</h2><p>Open a page to review it at full scale. Fourthform keeps page management deliberately small.</p></div>
         <div class="pages-grid">
-          <button class="page-card" data-open-page="Home"><div class="page-preview"></div><b>Home</b><span>Published draft</span></button>
-          <button class="page-card" data-open-page="About"><div class="page-preview" style="background:linear-gradient(135deg,#f6f1e7 0 58%,#6f6a60 59%)"></div><b>About</b><span>Published draft</span></button>
+          <button class="page-card" data-open-page="Home"><div class="page-preview" style="background-image:url('https://images.unsplash.com/photo-1774125384841-53bb49b1e88d?auto=format&fit=crop&w=900&q=72');background-size:cover;background-position:center"></div><b>Home</b><span>Draft</span></button>
+          <button class="page-card" data-open-page="Menu"><div class="page-preview" style="background-image:url('https://images.unsplash.com/photo-1681270527819-6b97ec33a67f?auto=format&fit=crop&w=900&q=72');background-size:cover;background-position:center"></div><b>Menu</b><span>Draft</span></button>
+          <button class="page-card" data-open-page="Visit"><div class="page-preview" style="background-image:url('https://images.unsplash.com/photo-1744242540661-19880b2f9691?auto=format&fit=crop&w=900&q=72');background-size:cover;background-position:center"></div><b>Visit</b><span>Draft</span></button>
         </div>
       </div>
     </section>
@@ -207,12 +238,12 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
       <div class="panel-head"><h1>Initial Direction</h1><span>Submitted · 18 Sep</span></div>
       <div class="stage-body">
         <div class="stage-shell">
-          <div class="stage-title"><div class="kicker">Direction</div><h2>The brief that started the site.</h2><p>This snapshot is preserved because building has already begun. It remains the historical source for the first build.</p></div>
+          <div class="stage-title"><div class="kicker">Initial Direction · Submitted 18 Sep</div><h2>Mori House</h2></div>
           <div class="direction-board">
-            <div class="direction-item"><small>BUSINESS</small><b>Mori House</b><p>Intimate Japanese dining with seasonal produce and evening service.</p></div>
-            <div class="direction-item"><small>GOAL</small><b>Reservations first</b><p>Help visitors understand the atmosphere and reserve without friction.</p></div>
-            <div class="direction-item"><small>FEEL</small><b>Quiet, warm, editorial</b><p>Less restaurant-template. More breathing room and considered typography.</p></div>
-            <div class="direction-item"><small>REFERENCE</small><b>Evening interiors</b><p>Warm timber, dim light, restrained copy and large image moments.</p></div>
+            <div class="direction-item"><small>BUSINESS</small><b>Japanese dining · Brisbane</b></div>
+            <div class="direction-item"><small>GOAL</small><b>Reservations first</b></div>
+            <div class="direction-item"><small>FEEL</small><b>Quiet · warm · editorial</b></div>
+            <div class="direction-item"><small>REFERENCE</small><b>Evening interiors</b></div>
           </div>
         </div>
       </div>
@@ -273,8 +304,8 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
 
 <div class="mobile-dock" id="mobileDock"><button data-view="overview">Overview</button><button class="active" data-view="review">Review</button><button data-view="pages">Pages</button></div>
 
-<div class="popover" id="projectPopover"><button type="button"><b>Mori House</b><span>Fixed demo project</span></button><button type="button" id="projectInfoBtn"><b>Preview mode</b><span>No billing, storage or submissions</span></button></div>
-<div class="popover" id="modePopover"><button type="button" data-mode="Review mode"><b>Review mode</b><span>Create Directions on the real site</span></button><button type="button" data-mode="Browse mode"><b>Browse mode</b><span>Interact without creating feedback</span></button></div>
+<div class="popover" id="projectPopover"><button type="button"><b>Mori House</b><span>Fixed demo project</span></button><button type="button" id="projectInfoBtn"><b>Preview mode</b><span>Demo project</span></button><button type="button" id="resetLocalBtn"><b>Reset local edits</b><span>Restore Mori House</span></button></div>
+<div class="popover" id="modePopover"><button type="button" data-mode="Review mode"><b>Review mode</b><span>Create Directions</span></button><button type="button" data-mode="Edit site"><b>Edit site</b><span>Edit this demo locally</span></button><button type="button" data-mode="Browse mode"><b>Browse mode</b><span>Use the site normally</span></button></div>
 <div class="popover" id="viewportPopover"><button type="button" data-width="1440" data-height="810"><b>Desktop</b><span>1440 × 810</span></button><button type="button" data-width="1024" data-height="576"><b>Compact desktop</b><span>1024 × 576</span></button><button type="button" data-width="768" data-height="1024"><b>Tablet</b><span>768 × 1024</span></button><button type="button" data-width="390" data-height="844"><b>Mobile</b><span>390 × 844</span></button></div>
 
 <div class="modal-backdrop" id="submitModal" role="dialog" aria-modal="true" aria-labelledby="submitTitle">
