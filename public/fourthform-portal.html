@@ -282,7 +282,7 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
 const qs=(s,r=document)=>r.querySelector(s), qsa=(s,r=document)=>[...r.querySelectorAll(s)];
 const saveState=qs('#saveState'), device=qs('#device'), deviceWrap=qs('#deviceWrap'), hero=qs('#hero'), ring=qs('#ring'), replaceTag=qs('#replaceTag'), dropStatus=qs('#dropStatus');
 const leftRail=qs('#leftRail'), contextRail=qs('#contextRail'), toast=qs('#toast');
-let leaveTimer=null, holdTimer=null, holdRaf=null, currentView='review', currentPage='Home', currentMode='Review mode';
+let leaveTimer=null, holdTimer=null, holdRaf=null, currentView='review', currentPage='Home', currentMode='Review mode', currentStage='review';
 
 function notify(message){
   saveState.textContent=message;
@@ -292,13 +292,14 @@ function notify(message){
 function closeDrawers(){leftRail.classList.remove('open');contextRail.classList.remove('open')}
 function showView(name,stage=false){
   currentView=name;
+  if(stage) currentStage=name;
   qsa('[data-view-panel]').forEach(v=>v.classList.toggle('active',v.dataset.viewPanel===name));
   qsa('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));
-  if(!stage) qsa('[data-stage]').forEach(b=>b.classList.toggle('active',b.dataset.stage===name));
+  qsa('[data-stage]').forEach(b=>b.classList.toggle('active',b.dataset.stage===currentStage));
   const ctx=['review','overview','pages'].includes(name)?name:'stage';
   qsa('[data-context]').forEach(v=>v.classList.toggle('active',v.dataset.context===ctx));
-  const labels={overview:'Overview',review:'Review · Revision 01',pages:'Pages',direction:'Direction',build:'Build',launch:'Launch'};
-  qs('#projectMeta').textContent=labels[name]||'Review';
+  const stageLabels={direction:'Direction',build:'Build',review:'Review · Revision 01',launch:'Launch'};
+  qs('#projectMeta').textContent=stageLabels[currentStage]||'Review · Revision 01';
   closeDrawers();
 }
 qsa('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
@@ -333,10 +334,19 @@ function togglePopover(pop,anchor){
   if(open){pop.classList.add('open');requestAnimationFrame(()=>positionPopover(pop,anchor))}
 }
 qs('#projectBtn').addEventListener('click',e=>{e.stopPropagation();togglePopover(qs('#projectPopover'),e.currentTarget)});
+qs('#projectInfoBtn').addEventListener('click',()=>{qsa('.popover').forEach(p=>p.classList.remove('open'));notify('Restricted preview · local demo data only')});
 qs('#modeBtn').addEventListener('click',e=>{e.stopPropagation();togglePopover(qs('#modePopover'),e.currentTarget)});
 qs('#viewportBtn').addEventListener('click',e=>{e.stopPropagation();togglePopover(qs('#viewportPopover'),e.currentTarget)});
 document.addEventListener('click',()=>qsa('.popover').forEach(p=>p.classList.remove('open')));
-qsa('[data-mode]').forEach(b=>b.addEventListener('click',()=>{currentMode=b.dataset.mode;qs('#modeBtn').firstChild.textContent=currentMode+' ';qsa('.popover').forEach(p=>p.classList.remove('open'));notify(currentMode+' selected')}));
+qsa('[data-mode]').forEach(b=>b.addEventListener('click',()=>{
+  currentMode=b.dataset.mode;
+  qs('#modeBtn').firstChild.textContent=currentMode+' ';
+  qsa('.popover').forEach(p=>p.classList.remove('open'));
+  const browse=currentMode==='Browse mode';
+  asset.setAttribute('aria-disabled',browse?'true':'false');
+  asset.draggable=!browse;
+  notify(browse?'Browse mode · feedback disabled':'Review mode · feedback enabled');
+}));
 qsa('[data-width]').forEach(b=>b.addEventListener('click',()=>{
   const w=+b.dataset.width,h=+b.dataset.height;qs('#viewportLabel').textContent=w+' × '+h;
   const available=qs('.stage').clientWidth-28;const ratio=Math.min(1,available/w);deviceWrap.style.width=Math.max(260,w*ratio)+'px';
@@ -383,12 +393,12 @@ function impact(clientX,clientY,imageUrl){
   if(imageUrl){const img=new Image();img.onload=()=>{hero.innerHTML='';hero.appendChild(img)};img.src=imageUrl}else{hero.innerHTML='';hero.style.background='linear-gradient(140deg,#d9bf99,#7f6e5a 58%,#4a433d)'}
   notify('Replacement Direction drafted');
 }
-asset.addEventListener('dragstart',e=>{e.dataTransfer.effectAllowed='copy';e.dataTransfer.setData('text/x-fourthform-asset','evening-room.jpg')});
-device.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy';activeDrop(true)});
+asset.addEventListener('dragstart',e=>{if(currentMode==='Browse mode'){e.preventDefault();return}e.dataTransfer.effectAllowed='copy';e.dataTransfer.setData('text/x-fourthform-asset','evening-room.jpg')});
+device.addEventListener('dragover',e=>{if(currentMode==='Browse mode')return;e.preventDefault();e.dataTransfer.dropEffect='copy';activeDrop(true)});
 device.addEventListener('dragenter',e=>{e.preventDefault();activeDrop(true)});
 device.addEventListener('dragleave',e=>{clearTimeout(leaveTimer);leaveTimer=setTimeout(()=>{const r=device.getBoundingClientRect();if(e.clientX<=r.left||e.clientX>=r.right||e.clientY<=r.top||e.clientY>=r.bottom)activeDrop(false)},70)});
 device.addEventListener('drop',e=>{e.preventDefault();activeDrop(false);let url=null;const file=[...e.dataTransfer.files].find(f=>f.type.startsWith('image/'));if(file)url=URL.createObjectURL(file);impact(e.clientX,e.clientY,url)});
-asset.addEventListener('click',()=>{const r=device.getBoundingClientRect();impact(r.left+r.width*.73,r.top+r.height*.48)});
+asset.addEventListener('click',()=>{if(currentMode==='Browse mode'){notify('Switch to Review mode to create feedback');return}const r=device.getBoundingClientRect();impact(r.left+r.width*.73,r.top+r.height*.48)});
 asset.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();asset.click()}});
 uploadBtn.addEventListener('click',()=>fileInput.click());fileInput.addEventListener('change',()=>{const f=fileInput.files&&fileInput.files[0];if(!f)return;const url=URL.createObjectURL(f),r=device.getBoundingClientRect();impact(r.left+r.width*.73,r.top+r.height*.48,url)});
 addEventListener('resize',()=>{qsa('.popover').forEach(p=>p.classList.remove('open'));if(innerWidth>920)closeDrawers()});
