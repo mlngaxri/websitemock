@@ -61,7 +61,7 @@ var(--canvas)}
 .site-copy{padding:8.5% 7.2% 7.5% 8.5%;display:flex;flex-direction:column;justify-content:center}
 .eyebrow{font-size:9px;letter-spacing:.18em;margin-bottom:26px}.site h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(38px,4.15vw,69px);line-height:.93;font-weight:400;letter-spacing:-.045em;margin:0 0 22px}
 .site p{font-size:13px;line-height:1.6;color:#66635c;max-width:330px;margin:0}
-.cta{margin-top:28px;border:0;background:#191918;color:#faf9f5;padding:11px 15px;border-radius:999px;width:max-content;font-size:11px}
+.cta{margin-top:28px;border:0;background:#191918;color:#faf9f5;padding:11px 15px;border-radius:999px;width:max-content;font-size:11px;cursor:pointer;transition:background 140ms ease,transform 140ms ease}.cta:hover,.cta:focus-visible{background:#34332f;transform:translateY(-1px);outline:2px solid rgba(102,92,246,.45);outline-offset:3px}.cta.confirmed{background:#665cf6}
 .visual{padding:5.2% 5.3% 5.2% 0;position:relative}
 .hero{height:100%;border-radius:9px;overflow:hidden;position:relative;background:
 linear-gradient(160deg,rgba(44,43,39,.04),rgba(44,43,39,.10)),
@@ -91,7 +91,7 @@ transition:filter 220ms ease}
 .right{border-left:1px solid var(--line);background:rgba(250,249,245,.6);padding:22px 18px;overflow:auto}
 .right h2{font-size:13px;margin:0 0 4px}.right .sub{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:22px}
 .asset{border:1px solid var(--line);background:#FAF9F5;border-radius:13px;padding:10px;cursor:grab;user-select:none;transition:transform 150ms ease,border-color 150ms ease,box-shadow 180ms ease}
-.asset:hover{transform:translateY(-1px);border-color:#c8c4ba;box-shadow:0 8px 22px rgba(23,23,21,.05)}
+.asset:hover,.asset:focus-visible{transform:translateY(-1px);border-color:#c8c4ba;box-shadow:0 8px 22px rgba(23,23,21,.05);outline:2px solid rgba(102,92,246,.35);outline-offset:2px}
 .asset:active{cursor:grabbing;transform:scale(.99)}
 .thumb{height:148px;border-radius:8px;background:
 radial-gradient(circle at 32% 30%,#f0d8b0 0 13%,transparent 14%),
@@ -137,10 +137,10 @@ linear-gradient(135deg,#c7b79b,#817565 58%,#554d45);position:relative;overflow:h
     <div>
       <div class="kicker">Project</div>
       <div class="nav">
-        <button>Direction ✓</button>
-        <button>Build ✓</button>
-        <button class="active">Review</button>
-        <button>Launch</button>
+        <button type="button" data-stage="Direction">Direction <span aria-hidden="true">✓</span></button>
+        <button type="button" data-stage="Build">Build <span aria-hidden="true">✓</span></button>
+        <button class="active" type="button" data-stage="Review">Review</button>
+        <button type="button" data-stage="Launch">Launch</button>
       </div>
     </div>
     <div class="step"><b>Revision 01 / 03</b><p>Draft changes can be saved freely. A revision is only used when submitted.</p></div>
@@ -159,7 +159,7 @@ linear-gradient(135deg,#c7b79b,#817565 58%,#554d45);position:relative;overflow:h
               <div class="eyebrow">MORI HOUSE</div>
               <h1>Quiet dinners,<br>considered slowly.</h1>
               <p>An intimate Japanese dining room built around seasonal produce and private evening service.</p>
-              <button class="cta">Reserve a table</button>
+              <button class="cta" id="reserveBtn" type="button">Reserve a table</button>
             </section>
             <section class="visual">
               <div class="hero" id="hero"></div>
@@ -177,11 +177,11 @@ linear-gradient(135deg,#c7b79b,#817565 58%,#554d45);position:relative;overflow:h
   <aside class="right">
     <h2>Replacement image</h2>
     <div class="sub">Drag this directly onto the dining-room image. The site responds only when the drop is valid.</div>
-    <div class="asset" id="asset" draggable="true">
+    <div class="asset" id="asset" draggable="true" role="button" tabindex="0" aria-label="Choose evening-room.jpg replacement image">
       <div class="thumb"></div>
       <div class="assetmeta"><b>evening-room.jpg</b><span>4.8 MB</span></div>
     </div>
-    <button class="upload" id="uploadBtn">Try your own image</button>
+    <button class="upload" id="uploadBtn" type="button">Try your own image</button>
     <input id="fileInput" type="file" accept="image/*" hidden />
     <div class="note"><b>Interaction intent</b><p>Hover is precise and quiet. On drop, depth and one short ripple acknowledge the action, then everything returns to stillness in about 300 ms.</p></div>
   </aside>
@@ -201,6 +201,8 @@ const saveState=document.getElementById('saveState');
 const saveBtn=document.getElementById('saveBtn');
 const submitBtn=document.getElementById('submitBtn');
 const sendBtn=document.getElementById('sendBtn');
+const reserveBtn=document.getElementById('reserveBtn');
+const projectStageButtons=document.querySelectorAll('[data-stage]');
 
 function announce(message){
   saveState.textContent=message;
@@ -229,6 +231,27 @@ document.querySelectorAll('[data-page]').forEach(button=>button.addEventListener
   button.classList.add('active');
   announce(button.dataset.page+' page selected');
 }));
+projectStageButtons.forEach(button=>button.addEventListener('click',()=>{
+  projectStageButtons.forEach(item=>item.classList.remove('active'));
+  button.classList.add('active');
+  announce(button.dataset.stage+' stage selected');
+}));
+reserveBtn.addEventListener('click',()=>{
+  reserveBtn.textContent='Reservation flow opened';
+  reserveBtn.classList.add('confirmed');
+  announce('Reservation flow opened');
+});
+asset.addEventListener('click',()=>{
+  const r=device.getBoundingClientRect();
+  impact(r.left+r.width*.74,r.top+r.height*.48);
+  announce('Replacement preview applied');
+});
+asset.addEventListener('keydown',event=>{
+  if(event.key==='Enter'||event.key===' '){
+    event.preventDefault();
+    asset.click();
+  }
+});
 
 function active(on){
   clearTimeout(leaveTimer);
