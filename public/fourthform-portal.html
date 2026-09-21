@@ -37,7 +37,14 @@ var(--canvas)}
 .device-wrap{width:min(100%,980px);position:relative}
 .device{width:100%;aspect-ratio:16/9;background:#fff;border:1px solid #d3d0c7;border-radius:14px;box-shadow:0 24px 68px rgba(23,23,21,.10);overflow:hidden;position:relative;transform-style:preserve-3d;will-change:transform;transition:box-shadow 180ms cubic-bezier(.22,1,.36,1),border-color 140ms ease}
 .device.drop-active{border-color:rgba(102,92,246,.30);box-shadow:0 28px 78px rgba(23,23,21,.12),0 0 0 1px rgba(102,92,246,.06)}
-.device.impact{animation:impact 300ms cubic-bezier(.22,1,.36,1)}
+.device.impact{animation:impact 320ms cubic-bezier(.22,1,.36,1)}
+.device::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:25;opacity:0;background:radial-gradient(circle at var(--impact-x,50%) var(--impact-y,50%),rgba(102,92,246,.12) 0 3%,rgba(102,92,246,.055) 7%,rgba(23,23,21,.025) 14%,transparent 28%);transform:scale(.985);transition:none}
+.device.impact::before{animation:impactDent 340ms cubic-bezier(.16,1,.3,1)}
+@keyframes impactDent{
+  0%{opacity:0;transform:scale(.992)}
+  24%{opacity:.95;transform:scale(.997)}
+  100%{opacity:0;transform:scale(1.012)}
+}
 @keyframes impact{
   0%{transform:perspective(1300px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)}
   28%{transform:perspective(1300px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(-7px) scale(.996)}
@@ -62,8 +69,17 @@ transition:filter 220ms ease}
 .replace-tag.show{opacity:1;transform:translateY(0)}
 .drop-status{position:absolute;right:18px;bottom:18px;padding:7px 10px;border-radius:999px;background:rgba(32,32,29,.90);backdrop-filter:blur(14px);color:#FAF9F5;font-size:10px;opacity:0;transform:translateY(5px);transition:opacity 120ms ease,transform 180ms cubic-bezier(.22,1,.36,1);pointer-events:none;box-shadow:0 8px 24px rgba(23,23,21,.13)}
 .drop-status.show{opacity:1;transform:translateY(0)}
-.ripple{position:absolute;width:16px;height:16px;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(.4);border:1px solid rgba(102,92,246,.48);box-shadow:0 0 0 1px rgba(102,92,246,.04);animation:ripple 300ms cubic-bezier(.22,1,.36,1) forwards;z-index:7}
-@keyframes ripple{to{opacity:0;transform:translate(-50%,-50%) scale(13)}}
+.ripple{position:absolute;width:22px;height:22px;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(.25);border:1.5px solid rgba(102,92,246,.72);box-shadow:0 0 0 1px rgba(255,255,255,.42),0 0 24px rgba(102,92,246,.10);animation:ripple 380ms cubic-bezier(.16,1,.3,1) forwards;z-index:30;will-change:transform,opacity}
+.ripple::after{content:"";position:absolute;inset:4px;border-radius:50%;background:rgba(102,92,246,.13);animation:rippleCore 260ms cubic-bezier(.16,1,.3,1) forwards}
+@keyframes ripple{
+  0%{opacity:.95;transform:translate(-50%,-50%) scale(.25)}
+  42%{opacity:.62}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(11.5)}
+}
+@keyframes rippleCore{
+  0%{opacity:.7;transform:scale(.35)}
+  100%{opacity:0;transform:scale(4.8)}
+}
 .hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);font-size:11px;color:#8a877f;background:rgba(243,241,235,.86);backdrop-filter:blur(8px);padding:7px 10px;border-radius:999px;border:1px solid rgba(216,213,204,.7)}
 .right{border-left:1px solid var(--line);background:rgba(250,249,245,.6);padding:22px 18px;overflow:auto}
 .right h2{font-size:13px;margin:0 0 4px}.right .sub{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:22px}
@@ -81,7 +97,15 @@ linear-gradient(135deg,#c7b79b,#817565 58%,#554d45);position:relative;overflow:h
 @media(max-width:1000px){.shell{grid-template-columns:0 1fr 280px}.left{display:none}.top{grid-template-columns:0 1fr 280px}.brand{display:none}}
 @media(max-width:760px){.shell{grid-template-columns:1fr;grid-template-rows:58px 1fr 220px}.top{grid-column:1;grid-template-columns:1fr auto}.project{border-left:0}.saved{display:none}.right{border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:12px}.right h2,.right .sub,.note{display:none}.stage{padding:20px}.canvasbar{height:48px}.site-copy{padding-left:7%}.site h1{font-size:34px}.device{border-radius:11px}}
 @media(prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  *{transition-duration:.01ms!important}
+  .device.impact{animation:none!important}
+  .device.impact::before{animation:none!important;opacity:.12!important;transition:opacity 180ms ease!important}
+  .ripple{animation:rippleReduced 220ms ease-out forwards!important}
+  .ripple::after{animation:none!important}
+  @keyframes rippleReduced{
+    0%{opacity:.75;transform:translate(-50%,-50%) scale(.75)}
+    100%{opacity:0;transform:translate(-50%,-50%) scale(2.4)}
+  }
 }
 </style>
 </head>
@@ -180,6 +204,8 @@ function impact(clientX,clientY,imageUrl){
   const nx=(x/r.width-.5)*2, ny=(y/r.height-.5)*2;
   device.style.setProperty('--rx',(-ny*1.15)+'deg');
   device.style.setProperty('--ry',(nx*1.15)+'deg');
+  device.style.setProperty('--impact-x',((x/r.width)*100)+'%');
+  device.style.setProperty('--impact-y',((y/r.height)*100)+'%');
   const ripple=document.createElement('div');
   ripple.className='ripple';
   ripple.style.left=x+'px';ripple.style.top=y+'px';
