@@ -244,6 +244,22 @@ button{color:inherit}
   *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* Scroll choreography: the page behaves like a tactile design instrument. */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+.lenis.lenis-scrolling iframe{pointer-events:none}
+body:before{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 40%,transparent 0 38%,rgba(23,23,21,.09) 100%);mix-blend-mode:multiply}
+body.is-ready:before{animation:page-vignette 1.8s var(--ease) forwards}
+@keyframes page-vignette{0%{opacity:.9}100%{opacity:0}}
+[data-parallax]{will-change:transform}
+.process-row,.plan,.first,.price-main{will-change:transform}
+.process-row:hover{background:rgba(255,255,255,.32)}
+.direction-canvas:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 0 42%,rgba(255,255,255,.32) 50%,transparent 58%);transform:translateX(-120%);transition:transform 1s var(--ease)}
+.direction-canvas:hover:after{transform:translateX(120%)}
+@media(max-width:760px){body:before{display:none}}
 </style>
 </head>
 <body>
@@ -517,6 +533,9 @@ button{color:inherit}
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
 <script>
 (()=>{
   const heroScroll=document.getElementById('heroScroll');
@@ -587,6 +606,48 @@ button{color:inherit}
     });
   });
 })();
+</script>
+<script>
+window.addEventListener('load',()=>{
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!window.gsap||!window.ScrollTrigger||!window.Lenis)return;
+  gsap.registerPlugin(ScrollTrigger);
+  document.body.classList.add('is-ready');
+
+  const lenis=new Lenis({duration:1.15,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true,touchMultiplier:1.15});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(time=>lenis.raf(time*1000));
+  gsap.ticker.lagSmoothing(0);
+
+  const q=(selector,scope=document)=>scope.querySelector(selector);
+  const qa=(selector,scope=document)=>gsap.utils.toArray(selector,scope);
+  qa('.hero h1, .statement h2, .process-head h2, .direction-copy h2, .review h2, .states h2, .pricing h2, .final h2').forEach((heading,index)=>{
+    gsap.fromTo(heading,{y:70,rotateX:-10,opacity:0,filter:'blur(10px)'},{y:0,rotateX:0,opacity:1,filter:'blur(0px)',duration:1.25,ease:'expo.out',delay:index===0?.15:0,scrollTrigger:{trigger:heading,start:'top 88%',once:true}});
+  });
+
+  qa('.process-row').forEach((row,index)=>{
+    gsap.fromTo(row,{xPercent:index%2?-3:3,opacity:0},{xPercent:0,opacity:1,duration:1.05,ease:'power4.out',scrollTrigger:{trigger:row,start:'top 92%',end:'top 60%',scrub:1.2}});
+    gsap.to(row,{y:-12,rotate:index%2?-.35:.35,ease:'none',scrollTrigger:{trigger:row,start:'top bottom',end:'bottom top',scrub:true}});
+  });
+
+  qa('.direction-canvas,.portal,.state-stage').forEach((stage,index)=>{
+    gsap.fromTo(stage,{rotateY:index%2?-8:8,rotateX:3,scale:.86,opacity:0},{rotateY:0,rotateX:0,scale:1,opacity:1,duration:1.5,ease:'expo.out',scrollTrigger:{trigger:stage,start:'top 88%',once:true}});
+  });
+  qa('.dir-card').forEach((card,index)=>gsap.to(card,{y:index%2?-22:18,rotate:index%2?1.2:-1.2,ease:'none',scrollTrigger:{trigger:card.closest('.direction-canvas'),start:'top bottom',end:'bottom top',scrub:1.4}}));
+  qa('.direction-canvas .dir-card').forEach((card,index)=>gsap.from(card,{scale:.65,opacity:0,rotate:index%2?12:-12,duration:1.1,delay:index*.08,ease:'back.out(1.7)',scrollTrigger:{trigger:card.closest('.direction-canvas'),start:'top 75%',once:true}}));
+
+  gsap.to('.state-browser',{y:-42,rotate:-2,ease:'none',scrollTrigger:{trigger:'.states',start:'top bottom',end:'bottom top',scrub:1.5}});
+  gsap.to('.schedule-card',{y:55,rotate:3,ease:'none',scrollTrigger:{trigger:'.states',start:'top bottom',end:'bottom top',scrub:1.1}});
+  gsap.to('.portal',{y:-32,ease:'none',scrollTrigger:{trigger:'.portal',start:'top bottom',end:'bottom top',scrub:1.2}});
+  gsap.to('.pricing-head',{x:-18,ease:'none',scrollTrigger:{trigger:'.pricing',start:'top bottom',end:'top 20%',scrub:1}});
+  gsap.from('.price-main,.first,.plan',{clipPath:'inset(0 100% 0 0)',opacity:0,duration:1.1,ease:'expo.out',stagger:.12,scrollTrigger:{trigger:'.price-main',start:'top 82%',once:true}});
+
+  qa('.button').forEach(button=>{
+    button.addEventListener('mouseenter',()=>gsap.to(button,{scale:1.045,rotate:button.classList.contains('dark')?-.8:.8,duration:.3,ease:'back.out(2)'}));
+    button.addEventListener('mouseleave',()=>gsap.to(button,{scale:1,rotate:0,duration:.5,ease:'elastic.out(1,.45)'}));
+  });
+  ScrollTrigger.refresh();
+});
 </script>
 </body>
 </html>
