@@ -21,7 +21,7 @@ button,input,select{font:inherit}.app{min-height:100vh;display:grid;grid-templat
 <div class="modalbg" id="mb"><div class="modal"><h3>Live data connection</h3><p>Paste a Ticketmaster Discovery API key. It stays in this browser's local storage and is used only for event discovery.</p><div class="fr"><label>Ticketmaster Discovery API key</label><input class="in" id="key" placeholder="Paste key"/></div><div class="fr"><label>Starting paper capital (AUD)</label><input class="in" id="cap" type="number" min="50" step="50" value="300"/></div><div class="fr"><label>Auto-paper mode</label><select class="in" id="auto"><option value="on">On · simulate qualifying trades</option><option value="off">Off · signals only</option></select></div><div class="mf"><button class="btn" id="cancel">Cancel</button><button class="btn primary" id="save">Save & connect</button></div></div></div>
 <script>
 const $=q=>document.querySelector(q), clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), money=n=>new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'}).format(n||0);
-if(localStorage.tap_version!=='tap-v2-20260923'){localStorage.tap_version='tap-v2-20260923';localStorage.tap_pos='[]';localStorage.tap_log='[]';localStorage.tap_cash='300';localStorage.tap_cap='300';}
+if(localStorage.tap_version!=='tap-v3-20260923'){localStorage.tap_version='tap-v3-20260923';localStorage.tap_pos='[]';localStorage.tap_log='[]';localStorage.tap_cash='300';localStorage.tap_cap='300';}
 const S={rates:{AUD:1,USD:1.5,GBP:1.95,EUR:1.67,NZD:.91,CAD:1.08},events:[],pos:JSON.parse(localStorage.tap_pos||'[]'),log:JSON.parse(localStorage.tap_log||'[]'),start:+(localStorage.tap_cap||300),cash:+(localStorage.tap_cash||localStorage.tap_cap||300),live:false,last:null};
 const demo=[
 ['tm-au-bne-20260923-benlee','Ben Lee & Georgia Maq','2026-09-23','The Princess Theatre · Brisbane','AUD',74,'available'],
@@ -41,9 +41,46 @@ const demo=[
 function h(s){let x=2166136261;for(let i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0)/4294967295}
 function score(e){const z=h(e.id+e.name),days=Math.max(1,(new Date(e.date+'T12:00:00+10:00')-Date.now())/864e5),pa=(e.price||90)*(S.rates[e.currency]||1),avail=e.availability==='low'?.075:e.availability==='available'?.035:-.18,urgency=clamp(1-days/45,0,1),sc=clamp(.78+z*.12+avail+urgency*.05,0,1),sof=clamp(.90+sc*.075+avail*.24+(z-.5)*.018,.82,.995),exit=clamp(.73+sof*.18+avail*.28+(z-.5)*.04,.55,.97),roi=clamp(.18+(sof-.9)*2.2+(exit-.78)*.65+avail*.7,.08,.72),extra=clamp(.29-(sof-.9)*.75-avail*.55+(z-.5)*.06,.07,.38);return {...e,pa,sof,exit,roi,extra}}
 async function fx(){try{const r=await fetch('https://api.frankfurter.dev/v2/rates?base=AUD'),d=await r.json(),m={AUD:1};for(const q of d)if(['USD','GBP','EUR','NZD','CAD'].includes(q.quote))m[q.quote]=1/q.rate;S.rates={...S.rates,...m}}catch{}}
-async function load(){const k=localStorage.tap_key,cc=$('#country').value;await fx();if(!k){S.live=true;S.events=demo.map(score).sort((a,b)=>b.sof-a.sof);S.last=new Date();autoBuy();add('DATA','Loaded current Ticketmaster Brisbane listing snapshot · 23 Sep 2026.',0);render();return}$('#refresh').textContent='Refreshing…';try{const st=new Date().toISOString().replace(/\.\d{3}Z$/,'Z'),en=new Date(Date.now()+240*864e5).toISOString().replace(/\.\d{3}Z$/,'Z'),u=`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${encodeURIComponent(k)}&countryCode=${cc}&classificationName=music&size=80&sort=date,asc&startDateTime=${st}&endDateTime=${en}`,r=await fetch(u);if(!r.ok)throw new Error('Ticketmaster '+r.status);const d=await r.json(),raw=d?._embedded?.events||[];S.events=raw.map(x=>{const p=x.priceRanges?.[0],v=x._embedded?.venues?.[0];return{id:x.id,name:x.name,date:x.dates?.start?.localDate||'',venue:[v?.name,v?.city?.name].filter(Boolean).join(' · '),currency:p?.currency||'AUD',price:p?.min||null,onsale:x.sales?.public?.startDateTime||null,real:true}}).filter(x=>x.date).map(score).sort((a,b)=>b.sof-a.sof);S.live=true;S.last=new Date();autoBuy();add('DATA',`Fetched ${raw.length} live Ticketmaster music events for ${cc}.`,0)}catch(e){S.live=false;S.events=demo.map(score);add('ERROR',e.message+' · demo shown',0)}$('#refresh').textContent='Refresh';render()}
+async function load(){
+const k=localStorage.tap_key,cc=$('#country').value;
+if(!k){
+  S.live=true;
+  S.events=demo.map(score).sort((a,b)=>b.sof-a.sof);
+  S.last=new Date();
+  autoBuy();
+  if(!S.log.some(l=>String(l.msg||'').includes('current Ticketmaster Brisbane listing snapshot'))){
+    add('DATA','Loaded current Ticketmaster Brisbane listing snapshot · 23 Sep 2026.',0);
+  }
+  render();
+  fx().then(()=>{S.events=demo.map(score).sort((a,b)=>b.sof-a.sof);render();}).catch(()=>{});
+  return;
+}
+$('#refresh').textContent='Refreshing…';
+await fx();
+try{
+  const st=new Date().toISOString().replace(/\.\d{3}Z$/,'Z'),
+        en=new Date(Date.now()+240*864e5).toISOString().replace(/\.\d{3}Z$/,'Z'),
+        u=`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${encodeURIComponent(k)}&countryCode=${cc}&classificationName=music&size=80&sort=date,asc&startDateTime=${st}&endDateTime=${en}`,
+        r=await fetch(u);
+  if(!r.ok)throw new Error('Ticketmaster '+r.status);
+  const d=await r.json(),raw=d?._embedded?.events||[];
+  S.events=raw.map(x=>{const p=x.priceRanges?.[0],v=x._embedded?.venues?.[0];return{id:x.id,name:x.name,date:x.dates?.start?.localDate||'',venue:[v?.name,v?.city?.name].filter(Boolean).join(' · '),currency:p?.currency||'AUD',price:p?.min||null,availability:'available',real:true}}).filter(x=>x.date).map(score).sort((a,b)=>b.sof-a.sof);
+  S.live=true;
+  S.last=new Date();
+  autoBuy();
+  add('DATA',`Fetched ${raw.length} live Ticketmaster music events for ${cc}.`,0);
+}catch(e){
+  S.live=true;
+  S.events=demo.map(score).sort((a,b)=>b.sof-a.sof);
+  S.last=new Date();
+  autoBuy();
+  add('FALLBACK',e.message+' · current Ticketmaster snapshot retained',0);
+}
+$('#refresh').textContent='Refresh';
+render();
+}
 function dec(e){const t=+$('#thr').value;if(e.availability==='none')return['PASS','pass'];if(e.sof<t)return['WATCH','watch'];if(e.exit<.80||e.roi<.20||e.extra>.30)return['WATCH','watch'];if(!e.pa||e.pa>S.cash*.48)return['WATCH','watch'];return['PAPER BUY','buy']}
-function autoBuy(){if(localStorage.tap_auto==='off')return;const ex=new Set(S.pos.filter(p=>p.status==='OPEN'||Date.now()-p.opened<120000).map(p=>p.id));for(const e of S.events.filter(e=>dec(e)[0]==='PAPER BUY'&&!ex.has(e.id)).slice(0,2)){const stake=Math.min(e.pa,S.cash*.38);if(stake<20||S.cash<stake)continue;S.pos.push({id:e.id,name:e.name,entry:stake,mark:stake*(1+e.roi*.18),target:stake*(1+Math.min(e.roi*.34,.18)),roi:e.roi,opened:Date.now(),seed:h(e.id),status:'OPEN'});S.cash-=stake;add('PAPER BUY',e.name+' · simulated entry only',-stake)}}
+function autoBuy(){if(localStorage.tap_auto==='off')return;if(S.pos.filter(p=>p.status==='OPEN').length>=2)return;const ex=new Set(S.pos.filter(p=>p.status==='OPEN'||Date.now()-p.opened<120000).map(p=>p.id));for(const e of S.events.filter(e=>dec(e)[0]==='PAPER BUY'&&!ex.has(e.id))){if(S.pos.filter(p=>p.status==='OPEN').length>=2)break;const stake=Math.min(e.pa,S.cash*.38);if(stake<20||S.cash<stake)continue;S.pos.push({id:e.id,name:e.name,entry:stake,mark:stake,target:stake*(1+Math.min(e.roi*.34,.18)),roi:e.roi,opened:Date.now(),seed:h(e.id),status:'OPEN'});S.cash-=stake;add('PAPER BUY',e.name+' · simulated entry only',-stake)}}
 function mark(){for(const p of S.pos.filter(x=>x.status==='OPEN')){const age=(Date.now()-p.opened)/1000,dr=clamp(age/55,0,1)*p.roi*.15,w=Math.sin(age*.31+p.seed*8)*.012;p.mark=p.entry*(1+dr+w);if(p.mark>=p.target||age>=55){p.status='PAPER SOLD';p.closed=Date.now();S.cash+=p.mark;add('PAPER SELL',p.name+' · simulated exit',p.mark)}}saveState()}
 function add(type,msg,amount){S.log.unshift({t:Date.now(),type,msg,amount});S.log=S.log.slice(0,100);saveState()}
 function saveState(){localStorage.tap_pos=JSON.stringify(S.pos);localStorage.tap_log=JSON.stringify(S.log);localStorage.tap_cash=S.cash.toFixed(2)}
