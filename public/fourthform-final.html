@@ -382,243 +382,317 @@ img,video,iframe{max-width:100%}
   .heroSite{height:min(330px,58vh)}
 }
 </style><style id="ff-hero-3d">
-/* A visible, brand-specific 3D sculpture: Fourthform's workflow planes resolve into the live website. */
 .heroStage{
+  --mx:50%;
+  --my:50%;
+  position:relative;
   isolation:isolate;
-  perspective:1600px;
+  perspective:1800px;
   transform-style:preserve-3d;
   overflow:visible;
 }
-.formAura{
+.formGlow{
   position:absolute;
-  left:50%;
-  top:50%;
-  width:min(650px,96%);
-  aspect-ratio:1;
-  transform:translate(-46%,-50%);
+  left:var(--mx);top:var(--my);
+  width:min(680px,110%);aspect-ratio:1;
+  transform:translate(-50%,-50%);
   border-radius:50%;
   background:
-    radial-gradient(circle at 52% 48%,rgba(102,92,246,.20) 0,rgba(102,92,246,.08) 23%,rgba(102,92,246,.025) 46%,transparent 70%);
-  filter:blur(20px);
+    radial-gradient(circle,rgba(102,92,246,.20) 0,rgba(102,92,246,.09) 20%,rgba(102,92,246,.025) 45%,transparent 70%);
+  filter:blur(28px);
   opacity:.8;
   z-index:0;
   pointer-events:none;
+  transition:left .25s ease,top .25s ease;
 }
-.formSculpture{
+.formWorld{
   position:absolute;
-  inset:0;
+  inset:-5%;
   z-index:1;
   transform-style:preserve-3d;
-  transform:perspective(1600px) rotateX(var(--scene-rx,-3deg)) rotateY(var(--scene-ry,6deg));
-  transition:transform .55s cubic-bezier(.18,.8,.22,1);
+  transform:perspective(1800px) rotateX(var(--world-rx,-5deg)) rotateY(var(--world-ry,8deg));
+  will-change:transform;
   pointer-events:none;
 }
-.formPlane{
+.orbit{
   position:absolute;
-  left:50%;
-  top:50%;
-  width:min(510px,78%);
-  aspect-ratio:1.46;
+  left:50%;top:50%;
+  border:1px solid rgba(73,70,64,.13);
+  border-radius:50%;
   transform-style:preserve-3d;
-  will-change:transform;
+  transform-origin:center;
+  opacity:.9;
 }
-.formPlaneInner{
+.orbitA{width:92%;height:54%;transform:translate(-50%,-50%) rotateX(70deg) rotateZ(-7deg)}
+.orbitB{width:75%;height:75%;transform:translate(-50%,-50%) rotateY(72deg) rotateZ(16deg)}
+.orbitC{width:54%;height:86%;transform:translate(-50%,-50%) rotateY(-63deg) rotateX(9deg)}
+.orbit:after{
+  content:"";
+  position:absolute;inset:-1px;
+  border-radius:inherit;
+  border-top:1px solid rgba(102,92,246,.30);
+  mask:linear-gradient(90deg,transparent 0,black 35%,black 62%,transparent 100%);
+}
+.orbitDot{
   position:absolute;
-  inset:0;
-  border:1px solid rgba(61,59,54,.22);
-  border-radius:15px;
+  width:7px;height:7px;border-radius:50%;
+  background:#665CF6;
+  box-shadow:0 0 0 7px rgba(102,92,246,.08),0 0 28px rgba(102,92,246,.30);
+}
+.dotA{left:11%;top:35%}.dotB{right:13%;top:23%}.dotC{right:20%;bottom:17%}
+
+.formCard{
+  position:absolute;
+  left:50%;top:50%;
+  width:clamp(220px,36vw,360px);
+  aspect-ratio:1.42;
+  border:1px solid rgba(58,56,52,.24);
+  border-radius:16px;
   overflow:hidden;
   background:
-    linear-gradient(145deg,rgba(250,249,245,.82),rgba(243,241,235,.52) 50%,rgba(250,249,245,.34));
-  backdrop-filter:blur(13px) saturate(.85);
-  -webkit-backdrop-filter:blur(13px) saturate(.85);
+    linear-gradient(145deg,rgba(250,249,245,.88),rgba(243,241,235,.58) 58%,rgba(250,249,245,.46));
+  backdrop-filter:blur(18px) saturate(.85);
+  -webkit-backdrop-filter:blur(18px) saturate(.85);
   box-shadow:
-    0 34px 80px rgba(23,23,21,.10),
-    0 8px 24px rgba(23,23,21,.07),
-    inset 0 1px 0 rgba(255,255,255,.88);
-  animation:formPlaneReveal .95s cubic-bezier(.16,1,.3,1) both;
-  animation-delay:calc(var(--i,0) * 70ms + 120ms);
+    0 45px 110px rgba(23,23,21,.12),
+    0 10px 30px rgba(23,23,21,.08),
+    inset 0 1px 0 rgba(255,255,255,.92);
+  transform-style:preserve-3d;
+  will-change:transform,opacity;
+  opacity:.96;
 }
-.formPlane:nth-child(1) .formPlaneInner{--i:0}
-.formPlane:nth-child(2) .formPlaneInner{--i:1}
-.formPlane:nth-child(3) .formPlaneInner{--i:2}
-.formPlane:nth-child(4) .formPlaneInner{--i:3}
-.formPlane:nth-child(5) .formPlaneInner{--i:4}
-.formPlane:nth-child(6) .formPlaneInner{--i:5}
-.formPlane.accent .formPlaneInner{
-  border-color:rgba(102,92,246,.44);
-  background:
-    linear-gradient(145deg,rgba(250,249,245,.82),rgba(102,92,246,.075) 58%,rgba(250,249,245,.42));
-  box-shadow:
-    0 34px 85px rgba(54,45,143,.10),
-    0 8px 24px rgba(23,23,21,.06),
-    inset 0 1px 0 rgba(255,255,255,.9);
+.formCard:before{
+  content:"";
+  position:absolute;inset:0;
+  border-radius:inherit;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.38),transparent 38%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  opacity:.65;
 }
-.planeTop{
-  height:34px;
-  padding:0 12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid rgba(61,59,54,.13);
-  color:#737068;
-  font-size:7px;
-  font-weight:600;
-  letter-spacing:.14em;
-}
-.formPlane.accent .planeTop{color:#665CF6}
-.planeTop i{
-  width:5px;height:5px;border-radius:50%;
-  background:currentColor;
-  opacity:.7;
-  box-shadow:0 0 0 4px color-mix(in srgb,currentColor 10%,transparent);
-}
-.planeBody{
-  position:absolute;
-  inset:34px 0 0;
-  padding:13% 11%;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.planeBody b{
-  display:block;
-  height:7px;
-  border-radius:999px;
-  background:rgba(23,23,21,.12);
-}
-.planeBody b:nth-child(1){width:42%}
-.planeBody b:nth-child(2){width:73%}
-.planeBody b:nth-child(3){width:57%}
-.planeBody em{
-  display:block;
-  margin-top:auto;
-  height:36%;
-  border-radius:8px;
-  border:1px solid rgba(23,23,21,.08);
-  background:
-    linear-gradient(135deg,rgba(23,23,21,.025),rgba(102,92,246,.055)),
-    repeating-linear-gradient(90deg,transparent 0 34px,rgba(23,23,21,.025) 34px 35px);
-}
-.formPlaneInner:after{
+.formCard:after{
   content:"";
   position:absolute;
-  inset:-40% -20%;
-  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 49%,transparent 62%);
-  transform:translateX(-55%);
-  animation:formSheen 7.5s ease-in-out infinite;
-  animation-delay:calc(var(--i,0) * -1.15s);
+  inset:-40% -25%;
+  background:linear-gradient(116deg,transparent 38%,rgba(255,255,255,.58) 50%,transparent 62%);
+  transform:translateX(-62%);
+  animation:cardSheen 8.5s ease-in-out infinite;
+  animation-delay:calc(var(--i,0) * -1.25s);
   pointer-events:none;
 }
+.formCard:nth-of-type(4){--i:0}
+.formCard:nth-of-type(5){--i:1}
+.formCard:nth-of-type(6){--i:2}
+.formCard:nth-of-type(7){--i:3}
+.formCard:nth-of-type(8){--i:4}
+.formCard:nth-of-type(9){--i:5}
+.formCard.accent{
+  border-color:rgba(102,92,246,.46);
+  background:linear-gradient(145deg,rgba(250,249,245,.90),rgba(102,92,246,.09) 60%,rgba(250,249,245,.50));
+}
+.formCardChrome{
+  height:34px;padding:0 12px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(61,59,54,.12);
+  color:#77736c;
+  font-size:7px;font-weight:600;letter-spacing:.14em;
+}
+.formCard.accent .formCardChrome{color:#665CF6}
+.formCardChrome i{
+  width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.75;
+  box-shadow:0 0 0 4px color-mix(in srgb,currentColor 11%,transparent);
+}
+.directionMock,.buildMock,.stateMock,.launchMock{padding:18px 18px 16px;height:calc(100% - 34px)}
+.directionMock small,.stateMock small{font-size:7px;letter-spacing:.12em;color:#908c83}
+.directionMock strong{
+  display:block;margin:13px 0 17px;
+  font-family:var(--serif);font-size:27px;line-height:.92;font-weight:400;color:#282620;
+}
+.directionMock span{display:block;height:5px;border-radius:99px;background:#d8d4ca;margin-top:8px}
+.directionMock span:nth-of-type(1){width:82%}.directionMock span:nth-of-type(2){width:66%}.directionMock span:nth-of-type(3){width:48%}
+
+.buildMock{display:flex;flex-direction:column;gap:12px}
+.buildMock>div:first-child{display:flex;justify-content:space-between;align-items:center;font-size:7px;letter-spacing:.1em;color:#89857c}
+.buildMock b{font-size:8px;color:#54634f}
+.buildGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;flex:1}
+.buildGrid span{border:1px solid #d6d2c8;border-radius:7px;background:linear-gradient(145deg,#eeeae1,#faf9f5)}
+.buildMock em{font-style:normal;font-size:7px;color:#7d796f}
+
+.reviewMock{height:calc(100% - 34px);position:relative;padding:15px}
+.reviewPage{position:absolute;left:15px;top:15px;right:32%;bottom:15px;border:1px solid #d7d3ca;border-radius:7px;background:#f8f6f0;padding:13px}
+.reviewPage span{display:block;height:5px;border-radius:99px;background:#d3cfc5;margin-bottom:7px}
+.reviewPage span:first-child{width:45%}.reviewPage span:nth-child(2){width:72%}
+.reviewPage b{display:block;margin-top:16px;height:46%;border-radius:5px;background:linear-gradient(140deg,#d8cdbb,#8a8175)}
+.commentBubble{
+  position:absolute;right:12px;top:34%;width:46%;
+  padding:11px;border-radius:9px;background:#fff;border:1px solid #d8d4ca;
+  box-shadow:0 12px 30px rgba(23,23,21,.10)
+}
+.commentBubble small{display:block;font-size:6px;letter-spacing:.11em;color:#8d897f}
+.commentBubble strong{display:block;font-size:9px;line-height:1.35;margin:7px 0 9px;font-weight:500}
+.commentBubble em{font-style:normal;font-size:7px;color:#58705a}
+
+.responsiveMock{height:calc(100% - 34px);display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:18px}
+.screen{position:relative;border:1px solid #cec9bf;background:#f8f6f0;border-radius:7px;box-shadow:0 8px 20px rgba(23,23,21,.07)}
+.screen.desktop{width:48%;height:68%}.screen.tablet{width:27%;height:76%}.screen.phone{width:16%;height:82%;border-radius:9px}
+.screen:before{content:"";position:absolute;left:10%;right:10%;top:12%;height:5px;border-radius:99px;background:#d3cec4}
+.screen span{position:absolute;left:10%;right:10%;top:27%;height:30%;border-radius:4px;background:linear-gradient(145deg,#d7cbb8,#7a7165)}
+.screen b{position:absolute;left:10%;right:26%;bottom:14%;height:5px;border-radius:99px;background:#d8d4ca}
+
+.stateMock{display:flex;flex-direction:column}
+.stateMock strong{font-family:var(--serif);font-weight:400;font-size:27px;line-height:1;margin:12px 0 16px}
+.stateTimeline{position:relative;height:18px;margin-top:auto}
+.stateTimeline span{position:absolute;left:8%;right:8%;top:8px;height:1px;background:linear-gradient(90deg,#665CF6,#a5a099)}
+.stateTimeline i{position:absolute;top:4px;width:9px;height:9px;border-radius:50%;background:#faf9f5;border:2px solid #665CF6}
+.stateTimeline i:first-child{left:6%}.stateTimeline i:last-child{right:6%;border-color:#8b877f}
+.stateMock em{font-style:normal;font-size:7px;color:#817d74;margin-top:8px}
+
+.launchMock{display:grid;grid-template-columns:1fr;align-content:start;gap:0}
+.launchMock div{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #dedad0;font-size:8px;color:#706c64}
+.launchMock b{color:#52634f}
+.launchMock strong{font-family:var(--serif);font-size:24px;font-weight:400;margin-top:17px}
+
 .heroSiteWrap{
-  --hero-rx:0deg;
-  --hero-ry:0deg;
-  --hero-z:0px;
-  position:relative;
-  z-index:5;
+  --hero-rx:0deg;--hero-ry:0deg;--hero-z:0px;
+  position:relative;z-index:5;
   transform-style:preserve-3d;
-  transform:perspective(1600px) translateZ(var(--hero-z)) rotateX(var(--hero-rx)) rotateY(var(--hero-ry));
-  transition:transform .55s cubic-bezier(.18,.8,.22,1);
+  transform:perspective(1800px) translateZ(var(--hero-z)) rotateX(var(--hero-rx)) rotateY(var(--hero-ry));
   will-change:transform;
 }
+.siteHalo{
+  position:absolute;inset:-12%;
+  border-radius:28px;
+  background:radial-gradient(circle at 50% 50%,rgba(102,92,246,.13),transparent 68%);
+  filter:blur(22px);opacity:.55;z-index:-1;pointer-events:none;
+}
 .heroSite{
-  position:relative;
-  z-index:2;
-  border-color:rgba(64,61,56,.36);
-  box-shadow:
-    0 55px 125px rgba(23,23,21,.18),
-    0 15px 38px rgba(23,23,21,.10),
-    inset 0 1px 0 rgba(255,255,255,.72);
+  position:relative;z-index:2;
+  border-color:rgba(57,55,51,.36);
+  box-shadow:0 58px 130px rgba(23,23,21,.20),0 17px 42px rgba(23,23,21,.11),inset 0 1px 0 rgba(255,255,255,.72);
 }
 .heroSite:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:6;
-  pointer-events:none;
-  border-radius:inherit;
+  content:"";position:absolute;inset:0;z-index:6;pointer-events:none;border-radius:inherit;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.30);
 }
-.browserLabel{
-  margin-left:auto;
-  font-size:7px;
-  line-height:1;
-  letter-spacing:.13em;
-  color:#77746d;
-}
+.browserLabel{margin-left:auto;font-size:7px;line-height:1;letter-spacing:.13em;color:#77746d}
 .formMeta{
-  position:absolute;
-  left:14px;
-  right:14px;
-  bottom:-27px;
-  display:flex;
-  justify-content:space-between;
-  font-size:8px;
-  font-weight:500;
-  letter-spacing:.13em;
-  color:#858178;
-  text-transform:uppercase;
+  position:absolute;left:14px;right:14px;bottom:-27px;
+  display:flex;justify-content:space-between;font-size:8px;font-weight:500;letter-spacing:.13em;color:#858178;text-transform:uppercase
 }
-.stageCaption{z-index:7;right:-8px;bottom:12px}
+.depthLegend{
+  position:absolute;left:50%;bottom:5px;transform:translateX(-50%);
+  display:flex;align-items:center;gap:9px;z-index:7;
+  font-size:7px;letter-spacing:.13em;text-transform:uppercase;color:#969189
+}
+.depthLegend i{display:block;width:54px;height:1px;background:linear-gradient(90deg,#b6b1a8,#665CF6)}
+.stageCaption{z-index:7;right:-8px;bottom:15px}
 .heroStage:after{
-  content:"";
-  position:absolute;
-  z-index:0;
-  left:8%;right:2%;bottom:3%;
-  height:17%;
-  border-radius:50%;
-  background:radial-gradient(ellipse,rgba(23,23,21,.17),transparent 68%);
-  filter:blur(24px);
-  pointer-events:none;
+  content:"";position:absolute;z-index:0;left:6%;right:0;bottom:1%;height:18%;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(23,23,21,.18),transparent 67%);filter:blur(26px);pointer-events:none
 }
-@keyframes formPlaneReveal{
-  from{opacity:0;filter:blur(9px);transform:translateY(28px) scale(.88)}
-  to{opacity:1;filter:blur(0);transform:none}
-}
-@keyframes formSheen{
-  0%,62%{transform:translateX(-62%);opacity:0}
-  72%{opacity:.7}
-  86%,100%{transform:translateX(64%);opacity:0}
+@keyframes cardSheen{
+  0%,66%{transform:translateX(-64%);opacity:0}
+  74%{opacity:.72}
+  88%,100%{transform:translateX(66%);opacity:0}
 }
 @media(max-width:1050px){
-  .formPlane{width:min(500px,72%)}
-  .formAura{width:min(600px,82%)}
-  .stageCaption{bottom:-12px;right:0}
+  .formWorld{inset:0}
+  .formCard{width:min(330px,48%)}
+  .formGlow{width:min(620px,95%)}
+  .depthLegend{bottom:-2px}
 }
 @media(max-width:760px){
-  .formPlane{width:min(440px,86%)}
-  .formAura{width:105%}
+  .formCard{width:min(300px,62%)}
+  .formCard:nth-of-type(n+8){display:none}
+  .formWorld{inset:-4%}
+  .formGlow{width:115%}
   .heroSiteWrap{width:100%}
   .formMeta{bottom:-22px}
-  .stageCaption{display:none}
+  .stageCaption,.depthLegend{display:none}
 }
 @media(max-width:520px){
-  .formPlane{width:92%}
-  .formPlane:nth-child(n+5){display:none}
-  .planeTop{height:28px;font-size:6px}
-  .planeBody{inset:28px 0 0}
+  .formCard{width:66%;border-radius:12px}
+  .formCard:nth-of-type(n+7){display:none}
+  .formCardChrome{height:28px;font-size:6px;padding-inline:9px}
+  .directionMock,.buildMock,.stateMock,.launchMock{height:calc(100% - 28px);padding:12px}
+  .reviewMock,.responsiveMock{height:calc(100% - 28px)}
   .browserLabel{display:none}
   .formMeta{left:8px;right:8px;bottom:-19px;font-size:7px}
 }
 @media(prefers-reduced-motion:reduce){
-  .formPlaneInner,.formPlaneInner:after{animation:none!important}
-  .formSculpture,.heroSiteWrap{transition:none!important}
+  .formCard:after{animation:none}
+  .formWorld,.heroSiteWrap{transform:none!important}
 }
 </style></head>
 <body>
 <nav class="nav"><a class="wordmark" href="#top">fourthform</a><div class="navlinks"><a href="#process">Process</a><a href="#portal">Portal</a><a href="#states">States</a><a href="#pricing">Pricing</a></div><a class="btn darkbtn" href="#pricing">Start a site</a></nav>
 <main id="top">
 <section class="heroWrap"><div class="hero"><div class="container heroGrid"><div class="heroCopy"><h1 class="display"><span class="heroLine"><span>Websites,</span></span><span class="heroLine"><span><em>brought into form.</em></span></span></h1><p class="body">From the first direction to the live site, Fourthform gives you one place to shape, review, launch and keep your website current.</p><div class="heroActions"><a class="btn darkbtn" href="#pricing">Start a site</a><a class="textlink" href="#portal">Explore the portal ↘</a></div></div><div class="heroStage" id="heroStage">
-  <div class="formAura" aria-hidden="true"></div>
-  <div class="formSculpture" id="formSculpture" aria-hidden="true">
-    <div class="formPlane" data-plane="0"><div class="formPlaneInner"><div class="planeTop"><span>01 / DIRECTION</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
-    <div class="formPlane accent" data-plane="1"><div class="formPlaneInner"><div class="planeTop"><span>02 / BUILD</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
-    <div class="formPlane" data-plane="2"><div class="formPlaneInner"><div class="planeTop"><span>03 / REVIEW</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
-    <div class="formPlane" data-plane="3"><div class="formPlaneInner"><div class="planeTop"><span>PAGE / HOME</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
-    <div class="formPlane accent" data-plane="4"><div class="formPlaneInner"><div class="planeTop"><span>STATE / SATURDAY</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
-    <div class="formPlane" data-plane="5"><div class="formPlaneInner"><div class="planeTop"><span>04 / LIVE</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
+  <div class="formGlow" id="formGlow" aria-hidden="true"></div>
+  <div class="formWorld" id="formWorld" aria-hidden="true">
+    <div class="orbit orbitA"></div>
+    <div class="orbit orbitB"></div>
+    <div class="orbit orbitC"></div>
+    <i class="orbitDot dotA"></i><i class="orbitDot dotB"></i><i class="orbitDot dotC"></i>
+
+    <article class="formCard cardDirection" data-card="0">
+      <div class="formCardChrome"><span>01 / DIRECTION</span><i></i></div>
+      <div class="directionMock">
+        <small>INITIAL DIRECTION</small>
+        <strong>Warm, quiet,<br>considered.</strong>
+        <span></span><span></span><span></span>
+      </div>
+    </article>
+
+    <article class="formCard cardBuild" data-card="1">
+      <div class="formCardChrome"><span>02 / BUILD</span><i></i></div>
+      <div class="buildMock">
+        <div><small>STRUCTURE</small><b>Approved</b></div>
+        <div class="buildGrid"><span></span><span></span><span></span><span></span></div>
+        <em>Internal check · passed</em>
+      </div>
+    </article>
+
+    <article class="formCard cardReview accent" data-card="2">
+      <div class="formCardChrome"><span>03 / REVIEW</span><i></i></div>
+      <div class="reviewMock">
+        <div class="reviewPage"><span></span><span></span><b></b></div>
+        <div class="commentBubble"><small>DIRECTION 08</small><strong>Keep this image warmer.</strong><em>Addressed ✓</em></div>
+      </div>
+    </article>
+
+    <article class="formCard cardResponsive" data-card="3">
+      <div class="formCardChrome"><span>RESPONSIVE</span><i></i></div>
+      <div class="responsiveMock">
+        <div class="screen desktop"><span></span><b></b></div>
+        <div class="screen tablet"><span></span><b></b></div>
+        <div class="screen phone"><span></span><b></b></div>
+      </div>
+    </article>
+
+    <article class="formCard cardState accent" data-card="4">
+      <div class="formCardChrome"><span>STATE / SATURDAY</span><i></i></div>
+      <div class="stateMock">
+        <small>LIVE STATE</small>
+        <strong>Saturday dinner</strong>
+        <div class="stateTimeline"><i></i><span></span><i></i></div>
+        <em>17:00 → 23:30 · Brisbane</em>
+      </div>
+    </article>
+
+    <article class="formCard cardLaunch" data-card="5">
+      <div class="formCardChrome"><span>04 / LIVE</span><i></i></div>
+      <div class="launchMock">
+        <div><span>Domain</span><b>✓</b></div>
+        <div><span>Forms</span><b>✓</b></div>
+        <div><span>Analytics</span><b>✓</b></div>
+        <strong>Ready to launch</strong>
+      </div>
+    </article>
   </div>
+
   <div class="heroSiteWrap" id="heroSiteWrap">
+    <div class="siteHalo" aria-hidden="true"></div>
     <div class="heroSite">
       <div class="browser">
         <div class="btop"><i></i><i></i><i></i><span class="browserLabel">MORI HOUSE / REVIEW</span></div>
@@ -627,6 +701,8 @@ img,video,iframe{max-width:100%}
     </div>
     <div class="formMeta" aria-hidden="true"><span>FORM / 01</span><span>LIVE PREVIEW</span></div>
   </div>
+
+  <div class="depthLegend" aria-hidden="true"><span>Direction</span><i></i><span>Live</span></div>
   <span class="stageCaption">One website, taking form.</span>
 </div></div></div></section>
 <section class="manifesto"><div class="container manifestoGrid"><span class="kicker">The idea</span><div><h2 class="display">From brief to live,<br><em>in one place.</em></h2><p class="body">The website stays at the centre. Direction, review, revisions and launch happen around it, without disappearing into email threads and scattered folders.</p></div></div></section>
@@ -646,76 +722,112 @@ img,video,iframe{max-width:100%}
 <script id="ff-hero-3d-script">
 (()=>{
   const stage=document.getElementById('heroStage');
-  const sculpture=document.getElementById('formSculpture');
+  const world=document.getElementById('formWorld');
+  const glow=document.getElementById('formGlow');
   const site=document.getElementById('heroSiteWrap');
   const heroWrap=document.querySelector('.heroWrap');
-  const planes=[...document.querySelectorAll('.formPlane')];
-  if(!stage||!sculpture||!site||!planes.length)return;
+  const cards=[...document.querySelectorAll('.formCard')];
+  const orbits=[...document.querySelectorAll('.orbit')];
+  if(!stage||!world||!site||!cards.length)return;
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarse=matchMedia('(pointer: coarse)').matches;
-  const configs=[
-    {x:-178,y:-108,z:-180,rx:12,ry:28,rz:-8},
-    {x:154,y:-86,z:-128,rx:-10,ry:-27,rz:7},
-    {x:-150,y:106,z:-245,rx:-12,ry:23,rz:8},
-    {x:165,y:108,z:-205,rx:10,ry:-24,rz:-7},
-    {x:-32,y:-162,z:-295,rx:21,ry:4,rz:3},
-    {x:42,y:164,z:-330,rx:-19,ry:-5,rz:-4}
-  ];
-  let tx=0,ty=0,px=0,py=0,scrollP=0,visible=true;
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const easeInOut=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
 
-  function updateScroll(){
-    if(!heroWrap){scrollP=0;return}
-    const r=heroWrap.getBoundingClientRect();
+  const layouts=[
+    {x:-215,y:-125,z:-105,rx:12,ry:31,rz:-9,s:.92},
+    {x:205,y:-108,z:-165,rx:-10,ry:-31,rz:8,s:.88},
+    {x:-194,y:122,z:-230,rx:-13,ry:25,rz:9,s:.83},
+    {x:205,y:128,z:-285,rx:12,ry:-25,rz:-8,s:.79},
+    {x:-22,y:-188,z:-345,rx:24,ry:5,rz:3,s:.74},
+    {x:38,y:188,z:-405,rx:-22,ry:-6,rz:-4,s:.70}
+  ];
+
+  let targetX=0,targetY=0,x=0,y=0,scroll=0,visible=true,hover=0;
+  function scrollProgress(){
+    const r=heroWrap?.getBoundingClientRect();
+    if(!r||innerWidth<=1050){scroll=0;return}
     const travel=Math.max(1,r.height-innerHeight);
-    scrollP=innerWidth>1050?clamp(-r.top/travel,0,1):0;
+    scroll=clamp(-r.top/travel,0,1);
   }
-  updateScroll();
-  addEventListener('scroll',updateScroll,{passive:true});
+  scrollProgress();
+  addEventListener('scroll',scrollProgress,{passive:true});
 
   if(!coarse&&!reduce){
+    stage.addEventListener('pointerenter',()=>hover=1);
+    stage.addEventListener('pointerleave',()=>{hover=0;targetX=0;targetY=0});
     stage.addEventListener('pointermove',e=>{
       const r=stage.getBoundingClientRect();
-      tx=clamp(((e.clientX-r.left)/r.width-.5)*2,-1,1);
-      ty=clamp(((e.clientY-r.top)/r.height-.5)*2,-1,1);
+      targetX=clamp(((e.clientX-r.left)/r.width-.5)*2,-1,1);
+      targetY=clamp(((e.clientY-r.top)/r.height-.5)*2,-1,1);
+      stage.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      stage.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
     },{passive:true});
-    stage.addEventListener('pointerleave',()=>{tx=0;ty=0});
   }
 
-  const io=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true},{rootMargin:'180px'});
-  io.observe(stage);
+  const observer=new IntersectionObserver(entries=>visible=entries[0]?.isIntersecting??true,{rootMargin:'220px'});
+  observer.observe(stage);
 
-  function frame(t){
-    requestAnimationFrame(frame);
+  let last=performance.now();
+  function tick(now){
+    requestAnimationFrame(tick);
     if(!visible)return;
-    px+=(tx-px)*.055;
-    py+=(ty-py)*.055;
+    const dt=Math.min(.035,(now-last)/1000);last=now;
+    const spring=1-Math.pow(.0007,dt);
+    x+=(targetX-x)*spring;
+    y+=(targetY-y)*spring;
 
     const rect=stage.getBoundingClientRect();
-    const scale=clamp(Math.min(rect.width/650,rect.height/580),.5,1);
-    const collapse=reduce?0:scrollP;
+    const scale=clamp(Math.min(rect.width/720,rect.height/620),.48,1);
+    const p=easeInOut(scroll);
+    const disperse=1-p;
+    const time=now*.00045;
 
-    planes.forEach((plane,i)=>{
-      const c=configs[i]||configs[0];
-      const phase=t*.00055+i*1.17;
-      const ambient=reduce?0:1-collapse;
-      const x=(c.x*(1-collapse)+Math.sin(phase)*7*ambient)*scale + px*(i%2?9:-8);
-      const y=(c.y*(1-collapse)+Math.cos(phase*.82)*6*ambient)*scale + py*(i%2?7:-6);
-      const z=(c.z*(1-collapse)+(-18*i)*collapse)*scale;
-      const rx=c.rx*(1-collapse)+py*2.2;
-      const ry=c.ry*(1-collapse)+px*2.8;
-      const rz=c.rz*(1-collapse)+Math.sin(phase*.6)*1.2*ambient;
-      plane.style.transform=`translate(-50%,-50%) translate3d(${x}px,${y}px,${z}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
-      plane.style.opacity=String(.72+.24*(1-collapse));
+    cards.forEach((card,i)=>{
+      const c=layouts[i];
+      const phase=time+i*.94;
+      const breathe=reduce?0:Math.sin(phase)*7*disperse;
+      const breatheY=reduce?0:Math.cos(phase*.78)*6*disperse;
+      const side=i%2?1:-1;
+
+      const targetPx=c.x*disperse*scale + breathe + x*side*(12+i*1.5)*disperse;
+      const targetPy=c.y*disperse*scale + breatheY + y*(8+i)*disperse;
+      const targetPz=(c.z*disperse + (-14*i)*p)*scale;
+      const rx=c.rx*disperse + y*(2.5+i*.3)*disperse;
+      const ry=c.ry*disperse + x*(3+i*.45)*disperse;
+      const rz=c.rz*disperse + Math.sin(phase*.6)*1.4*disperse;
+      const s=(c.s+(1-c.s)*p)*(1+hover*.008*(i===2?1:0));
+
+      card.style.transform=`translate(-50%,-50%) translate3d(${targetPx}px,${targetPy}px,${targetPz}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`;
+      card.style.opacity=String(clamp(.88+.12*disperse-p*(i>2?.42:.18),.28,1));
+      card.style.setProperty('--mx',(50+x*18)+'%');
+      card.style.setProperty('--my',(50+y*18)+'%');
     });
 
-    sculpture.style.setProperty('--scene-rx',(-3-py*3.2)+'deg');
-    sculpture.style.setProperty('--scene-ry',(6+px*5.5)+'deg');
-    site.style.setProperty('--hero-rx',(-py*2.4)+'deg');
-    site.style.setProperty('--hero-ry',(px*3.1)+'deg');
-    site.style.setProperty('--hero-z',(collapse*14)+'px');
+    world.style.setProperty('--world-rx',(-5-y*4.2*disperse)+'deg');
+    world.style.setProperty('--world-ry',(8+x*7.5*disperse)+'deg');
+
+    orbits.forEach((o,i)=>{
+      const a=(time*(i%2?-.55:.42)+i*.8)*disperse;
+      o.style.opacity=String(.78*disperse);
+      o.style.filter=`brightness(${1+x*.06})`;
+      o.style.setProperty('--orbit-a',a+'rad');
+    });
+
+    site.style.setProperty('--hero-rx',(-y*3.4*disperse)+'deg');
+    site.style.setProperty('--hero-ry',(x*4.6*disperse)+'deg');
+    site.style.setProperty('--hero-z',(p*28 + hover*5)+'px');
+
+    if(glow){
+      glow.style.opacity=String(.62+.18*(1-p)+Math.abs(x)*.06);
+      glow.style.transform=`translate(-50%,-50%) scale(${1+p*.12})`;
+    }
   }
-  requestAnimationFrame(frame);
+  requestAnimationFrame(tick);
+
+  if(window.gsap&&!reduce){
+    gsap.from(cards,{opacity:0,y:34,scale:.78,rotationX:12,duration:1.15,stagger:.065,ease:'expo.out',delay:.08});
+  }
 })();
 </script></body></html>
