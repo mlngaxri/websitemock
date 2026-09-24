@@ -7,7 +7,9 @@
 <meta name="theme-color" content="#F3F1EB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
   --canvas:#F3F1EB;--surface:#FAF9F5;--ink:#171715;--muted:#85837B;
@@ -332,142 +334,65 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
   .device-wrap{max-width:none!important;max-height:none!important}
   .device{border-radius:var(--frame-radius,34px)!important}
 }
-</style><style id="ff-typography-v2">
-:root{
-  --ui-track:-.012em;
-  --heading-track:-.038em;
-  --editorial-track:-.022em;
-}
-body{font-size:13px;letter-spacing:var(--ui-track)}
-.brand{font-size:19px;font-weight:600;letter-spacing:-.036em}
-.project strong{font-size:13px;font-weight:600;letter-spacing:-.012em}
-.project span,.saved{font-size:11px}
-.top-button,.pill,.nav button,.upload{font-size:12px;letter-spacing:-.008em}
-.kicker{font-size:10px;font-weight:600;letter-spacing:.13em}
-.revision-summary b{font-size:12px}.revision-summary p{font-size:11px;line-height:1.55}
-.context h2,.panel-head h1{font-size:15px;font-weight:600;letter-spacing:-.018em}
-.panel-head span,.draft-count,.sub{font-size:11px}
-.hero-summary h2,.stage-title h2{font-size:clamp(34px,3.55vw,50px);font-weight:500;letter-spacing:var(--heading-track);line-height:1}
-.hero-summary p,.stage-title p{font-size:13px;line-height:1.62}
-.quiet-card h3,.life-step b,.build-event b,.direction-item b,.launch-row,.page-card b{font-size:13px;letter-spacing:-.012em}
-.quiet-card p,.status-row,.life-step p,.build-event p,.direction-item small,.launch-row span:last-child,.page-card span{font-size:11px;line-height:1.55}
-.context-mini{font-size:12px}.context-mini span{font-size:10px}.context-mini small{font-size:11px}
-.direction-row small,.direction-row span,.assetmeta span{font-size:11px}
-.direction-row b,.assetmeta b,.selected-target b{font-size:12px;line-height:1.5}
-.modal h2{font-size:24px;line-height:1.08;letter-spacing:-.032em;font-weight:500}
-.modal p{font-size:12px;line-height:1.58}.modal small,.modal-list div{font-size:11px}
-.direction-composer{font-size:13px;line-height:1.58}
-.toast{font-size:12px}
-.settings-intro h2{letter-spacing:var(--heading-track)}
-.settings-block h3{letter-spacing:-.02em}
-.settings-fields label,.settings-switch b{font-size:12px}
-.settings-block p,.settings-switch small,.settings-actions{font-size:11px;line-height:1.55}
-
-/* Mori House editorial layer */
-.mori-mark{font-size:22px;line-height:1;letter-spacing:-.018em}
-.mori-links button{font-size:10px;letter-spacing:.1em}
-.mori-reserve{font-size:10px}
-.mori-overline{font-size:9px;letter-spacing:.16em}
-.mori-hero-copy h1{font-size:clamp(44px,5cqw,72px);line-height:.98;letter-spacing:var(--editorial-track)}
-.mori-hero-copy p{font-size:12px;line-height:1.65}
-.mori-hero-copy .mori-inline{font-size:10px;line-height:1.5}
-.mori-photo figcaption{font-size:8px;letter-spacing:.06em}
-.mori-intro h2,.mori-pair-copy h2,.mori-visit h2{font-size:clamp(36px,5.2cqw,58px);line-height:1.02;letter-spacing:var(--editorial-track)}
-.mori-intro p,.mori-pair-copy p,.mori-quote p,.visit-details p{font-size:13px;line-height:1.7}
-.mori-intro .index,.mori-quote small,.mori-pair-copy small,.visit-details small{font-size:10px;letter-spacing:.08em}
-.mori-quote blockquote{font-size:clamp(30px,4.2cqw,44px);line-height:1.12;letter-spacing:-.018em}
-.mori-footer{font-size:10px;line-height:1.5}.mori-footer b{font-size:21px;letter-spacing:-.018em}
-.mori-page-hero h1{font-size:clamp(46px,6.6cqw,76px);line-height:.97;letter-spacing:var(--editorial-track)}
-.mori-page-hero small{font-size:10px;letter-spacing:.09em}
-.mori-menu-row b{font-size:24px;line-height:1.1;letter-spacing:-.016em}
-.mori-menu-row p{font-size:11px;line-height:1.58}
-.mori-menu-row strong{font-size:12px}
-.mori-visit-info h2{font-size:38px;line-height:1;letter-spacing:-.018em}
-.mori-visit-info .row{font-size:12px;line-height:1.62}
-.plate-heading small,.plate-copy small{font-size:10px;letter-spacing:.12em}
-.plate-heading h2{font-size:clamp(32px,5.2cqw,54px);line-height:1.06;letter-spacing:-.018em}
-.plate-count,.plate-controls>span{font-size:11px}
-.plate-title h3{font-size:clamp(27px,4.1cqw,40px);line-height:1.08;letter-spacing:-.018em}
-.plate-title span{font-size:13px}.plate-copy p{font-size:12px;line-height:1.62}
-.menu-group h2{font-size:10px;letter-spacing:.13em}
-.sequence h2{font-size:36px;line-height:1.06;letter-spacing:-.018em}
-.sequence p,.sequence span,.menu-note{font-size:12px;line-height:1.72}
-
-/* Direction brief remains editorial, but with cleaner metrics. */
-.direction-cover h2{font-size:clamp(48px,6.2vw,76px);line-height:.98;letter-spacing:-.02em}
-.direction-cover-content p:last-child{font-size:14px;line-height:1.58}
-.direction-overline,.direction-type{font-size:10px;letter-spacing:.11em}
-.direction-monogram{font-size:clamp(68px,9vw,116px);line-height:.86}
-.direction-index{font-size:10px;letter-spacing:.12em}
-.direction-panel h3,.internal-check h3{font-size:clamp(26px,2.7vw,35px);line-height:1.08;letter-spacing:-.018em}
-.direction-panel p{line-height:1.62}
-
-@media(max-width:640px){
-  .project strong{font-size:12px}
-  .top-button,.pill,.nav button,.upload{font-size:11px}
-  .panel-head h1{font-size:14px}
-  .hero-summary h2,.stage-title h2{font-size:36px;line-height:1.02}
-  .hero-summary p,.stage-title p{font-size:13px}
-  .mori-mark{font-size:21px}
-  .mori-links button{font-size:9px}
-  .mori-hero-copy h1{font-size:50px!important;line-height:1}
-  .mori-home-hero p{font-size:12px!important}
-  .mori-page-hero h1{font-size:44px!important;line-height:1}
-  .mori-intro h2,.mori-pair-copy h2,.mori-visit h2{font-size:36px}
-  .mori-quote blockquote{font-size:30px}
-  .direction-cover h2{font-size:50px}
-  .modal h2{font-size:23px}
-}
-</style><style id="ff-typography-reference-v3">
-/* Portal typography: functional Geist UI with deliberate serif editorial moments. */
+</style><style id="ff-brand-typography">
+/* FOURTHFORM PRODUCT TYPE SYSTEM
+   General Sans only. Client-site typography remains independent. */
+:root{--sans:"General Sans",Arial,sans-serif}
 body{
-  font-family:"Geist",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:13px;
   line-height:1.5;
-  letter-spacing:-.008em;
+  letter-spacing:-.006em;
+  font-feature-settings:"ss01" 1,"kern" 1;
 }
 .brand{
+  font-family:var(--sans);
   font-size:19px;
   font-weight:600;
   letter-spacing:-.034em;
 }
 .project strong{
+  font-family:var(--sans);
   font-size:13px;
   font-weight:600;
-  letter-spacing:-.01em;
+  letter-spacing:-.008em;
 }
+.project span,.saved{font-size:11px}
 .top-button,.pill,.nav button,.upload{
+  font-family:var(--sans);
   font-size:12px;
   font-weight:500;
-  letter-spacing:-.006em;
+  letter-spacing:-.005em;
 }
 .kicker{
+  font-family:var(--sans);
   font-size:10px;
-  font-weight:600;
-  letter-spacing:.14em;
+  font-weight:500;
+  letter-spacing:.13em;
 }
-.panel-head h1{
+.panel-head h1,.context h2{
+  font-family:var(--sans);
   font-size:15px;
   font-weight:600;
-  letter-spacing:-.014em;
+  letter-spacing:-.015em;
 }
+.panel-head span,.draft-count,.sub{font-size:11px}
 
-/* Large workspace headings become the expressive layer. */
+/* Workspace hierarchy stays product-like, never editorial. */
 .hero-summary h2,.stage-title h2,.settings-intro h2{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-weight:400;
-  font-size:clamp(36px,3.65vw,52px);
-  line-height:1.02;
-  letter-spacing:-.022em;
+  font-family:var(--sans);
+  font-size:clamp(34px,3.55vw,50px);
+  font-weight:500;
+  line-height:1;
+  letter-spacing:-.045em;
 }
 .hero-summary p,.stage-title p,.settings-intro p{
   font-size:13px;
-  line-height:1.62;
+  line-height:1.6;
   letter-spacing:-.006em;
 }
-
-/* Keep UI cards and controls restrained. */
 .quiet-card h3,.life-step b,.build-event b,.direction-item b,.launch-row,.page-card b{
+  font-family:var(--sans);
   font-size:13px;
   font-weight:500;
   letter-spacing:-.008em;
@@ -476,78 +401,40 @@ body{
   font-size:11px;
   line-height:1.55;
 }
+.direction-row b,.assetmeta b,.selected-target b{
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:500;
+  line-height:1.5;
+}
+.direction-row small,.direction-row span,.assetmeta span{font-size:11px}
+.modal h2{
+  font-family:var(--sans);
+  font-size:24px;
+  font-weight:500;
+  line-height:1.08;
+  letter-spacing:-.035em;
+}
+.modal p{font-size:12px;line-height:1.58}
+.direction-composer{font-family:var(--sans);font-size:13px;line-height:1.58}
+.settings-fields label,.settings-switch b{font-size:12px}
+.settings-block p,.settings-switch small,.settings-actions{font-size:11px;line-height:1.55}
 
-/* Mori House follows the same editorial rhythm as the reference. */
-.mori-mark{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-size:23px;
-  line-height:1;
-  letter-spacing:-.014em;
-}
-.mori-overline,.mori-page-hero small{
-  font-family:"Geist",system-ui,sans-serif;
-  font-size:9px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-}
-.mori-hero-copy h1{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-weight:400;
-  font-size:clamp(46px,5.2cqw,74px);
-  line-height:.99;
-  letter-spacing:-.018em;
-}
-.mori-page-hero h1{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-weight:400;
-  font-size:clamp(48px,6.5cqw,76px);
-  line-height:.99;
-  letter-spacing:-.018em;
-}
-.mori-intro h2,.mori-pair-copy h2,.mori-visit h2,.mori-visit-info h2{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-weight:400;
-  line-height:1.03;
-  letter-spacing:-.016em;
-}
-.mori-quote blockquote{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-style:italic;
-  font-weight:400;
-  line-height:1.12;
-  letter-spacing:-.012em;
-}
-.mori-menu-row b,.plate-title h3,.plate-heading h2,.sequence h2{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-weight:400;
-  letter-spacing:-.012em;
-}
-
-/* Direction brief also uses serif only where hierarchy benefits from it. */
+/* Mori House is a client brand, so its editorial serif remains intentionally separate. */
+.mori-site{font-family:var(--sans)}
+.mori-mark,.mori-hero-copy h1,.mori-page-hero h1,.mori-intro h2,.mori-pair-copy h2,.mori-visit h2,
+.mori-visit-info h2,.mori-quote blockquote,.mori-menu-row b,.plate-title h3,.plate-heading h2,.sequence h2,
 .direction-cover h2,.direction-panel h3,.internal-check h3{
   font-family:"Instrument Serif",Georgia,serif;
-  font-weight:400;
-  letter-spacing:-.016em;
-}
-.direction-cover h2{
-  line-height:.99;
-}
-.modal h2{
-  font-family:"Geist",system-ui,sans-serif;
-  font-weight:500;
-  letter-spacing:-.025em;
 }
 
 @media(max-width:640px){
   .project strong{font-size:12px}
   .top-button,.pill,.nav button,.upload{font-size:11px}
   .hero-summary h2,.stage-title h2,.settings-intro h2{
-    font-size:38px;
-    line-height:1.04;
+    font-size:36px;
+    line-height:1.02;
   }
-  .mori-hero-copy h1{font-size:50px!important;line-height:1.01}
-  .mori-page-hero h1{font-size:45px!important;line-height:1.01}
-  .mori-intro h2,.mori-pair-copy h2,.mori-visit h2,.mori-visit-info h2{font-size:36px}
 }
 </style></head>
 <body>
