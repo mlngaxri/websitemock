@@ -382,35 +382,132 @@ img,video,iframe{max-width:100%}
   .heroSite{height:min(330px,58vh)}
 }
 </style><style id="ff-hero-3d">
-/* Fourthform hero: a stack of digital forms coheres into the live website. */
+/* A visible, brand-specific 3D sculpture: Fourthform's workflow planes resolve into the live website. */
 .heroStage{
   isolation:isolate;
-  perspective:1400px;
+  perspective:1600px;
+  transform-style:preserve-3d;
   overflow:visible;
-}
-.formScene{
-  position:absolute;
-  inset:-11% -12%;
-  width:124%;
-  height:122%;
-  z-index:0;
-  pointer-events:none;
-  opacity:.98;
-  filter:saturate(.78);
 }
 .formAura{
   position:absolute;
-  z-index:0;
-  width:78%;
-  aspect-ratio:1;
   left:50%;
   top:50%;
-  transform:translate(-43%,-48%);
+  width:min(650px,96%);
+  aspect-ratio:1;
+  transform:translate(-46%,-50%);
   border-radius:50%;
   background:
-    radial-gradient(circle at 50% 45%,rgba(102,92,246,.13),rgba(102,92,246,.035) 32%,transparent 68%);
-  filter:blur(24px);
-  opacity:.72;
+    radial-gradient(circle at 52% 48%,rgba(102,92,246,.20) 0,rgba(102,92,246,.08) 23%,rgba(102,92,246,.025) 46%,transparent 70%);
+  filter:blur(20px);
+  opacity:.8;
+  z-index:0;
+  pointer-events:none;
+}
+.formSculpture{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  transform-style:preserve-3d;
+  transform:perspective(1600px) rotateX(var(--scene-rx,-3deg)) rotateY(var(--scene-ry,6deg));
+  transition:transform .55s cubic-bezier(.18,.8,.22,1);
+  pointer-events:none;
+}
+.formPlane{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(510px,78%);
+  aspect-ratio:1.46;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+.formPlaneInner{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(61,59,54,.22);
+  border-radius:15px;
+  overflow:hidden;
+  background:
+    linear-gradient(145deg,rgba(250,249,245,.82),rgba(243,241,235,.52) 50%,rgba(250,249,245,.34));
+  backdrop-filter:blur(13px) saturate(.85);
+  -webkit-backdrop-filter:blur(13px) saturate(.85);
+  box-shadow:
+    0 34px 80px rgba(23,23,21,.10),
+    0 8px 24px rgba(23,23,21,.07),
+    inset 0 1px 0 rgba(255,255,255,.88);
+  animation:formPlaneReveal .95s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:calc(var(--i,0) * 70ms + 120ms);
+}
+.formPlane:nth-child(1) .formPlaneInner{--i:0}
+.formPlane:nth-child(2) .formPlaneInner{--i:1}
+.formPlane:nth-child(3) .formPlaneInner{--i:2}
+.formPlane:nth-child(4) .formPlaneInner{--i:3}
+.formPlane:nth-child(5) .formPlaneInner{--i:4}
+.formPlane:nth-child(6) .formPlaneInner{--i:5}
+.formPlane.accent .formPlaneInner{
+  border-color:rgba(102,92,246,.44);
+  background:
+    linear-gradient(145deg,rgba(250,249,245,.82),rgba(102,92,246,.075) 58%,rgba(250,249,245,.42));
+  box-shadow:
+    0 34px 85px rgba(54,45,143,.10),
+    0 8px 24px rgba(23,23,21,.06),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+.planeTop{
+  height:34px;
+  padding:0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(61,59,54,.13);
+  color:#737068;
+  font-size:7px;
+  font-weight:600;
+  letter-spacing:.14em;
+}
+.formPlane.accent .planeTop{color:#665CF6}
+.planeTop i{
+  width:5px;height:5px;border-radius:50%;
+  background:currentColor;
+  opacity:.7;
+  box-shadow:0 0 0 4px color-mix(in srgb,currentColor 10%,transparent);
+}
+.planeBody{
+  position:absolute;
+  inset:34px 0 0;
+  padding:13% 11%;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.planeBody b{
+  display:block;
+  height:7px;
+  border-radius:999px;
+  background:rgba(23,23,21,.12);
+}
+.planeBody b:nth-child(1){width:42%}
+.planeBody b:nth-child(2){width:73%}
+.planeBody b:nth-child(3){width:57%}
+.planeBody em{
+  display:block;
+  margin-top:auto;
+  height:36%;
+  border-radius:8px;
+  border:1px solid rgba(23,23,21,.08);
+  background:
+    linear-gradient(135deg,rgba(23,23,21,.025),rgba(102,92,246,.055)),
+    repeating-linear-gradient(90deg,transparent 0 34px,rgba(23,23,21,.025) 34px 35px);
+}
+.formPlaneInner:after{
+  content:"";
+  position:absolute;
+  inset:-40% -20%;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 49%,transparent 62%);
+  transform:translateX(-55%);
+  animation:formSheen 7.5s ease-in-out infinite;
+  animation-delay:calc(var(--i,0) * -1.15s);
   pointer-events:none;
 }
 .heroSiteWrap{
@@ -418,20 +515,19 @@ img,video,iframe{max-width:100%}
   --hero-ry:0deg;
   --hero-z:0px;
   position:relative;
-  z-index:3;
+  z-index:5;
   transform-style:preserve-3d;
-  transform:perspective(1400px) rotateX(var(--hero-rx)) rotateY(var(--hero-ry)) translate3d(0,0,var(--hero-z));
-  transition:transform .7s cubic-bezier(.18,.8,.22,1);
+  transform:perspective(1600px) translateZ(var(--hero-z)) rotateX(var(--hero-rx)) rotateY(var(--hero-ry));
+  transition:transform .55s cubic-bezier(.18,.8,.22,1);
   will-change:transform;
 }
-.heroStage:hover .heroSiteWrap{--hero-z:6px}
 .heroSite{
   position:relative;
   z-index:2;
-  border-color:rgba(70,68,63,.34);
+  border-color:rgba(64,61,56,.36);
   box-shadow:
-    0 44px 110px rgba(23,23,21,.15),
-    0 10px 30px rgba(23,23,21,.08),
+    0 55px 125px rgba(23,23,21,.18),
+    0 15px 38px rgba(23,23,21,.10),
     inset 0 1px 0 rgba(255,255,255,.72);
 }
 .heroSite:before{
@@ -441,7 +537,7 @@ img,video,iframe{max-width:100%}
   z-index:6;
   pointer-events:none;
   border-radius:inherit;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.26);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.30);
 }
 .browserLabel{
   margin-left:auto;
@@ -460,50 +556,53 @@ img,video,iframe{max-width:100%}
   font-size:8px;
   font-weight:500;
   letter-spacing:.13em;
-  color:#8a877f;
+  color:#858178;
   text-transform:uppercase;
-  pointer-events:none;
 }
-.stageCaption{
-  z-index:4;
-  right:-8px;
-  bottom:14px;
-}
+.stageCaption{z-index:7;right:-8px;bottom:12px}
 .heroStage:after{
   content:"";
   position:absolute;
-  z-index:1;
-  left:14%;
-  right:8%;
-  bottom:6%;
-  height:16%;
+  z-index:0;
+  left:8%;right:2%;bottom:3%;
+  height:17%;
   border-radius:50%;
-  background:radial-gradient(ellipse,rgba(23,23,21,.14),transparent 69%);
-  filter:blur(20px);
-  transform:translateZ(-1px);
+  background:radial-gradient(ellipse,rgba(23,23,21,.17),transparent 68%);
+  filter:blur(24px);
   pointer-events:none;
 }
+@keyframes formPlaneReveal{
+  from{opacity:0;filter:blur(9px);transform:translateY(28px) scale(.88)}
+  to{opacity:1;filter:blur(0);transform:none}
+}
+@keyframes formSheen{
+  0%,62%{transform:translateX(-62%);opacity:0}
+  72%{opacity:.7}
+  86%,100%{transform:translateX(64%);opacity:0}
+}
 @media(max-width:1050px){
-  .formScene{inset:-7% -5%;width:110%;height:112%}
-  .formAura{width:72%}
-  .stageCaption{right:0;bottom:-10px}
+  .formPlane{width:min(500px,72%)}
+  .formAura{width:min(600px,82%)}
+  .stageCaption{bottom:-12px;right:0}
 }
 @media(max-width:760px){
-  .formScene{inset:-8% -14%;width:128%;height:118%;opacity:.86}
-  .formAura{width:94%;opacity:.58}
+  .formPlane{width:min(440px,86%)}
+  .formAura{width:105%}
   .heroSiteWrap{width:100%}
-  .formMeta{bottom:-23px}
+  .formMeta{bottom:-22px}
   .stageCaption{display:none}
 }
 @media(max-width:520px){
-  .formScene{inset:-6% -20%;width:140%;height:112%;opacity:.72}
-  .formAura{width:110%;filter:blur(18px)}
-  .formMeta{left:8px;right:8px;font-size:7px;bottom:-20px}
+  .formPlane{width:92%}
+  .formPlane:nth-child(n+5){display:none}
+  .planeTop{height:28px;font-size:6px}
+  .planeBody{inset:28px 0 0}
   .browserLabel{display:none}
+  .formMeta{left:8px;right:8px;bottom:-19px;font-size:7px}
 }
 @media(prefers-reduced-motion:reduce){
-  .heroSiteWrap{transition:none;transform:none!important}
-  .formScene{opacity:.45}
+  .formPlaneInner,.formPlaneInner:after{animation:none!important}
+  .formSculpture,.heroSiteWrap{transition:none!important}
 }
 </style></head>
 <body>
@@ -511,7 +610,14 @@ img,video,iframe{max-width:100%}
 <main id="top">
 <section class="heroWrap"><div class="hero"><div class="container heroGrid"><div class="heroCopy"><h1 class="display"><span class="heroLine"><span>Websites,</span></span><span class="heroLine"><span><em>brought into form.</em></span></span></h1><p class="body">From the first direction to the live site, Fourthform gives you one place to shape, review, launch and keep your website current.</p><div class="heroActions"><a class="btn darkbtn" href="#pricing">Start a site</a><a class="textlink" href="#portal">Explore the portal ↘</a></div></div><div class="heroStage" id="heroStage">
   <div class="formAura" aria-hidden="true"></div>
-  <canvas class="formScene" id="formScene" aria-hidden="true"></canvas>
+  <div class="formSculpture" id="formSculpture" aria-hidden="true">
+    <div class="formPlane" data-plane="0"><div class="formPlaneInner"><div class="planeTop"><span>01 / DIRECTION</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
+    <div class="formPlane accent" data-plane="1"><div class="formPlaneInner"><div class="planeTop"><span>02 / BUILD</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
+    <div class="formPlane" data-plane="2"><div class="formPlaneInner"><div class="planeTop"><span>03 / REVIEW</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
+    <div class="formPlane" data-plane="3"><div class="formPlaneInner"><div class="planeTop"><span>PAGE / HOME</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
+    <div class="formPlane accent" data-plane="4"><div class="formPlaneInner"><div class="planeTop"><span>STATE / SATURDAY</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
+    <div class="formPlane" data-plane="5"><div class="formPlaneInner"><div class="planeTop"><span>04 / LIVE</span><i></i></div><div class="planeBody"><b></b><b></b><b></b><em></em></div></div></div>
+  </div>
   <div class="heroSiteWrap" id="heroSiteWrap">
     <div class="heroSite">
       <div class="browser">
@@ -531,182 +637,85 @@ img,video,iframe{max-width:100%}
 <section class="final"><div class="container finalGrid"><h2 class="display">Bring it<br><em>into form.</em></h2><div><p class="body">Start with the business, the references, the rough ideas and the things you already have.</p><a class="btn darkbtn" href="#pricing">Start a site</a></div></div></section>
 </main>
 <footer class="footer"><div class="container"><b>fourthform</b><span>Websites, brought into form.</span><span>Brisbane, Australia</span></div></footer>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
 <script>
-(()=>{const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!window.gsap||!window.ScrollTrigger||reduce)return;gsap.registerPlugin(ScrollTrigger);const lenis=new Lenis({lerp:.09,smoothWheel:true,wheelMultiplier:.88,anchors:true,autoRaf:false});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);const intro=gsap.timeline({defaults:{ease:'power4.out'}});intro.from('.heroLine>span',{yPercent:112,duration:1.05,stagger:.07}).from('.heroCopy .body',{opacity:0,y:18,duration:.72},.24).from('.heroActions',{opacity:0,y:14,duration:.62},.34).from('.formScene',{opacity:0,scale:.88,duration:1.4,ease:'expo.out'},.02).from('.heroSite',{opacity:0,y:52,scale:.955,duration:1.1,ease:'expo.out'},.12).from('.formMeta,.stageCaption',{opacity:0,y:8,duration:.65,stagger:.04},.68);if(innerWidth>1050){gsap.timeline({scrollTrigger:{trigger:'.heroWrap',start:'top top',end:'bottom bottom',scrub:1.1}}).to('.heroCopy',{opacity:.12,y:-24,ease:'none'},0).to('.heroSite',{width:'min(1040px,92vw)',height:'min(680px,69vh)',borderRadius:10,y:28,ease:'none'},0)};gsap.from('.manifesto h2',{y:42,opacity:0,duration:1,ease:'power4.out',scrollTrigger:{trigger:'.manifesto',start:'top 72%'}});gsap.from('.manifesto p',{y:22,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.manifesto',start:'top 64%'}});gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.process',start:'top 62%',end:'bottom 58%',scrub:1}});gsap.from('.step',{y:24,opacity:0,stagger:.08,duration:.72,ease:'power3.out',scrollTrigger:{trigger:'.rail',start:'top 80%'}});gsap.fromTo('.previewShell',{scale:.945,y:62,opacity:.45},{scale:1,y:0,opacity:1,ease:'none',scrollTrigger:{trigger:'.portalSec',start:'top 72%',end:'top 22%',scrub:1.05}});if(innerWidth>760){const states=gsap.timeline({scrollTrigger:{trigger:'.states',start:'top top',end:'+=105%',scrub:1,pin:'.statesPin',anticipatePin:1}});states.to('.stateMon',{opacity:0,scale:.985,ease:'none'},.12).fromTo('.stateSat',{opacity:0,scale:1.015},{opacity:1,scale:1,ease:'none'},.18).to('.stateLabel span:first-child',{opacity:.28},.18).to('.stateLabel span:last-child',{opacity:1},.18)}gsap.from('.priceLine',{clipPath:'inset(0 100% 0 0)',duration:1.05,ease:'power4.inOut',scrollTrigger:{trigger:'.pricing',start:'top 72%'}});gsap.from('.finalGrid>*',{y:32,opacity:0,stagger:.08,duration:.9,ease:'power4.out',scrollTrigger:{trigger:'.final',start:'top 70%'}});addEventListener('load',()=>ScrollTrigger.refresh(true),{once:true})})();
+(()=>{const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!window.gsap||!window.ScrollTrigger||reduce)return;gsap.registerPlugin(ScrollTrigger);const lenis=new Lenis({lerp:.09,smoothWheel:true,wheelMultiplier:.88,anchors:true,autoRaf:false});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);const intro=gsap.timeline({defaults:{ease:'power4.out'}});intro.from('.heroLine>span',{yPercent:112,duration:1.05,stagger:.07}).from('.heroCopy .body',{opacity:0,y:18,duration:.72},.24).from('.heroActions',{opacity:0,y:14,duration:.62},.34).from('.formSculpture',{opacity:0,scale:.9,duration:1.2,ease:'expo.out'},.02).from('.heroSite',{opacity:0,y:52,scale:.955,duration:1.1,ease:'expo.out'},.12).from('.formMeta,.stageCaption',{opacity:0,y:8,duration:.65,stagger:.04},.68);if(innerWidth>1050){gsap.timeline({scrollTrigger:{trigger:'.heroWrap',start:'top top',end:'bottom bottom',scrub:1.1}}).to('.heroCopy',{opacity:.12,y:-24,ease:'none'},0).to('.heroSite',{width:'min(1040px,92vw)',height:'min(680px,69vh)',borderRadius:10,y:28,ease:'none'},0)};gsap.from('.manifesto h2',{y:42,opacity:0,duration:1,ease:'power4.out',scrollTrigger:{trigger:'.manifesto',start:'top 72%'}});gsap.from('.manifesto p',{y:22,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.manifesto',start:'top 64%'}});gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.process',start:'top 62%',end:'bottom 58%',scrub:1}});gsap.from('.step',{y:24,opacity:0,stagger:.08,duration:.72,ease:'power3.out',scrollTrigger:{trigger:'.rail',start:'top 80%'}});gsap.fromTo('.previewShell',{scale:.945,y:62,opacity:.45},{scale:1,y:0,opacity:1,ease:'none',scrollTrigger:{trigger:'.portalSec',start:'top 72%',end:'top 22%',scrub:1.05}});if(innerWidth>760){const states=gsap.timeline({scrollTrigger:{trigger:'.states',start:'top top',end:'+=105%',scrub:1,pin:'.statesPin',anticipatePin:1}});states.to('.stateMon',{opacity:0,scale:.985,ease:'none'},.12).fromTo('.stateSat',{opacity:0,scale:1.015},{opacity:1,scale:1,ease:'none'},.18).to('.stateLabel span:first-child',{opacity:.28},.18).to('.stateLabel span:last-child',{opacity:1},.18)}gsap.from('.priceLine',{clipPath:'inset(0 100% 0 0)',duration:1.05,ease:'power4.inOut',scrollTrigger:{trigger:'.pricing',start:'top 72%'}});gsap.from('.finalGrid>*',{y:32,opacity:0,stagger:.08,duration:.9,ease:'power4.out',scrollTrigger:{trigger:'.final',start:'top 70%'}});addEventListener('load',()=>ScrollTrigger.refresh(true),{once:true})})();
 </script>
 <script id="ff-hero-3d-script">
 (()=>{
-  const canvas=document.getElementById('formScene');
   const stage=document.getElementById('heroStage');
-  const wrap=document.getElementById('heroSiteWrap');
+  const sculpture=document.getElementById('formSculpture');
+  const site=document.getElementById('heroSiteWrap');
   const heroWrap=document.querySelector('.heroWrap');
-  if(!canvas||!stage||!wrap||!window.THREE)return;
+  const planes=[...document.querySelectorAll('.formPlane')];
+  if(!stage||!sculpture||!site||!planes.length)return;
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarse=matchMedia('(pointer: coarse)').matches;
-  const THREE=window.THREE;
-  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'high-performance'});
-  renderer.setClearColor(0x000000,0);
-  renderer.setPixelRatio(Math.min(devicePixelRatio||1,coarse?1.25:1.6));
-  renderer.outputColorSpace=THREE.SRGBColorSpace;
-
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(34,1,.1,60);
-  camera.position.set(0,0,8.4);
-
-  const root=new THREE.Group();
-  scene.add(root);
-
-  function roundedRectShape(w,h,r){
-    const x=-w/2,y=-h/2,s=new THREE.Shape();
-    s.moveTo(x+r,y);
-    s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);
-    s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);
-    s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);
-    return s;
-  }
-  function frameGeometry(w,h,r,t){
-    const outer=roundedRectShape(w,h,r);
-    const hole=roundedRectShape(w-t*2,h-t*2,Math.max(.02,r-t));
-    hole.getPoints().forEach(()=>{});
-    outer.holes.push(hole);
-    return new THREE.ShapeGeometry(outer,10);
-  }
-
-  const layers=[];
-  const count=coarse?5:8;
-  const expanded=[
-    [-1.55,.86,-.9,-.19,.25,-.11],
-    [1.48,.62,-1.1,.16,-.28,.09],
-    [-1.22,-.88,-1.35,.14,.33,.07],
-    [1.4,-.72,-1.55,-.12,-.24,-.08],
-    [-.2,1.18,-1.75,-.18,.02,.13],
-    [.32,-1.18,-1.95,.15,-.06,-.10],
-    [-1.78,.05,-2.2,.03,.36,-.14],
-    [1.78,.04,-2.35,-.04,-.34,.15]
+  const configs=[
+    {x:-178,y:-108,z:-180,rx:12,ry:28,rz:-8},
+    {x:154,y:-86,z:-128,rx:-10,ry:-27,rz:7},
+    {x:-150,y:106,z:-245,rx:-12,ry:23,rz:8},
+    {x:165,y:108,z:-205,rx:10,ry:-24,rz:-7},
+    {x:-32,y:-162,z:-295,rx:21,ry:4,rz:3},
+    {x:42,y:164,z:-330,rx:-19,ry:-5,rz:-4}
   ];
-
-  for(let i=0;i<count;i++){
-    const e=expanded[i];
-    const g=new THREE.Group();
-    const isAccent=i===1||i===6;
-    const mat=new THREE.MeshBasicMaterial({
-      color:isAccent?0x665cf6:0x85837b,
-      transparent:true,
-      opacity:isAccent?.34:.16,
-      side:THREE.DoubleSide,
-      depthWrite:false
-    });
-    const geom=frameGeometry(3.92-i*.055,2.64-i*.035,.16,.025);
-    const mesh=new THREE.Mesh(geom,mat);
-    g.add(mesh);
-
-    const glass=new THREE.Mesh(
-      new THREE.PlaneGeometry(3.72-i*.055,2.44-i*.035),
-      new THREE.MeshBasicMaterial({
-        color:i===0?0xfaf9f5:0xffffff,
-        transparent:true,
-        opacity:i===0?.042:.014,
-        side:THREE.DoubleSide,
-        depthWrite:false
-      })
-    );
-    glass.position.z=-.015;
-    g.add(glass);
-
-    g.position.set(e[0],e[1],e[2]);
-    g.rotation.set(e[3],e[4],e[5]);
-    root.add(g);
-    layers.push({g,e,i});
-  }
-
-  // A quiet central plane gives the sculpture a focal "finished form".
-  const core=new THREE.Mesh(
-    new THREE.PlaneGeometry(3.78,2.48),
-    new THREE.MeshBasicMaterial({color:0xfaf9f5,transparent:true,opacity:.035,side:THREE.DoubleSide,depthWrite:false})
-  );
-  core.position.z=.05;
-  root.add(core);
-
-  let width=1,height=1;
-  function resize(){
-    const r=stage.getBoundingClientRect();
-    width=Math.max(1,r.width);height=Math.max(1,r.height);
-    renderer.setSize(width,height,false);
-    camera.aspect=width/height;
-    camera.updateProjectionMatrix();
-    const mobile=width<620;
-    camera.position.z=mobile?9.6:8.4;
-    root.scale.setScalar(mobile?.78:width<900?.9:1);
-  }
-  new ResizeObserver(resize).observe(stage);
-  resize();
-
-  let px=0,py=0,tx=0,ty=0,scrollP=0,visible=true;
+  let tx=0,ty=0,px=0,py=0,scrollP=0,visible=true;
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-  function pointer(e){
-    if(coarse)return;
-    const r=stage.getBoundingClientRect();
-    tx=clamp(((e.clientX-r.left)/r.width-.5)*2,-1,1);
-    ty=clamp(((e.clientY-r.top)/r.height-.5)*2,-1,1);
-  }
-  stage.addEventListener('pointermove',pointer,{passive:true});
-  stage.addEventListener('pointerleave',()=>{tx=0;ty=0});
 
   function updateScroll(){
-    if(!heroWrap)return;
+    if(!heroWrap){scrollP=0;return}
     const r=heroWrap.getBoundingClientRect();
     const travel=Math.max(1,r.height-innerHeight);
     scrollP=innerWidth>1050?clamp(-r.top/travel,0,1):0;
   }
-  addEventListener('scroll',updateScroll,{passive:true});
   updateScroll();
+  addEventListener('scroll',updateScroll,{passive:true});
+
+  if(!coarse&&!reduce){
+    stage.addEventListener('pointermove',e=>{
+      const r=stage.getBoundingClientRect();
+      tx=clamp(((e.clientX-r.left)/r.width-.5)*2,-1,1);
+      ty=clamp(((e.clientY-r.top)/r.height-.5)*2,-1,1);
+    },{passive:true});
+    stage.addEventListener('pointerleave',()=>{tx=0;ty=0});
+  }
 
   const io=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true},{rootMargin:'180px'});
   io.observe(stage);
 
-  let last=performance.now();
-  function render(now){
-    requestAnimationFrame(render);
+  function frame(t){
+    requestAnimationFrame(frame);
     if(!visible)return;
-    const dt=Math.min(.035,(now-last)/1000);last=now;
-    const ease=1-Math.pow(.0008,dt);
-    px+=(tx-px)*ease;py+=(ty-py)*ease;
+    px+=(tx-px)*.055;
+    py+=(ty-py)*.055;
 
-    const t=now*.00022;
-    const collapse=reduce?1:scrollP;
-    layers.forEach(({g,e,i})=>{
-      const wave=Math.sin(t*3.1+i*.83);
-      const targetX=THREE.MathUtils.lerp(e[0]+wave*.025,0,collapse*.92);
-      const targetY=THREE.MathUtils.lerp(e[1]+Math.cos(t*2.4+i)*.02,0,collapse*.92);
-      const targetZ=THREE.MathUtils.lerp(e[2],-.08*i,collapse);
-      g.position.x+=(targetX-g.position.x)*.075;
-      g.position.y+=(targetY-g.position.y)*.075;
-      g.position.z+=(targetZ-g.position.z)*.075;
-      g.rotation.x=THREE.MathUtils.lerp(e[3]+py*.07,py*.025,collapse);
-      g.rotation.y=THREE.MathUtils.lerp(e[4]+px*.09,px*.03,collapse);
-      g.rotation.z=THREE.MathUtils.lerp(e[5]+wave*.015,0,collapse);
-      const s=THREE.MathUtils.lerp(1,.985-i*.002,collapse);
-      g.scale.setScalar(s);
+    const rect=stage.getBoundingClientRect();
+    const scale=clamp(Math.min(rect.width/650,rect.height/580),.5,1);
+    const collapse=reduce?0:scrollP;
+
+    planes.forEach((plane,i)=>{
+      const c=configs[i]||configs[0];
+      const phase=t*.00055+i*1.17;
+      const ambient=reduce?0:1-collapse;
+      const x=(c.x*(1-collapse)+Math.sin(phase)*7*ambient)*scale + px*(i%2?9:-8);
+      const y=(c.y*(1-collapse)+Math.cos(phase*.82)*6*ambient)*scale + py*(i%2?7:-6);
+      const z=(c.z*(1-collapse)+(-18*i)*collapse)*scale;
+      const rx=c.rx*(1-collapse)+py*2.2;
+      const ry=c.ry*(1-collapse)+px*2.8;
+      const rz=c.rz*(1-collapse)+Math.sin(phase*.6)*1.2*ambient;
+      plane.style.transform=`translate(-50%,-50%) translate3d(${x}px,${y}px,${z}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+      plane.style.opacity=String(.72+.24*(1-collapse));
     });
 
-    root.rotation.x+=((-.045+py*.07)-root.rotation.x)*.045;
-    root.rotation.y+=((.075+px*.11)-root.rotation.y)*.045;
-    root.rotation.z=Math.sin(t*.7)*.008*(1-collapse);
-
-    if(!reduce&&!coarse){
-      wrap.style.setProperty('--hero-rx',(-py*2.15)+'deg');
-      wrap.style.setProperty('--hero-ry',(px*2.8)+'deg');
-    }else{
-      wrap.style.setProperty('--hero-rx','0deg');
-      wrap.style.setProperty('--hero-ry','0deg');
-    }
-    renderer.render(scene,camera);
+    sculpture.style.setProperty('--scene-rx',(-3-py*3.2)+'deg');
+    sculpture.style.setProperty('--scene-ry',(6+px*5.5)+'deg');
+    site.style.setProperty('--hero-rx',(-py*2.4)+'deg');
+    site.style.setProperty('--hero-ry',(px*3.1)+'deg');
+    site.style.setProperty('--hero-z',(collapse*14)+'px');
   }
-  requestAnimationFrame(render);
+  requestAnimationFrame(frame);
 })();
 </script></body></html>
