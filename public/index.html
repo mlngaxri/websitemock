@@ -480,12 +480,12 @@ img,video,iframe{max-width:100%}
   animation-delay:calc(var(--i,0) * -1.25s);
   pointer-events:none;
 }
-.formCard:nth-of-type(4){--i:0}
-.formCard:nth-of-type(5){--i:1}
-.formCard:nth-of-type(6){--i:2}
-.formCard:nth-of-type(7){--i:3}
-.formCard:nth-of-type(8){--i:4}
-.formCard:nth-of-type(9){--i:5}
+.formCard[data-card="0"]{--i:0}
+.formCard[data-card="1"]{--i:1}
+.formCard[data-card="2"]{--i:2}
+.formCard[data-card="3"]{--i:3}
+.formCard[data-card="4"]{--i:4}
+.formCard[data-card="5"]{--i:5}
 .formCard.accent{
   border-color:rgba(102,92,246,.46);
   background:linear-gradient(145deg,rgba(250,249,245,.90),rgba(102,92,246,.09) 60%,rgba(250,249,245,.50));
