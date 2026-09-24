@@ -91,6 +91,170 @@ body{font-size:16px;line-height:var(--type-copy-leading);letter-spacing:-.008em;
   .body{font-size:15px}
   .priceLine strong{font-size:48px}
 }
+</style><style id="ff-typography-reference-v3">
+/* Typography pass based on the reference: restrained sans UI + expressive Instrument Serif. */
+:root{
+  --display-sans:"Instrument Sans",system-ui,sans-serif;
+  --display-serif:"Instrument Serif",Georgia,serif;
+}
+
+/* Base copy stays clean and contemporary. */
+body{
+  font-family:var(--display-sans);
+  font-size:16px;
+  line-height:1.58;
+  letter-spacing:-.006em;
+}
+.wordmark{
+  font-family:var(--display-sans);
+  font-size:19px;
+  font-weight:600;
+  letter-spacing:-.035em;
+}
+.navlinks a,.btn,.textlink{
+  font-family:var(--display-sans);
+  font-weight:500;
+  letter-spacing:-.008em;
+}
+.body{
+  font-family:var(--display-sans);
+  font-size:16px;
+  line-height:1.64;
+  letter-spacing:-.01em;
+}
+.kicker{
+  font-family:var(--display-sans);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.15em;
+}
+
+/* Main display language: calm sans with a softer italic serif phrase. */
+.display{
+  font-family:var(--display-sans);
+  font-weight:400;
+  letter-spacing:-.042em;
+  line-height:.98;
+  text-wrap:balance;
+}
+.display em{
+  font-family:var(--display-serif);
+  font-style:italic;
+  font-weight:400;
+  letter-spacing:-.022em;
+  opacity:.68;
+}
+
+/* Hero gets the full editorial treatment, like the supplied reference. */
+.hero .display{
+  font-family:var(--display-serif);
+  font-weight:400;
+  font-size:clamp(66px,7.7vw,118px);
+  line-height:.96;
+  letter-spacing:-.03em;
+  max-width:790px;
+}
+.hero .display em{
+  font-family:inherit;
+  opacity:1;
+  letter-spacing:-.02em;
+}
+.hero .body{
+  font-size:17px;
+  line-height:1.6;
+  max-width:500px;
+}
+.heroLine{
+  padding-top:.03em;
+  padding-bottom:.08em;
+  margin-bottom:-.04em;
+}
+
+/* Section hierarchy mirrors the reference: big, light, and not over-compressed. */
+.manifesto .display{
+  font-size:clamp(54px,6.1vw,92px);
+  line-height:1;
+}
+.sectionHead .display{
+  font-size:clamp(44px,4.75vw,70px);
+  line-height:1.02;
+}
+.portalHead .display{
+  font-size:clamp(48px,5.1vw,78px);
+  line-height:1;
+}
+.states .display{
+  font-size:clamp(50px,5.3vw,82px);
+  line-height:1;
+}
+.pricingHead .display{
+  font-size:clamp(50px,5.35vw,82px);
+  line-height:1;
+}
+.final .display{
+  font-size:clamp(62px,6.7vw,104px);
+  line-height:.98;
+}
+
+/* Supporting type gets slightly more breathing room. */
+.step h3{
+  font-size:23px;
+  line-height:1.12;
+  font-weight:500;
+  letter-spacing:-.028em;
+}
+.step p,.priceLine p,.priceSecondary p,.first p{
+  line-height:1.62;
+}
+.priceLine strong{
+  font-family:var(--display-serif);
+  font-weight:400;
+  font-size:56px;
+  line-height:1;
+  letter-spacing:-.025em;
+}
+.priceSecondary strong,.first strong{
+  font-family:var(--display-serif);
+  font-weight:400;
+  letter-spacing:-.018em;
+}
+.stageCaption{
+  font-family:var(--display-serif);
+  font-style:italic;
+  font-size:17px;
+  letter-spacing:-.01em;
+}
+.mcopy h3{
+  font-family:var(--display-serif);
+  font-weight:400;
+  line-height:.98;
+  letter-spacing:-.018em;
+}
+
+@media(max-width:760px){
+  body{font-size:15px}
+  .body{font-size:15px;line-height:1.62}
+  .hero .display{
+    font-size:clamp(55px,15.2vw,74px);
+    line-height:.98;
+    letter-spacing:-.026em;
+  }
+  .hero .body{font-size:15px}
+  .manifesto .display,.portalHead .display,.pricingHead .display,.states .display{
+    font-size:clamp(44px,12.3vw,60px);
+    line-height:1.02;
+    letter-spacing:-.035em;
+  }
+  .sectionHead .display{
+    font-size:clamp(41px,11.5vw,56px);
+    line-height:1.04;
+  }
+  .final .display{
+    font-size:clamp(54px,15vw,76px);
+    line-height:1;
+  }
+  .priceLine strong{font-size:50px}
+}
 </style></head>
 <body>
 <nav class="nav"><a class="wordmark" href="#top">fourthform</a><div class="navlinks"><a href="#process">Process</a><a href="#portal">Portal</a><a href="#states">States</a><a href="#pricing">Pricing</a></div><a class="btn darkbtn" href="#pricing">Start a site</a></nav>
