@@ -436,6 +436,160 @@ body{
     line-height:1.02;
   }
 }
+</style><style id="ff-mori-responsive-system">
+/* Mori House responds to the actual preview width, not the outer portal viewport. */
+.mori-site{overflow-x:hidden}
+.mori-site img{max-width:100%;display:block}
+.mori-home-hero{
+  height:clamp(520px,48cqw,680px);
+  min-height:520px;
+}
+.mori-feature,.mori-pair,.mori-intro,.mori-visit,.mori-visit-grid{min-width:0}
+.mori-feature>*,.mori-pair>*,.mori-intro>*,.mori-visit>*,.mori-visit-grid>*{min-width:0}
+.plate-track{scroll-padding-inline:8%}
+
+/* Tablet-sized website viewport */
+@container (max-width:900px){
+  .mori-nav{padding-inline:4.5%}
+  .mori-home-hero{
+    height:520px;
+    min-height:0;
+    grid-template-columns:.92fr 1.08fr;
+    gap:4%;
+    padding:4.5%;
+  }
+  .mori-hero-copy{padding:5% 2% 3% 0}
+  .mori-intro{grid-template-columns:.8fr 1.2fr;padding:10% 7%}
+  .mori-feature{grid-template-columns:1fr 1fr;padding:0 4.5% 9%;gap:3%}
+  .mori-feature .mori-photo{min-height:360px}
+  .mori-quote{padding:9% 8%}
+  .mori-pair{grid-template-columns:1fr 1fr;padding:8% 4.5%}
+  .mori-pair .mori-photo{height:350px}
+  .mori-visit{padding:9% 7%;gap:5%}
+  .mori-page-hero{min-height:280px;padding:8% 7% 6%}
+  .mori-menu-preview,.mori-menu-list{padding-inline:7%}
+  .mori-dishes{gap:16px}
+  .plate-heading,.plate-controls{padding-inline:7%}
+  .plate-track{padding-inline:7%;scroll-padding-inline:7%}
+  .plate-slide{flex-basis:76%}
+  .mori-visit-grid{grid-template-columns:1fr 1fr}
+  .mori-visit-grid .mori-photo{min-height:430px}
+  .mori-visit-info{padding:9% 8%}
+}
+
+/* Compact tablet / large phone */
+@container (max-width:700px){
+  .mori-nav{
+    height:62px;
+    padding-inline:6%;
+    grid-template-columns:1fr auto;
+  }
+  .mori-reserve{display:none}
+  .mori-links{gap:14px}
+  .mori-home-hero{
+    height:auto;
+    min-height:0;
+    grid-template-columns:1fr;
+    gap:28px;
+    padding:8%;
+  }
+  .mori-hero-copy{padding:26px 0 0}
+  .mori-home-hero .mori-photo{height:clamp(300px,78cqw,430px)}
+  .mori-intro{
+    grid-template-columns:1fr;
+    gap:28px;
+    padding:14% 8%;
+  }
+  .mori-feature{
+    grid-template-columns:1fr;
+    gap:0;
+    padding:0 8% 12%;
+  }
+  .mori-feature .mori-photo{min-height:clamp(300px,76cqw,430px)}
+  .mori-quote{padding:11% 9%;min-height:280px}
+  .mori-pair{
+    grid-template-columns:1fr;
+    gap:28px;
+    padding:12% 8%;
+  }
+  .mori-pair .mori-photo{height:clamp(300px,76cqw,420px)}
+  .mori-pair-copy{padding:0}
+  .mori-visit{
+    grid-template-columns:1fr;
+    gap:34px;
+    padding:13% 8%;
+  }
+  .visit-details{grid-template-columns:1fr 1fr}
+  .mori-footer{grid-template-columns:1fr;gap:10px;padding:26px 8%}
+  .mori-footer span:nth-child(2),.mori-footer span:last-child{text-align:left}
+  .mori-page-hero{min-height:250px;padding:12% 8%}
+  .mori-menu-preview,.mori-menu-list{padding-inline:8%}
+  .mori-dishes{grid-template-columns:1fr;gap:22px}
+  .dish{padding-top:16px}
+  .plate-heading{align-items:flex-start;padding-inline:8%}
+  .plate-track{
+    padding-left:8%;
+    padding-right:8%;
+    scroll-padding-inline:8%;
+  }
+  .plate-slide{flex-basis:90%}
+  .plate-controls{padding-inline:8%}
+  .mori-visit-grid{grid-template-columns:1fr}
+  .mori-visit-grid .mori-photo{min-height:clamp(320px,82cqw,480px)}
+  .mori-visit-info{padding:12% 8%}
+}
+
+/* Phone */
+@container (max-width:480px){
+  .mori-nav{padding-inline:5.5%}
+  .mori-mark{font-size:20px}
+  .mori-links{gap:10px}
+  .mori-links button{font-size:8px;letter-spacing:.075em}
+  .mori-home-hero{padding:9% 7% 8%;gap:22px}
+  .mori-hero-copy{padding-top:20px}
+  .mori-home-hero .mori-photo{height:300px}
+  .mori-intro{padding:15% 7%}
+  .mori-feature{padding:0 7% 13%}
+  .mori-feature .mori-photo{min-height:300px}
+  .mori-quote{padding:12% 9%;min-height:250px}
+  .mori-pair{padding:13% 7%}
+  .mori-pair .mori-photo{height:300px}
+  .mori-visit{padding:14% 7%}
+  .visit-details{grid-template-columns:1fr;gap:18px}
+  .mori-page-hero{min-height:230px;padding:14% 7% 11%}
+  .plate-heading,.plate-controls{padding-inline:7%}
+  .plate-heading{gap:14px}
+  .plate-count{padding-top:4px}
+  .plate-track{padding-left:7%;padding-right:7%;scroll-padding-inline:7%}
+  .plate-slide{flex-basis:94%}
+  .plate-controls>span{max-width:170px}
+  .mori-menu-preview,.mori-menu-list{padding-left:7%;padding-right:7%}
+  .mori-menu-row{grid-template-columns:minmax(0,1fr) auto;gap:14px;padding:18px 0}
+  .mori-menu-row p{max-width:240px}
+  .mori-visit-info{padding:13% 7%}
+  .mori-visit-info .row{grid-template-columns:1fr;gap:5px;padding:14px 0}
+  .mori-footer{padding-inline:7%}
+}
+
+/* Very narrow phones */
+@container (max-width:360px){
+  .mori-nav{padding-inline:5%}
+  .mori-mark{font-size:19px}
+  .mori-links{gap:7px}
+  .mori-links button{font-size:7.5px}
+  .mori-home-hero{padding-inline:6%}
+  .mori-home-hero .mori-photo{height:270px}
+  .mori-intro,.mori-feature,.mori-pair,.mori-visit{padding-left:6%;padding-right:6%}
+  .mori-page-hero{padding-left:6%;padding-right:6%}
+  .plate-heading,.plate-controls,.mori-menu-preview,.mori-menu-list,.mori-visit-info,.mori-footer{padding-left:6%;padding-right:6%}
+  .plate-track{padding-left:6%;padding-right:6%;scroll-padding-inline:6%}
+  .mori-menu-row{gap:10px}
+}
+
+/* Short viewport inside the device frame */
+@container (max-height:520px){
+  .mori-nav{position:relative}
+}
 </style></head>
 <body>
 <div class="shell">
