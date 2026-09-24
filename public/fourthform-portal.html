@@ -131,7 +131,7 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
 .context h2{font-size:16px}.context-view{padding:24px 18px}.draft-count,.sub,.direction-row small,.direction-row span,.assetmeta span{font-size:12px}.direction-row b,.assetmeta b,.selected-target b{font-size:13px;line-height:1.5}.direction-row{padding:15px 0}.direction-list{margin-top:16px}.selected-target{margin-top:24px}
 .stage{display:flex;align-items:center;justify-content:center;padding:24px 22px 44px;overflow:hidden;background:#eae8e1}.device-wrap{width:min(100%,1024px);height:100%;max-height:850px}.device{height:100%;aspect-ratio:auto;border-radius:10px;box-shadow:0 12px 36px #1717150d}.site{height:100%;container-type:inline-size}.hint{font-size:11px;bottom:14px;color:#747169}
 .view:not(.active),.context-view:not(.active),.popover:not(.open),.modal-backdrop:not(.open){visibility:hidden}.view.active{visibility:visible}
-.panel-head h1{font-size:16px}.panel-head span,.quiet-card p,.status-row,.life-step p,.build-event p,.direction-item small,.launch-row span:last-child{font-size:12px}.hero-summary p,.stage-title p{font-size:14px}.quiet-card h3,.life-step b,.build-event b,.direction-item b,.launch-row,.page-card b{font-size:14px}.page-card span{font-size:12px}.page-preview:after{display:none}.page-preview{height:150px}.page-card[data-open-page="Menu"] .page-preview{background:#dfd8c9!important}
+.panel-head h1{font-size:16px}.panel-head span,.quiet-card p,.status-row,.life-step p,.build-event p,.direction-item small,.launch-row span:last-child{font-size:12px}.hero-summary p,.stage-title p{font-size:14px}.quiet-card h3,.life-step b,.build-event b,.direction-item b,.launch-row,.page-card b{font-size:14px}.page-card span{font-size:12px}.page-preview:after{display:none}.page-preview{height:150px}
 .popover button b{font-size:13px}.popover button span{font-size:12px}.popover button{padding:12px}.modal p{font-size:14px}.modal small,.modal-list div{font-size:12px}.modal h2{font-size:28px}.toast{font-size:13px}.modal{padding:28px}.modal-backdrop{overflow:auto}
 .mori-nav{height:68px;padding:0 5%}.mori-mark{font-size:25px}.mori-links{gap:20px}.mori-links button{font-size:11px;padding:12px 0}.mori-links button[aria-current="page"]{box-shadow:0 1px #171715}.mori-reserve{font-size:12px;padding:11px 15px}
 .mori-home-hero{height:560px;min-height:0;padding:5%;gap:6%;grid-template-columns:1fr 1fr}.mori-hero-copy h1{font-size:clamp(44px,8cqw,86px)!important;line-height:.97}.mori-hero-copy p{font-size:14px!important;line-height:1.7}.mori-overline{font-size:10px}.mori-hero-copy .mori-inline{font-size:11px;line-height:1.6}.mori-photo figcaption{font-size:10px}.mori-intro h2,.mori-pair-copy h2,.mori-visit h2{font-size:clamp(38px,6cqw,65px)}.mori-intro p,.mori-pair-copy p,.mori-quote p,.visit-details p{font-size:14px;line-height:1.75}.mori-intro .index,.mori-quote small,.mori-pair-copy small,.visit-details small{font-size:11px}.mori-quote blockquote{font-size:clamp(32px,4.6cqw,48px);line-height:1.1}.mori-footer{font-size:11px;gap:20px}.mori-footer b{font-size:24px}.mori-page-hero{min-height:290px;padding:8%}.mori-page-hero h1{font-size:clamp(42px,7.5cqw,80px)!important;line-height:1}.mori-page-hero small{font-size:11px}.mori-visit-info .row{font-size:13px;line-height:1.65}.mori-menu-head button{font-size:12px}.dish span{font-size:12px}.dish small{font-size:11px}.dish b{font-size:26px}
@@ -291,7 +291,48 @@ button.pill:hover{background:var(--surface);border-color:#c4c0b6;color:var(--ink
 @media(prefers-reduced-motion:reduce){.device-wrap,.device,.device-camera,.resize-control,.hint,.project-file{transition-duration:.001ms!important}}
 
 </style>
-</head>
+<style id="ff-review-fixes-20260924">
+/* Stronger information contrast without losing the quiet visual system. */
+.quiet-card p,.status-row span:last-child,.life-step p,.build-event p,.direction-item small,.launch-row span:last-child,.settings-block p,.settings-switch small,.context-mini small{color:#666259!important}
+.launch-row,.history-event,.internal-check,.settings-block{opacity:1!important}
+.settings-body input[readonly]{color:#4f4c46!important;-webkit-text-fill-color:#4f4c46!important;opacity:1!important}
+
+/* Navigation must communicate the current section immediately, not mid-transition. */
+#leftRail .nav::before{transition:opacity .14s ease!important}
+#leftRail .nav button.active{font-weight:500}
+
+/* Addressed Directions are visually complete at a glance. */
+.direction-entry.is-addressed{margin-inline:-7px;padding-inline:7px;border-radius:9px;background:rgba(113,128,107,.07)}
+.direction-entry.is-addressed .direction-row b{color:#5c6259}
+.direction-entry.is-addressed .direction-status{display:inline-flex;align-items:center;gap:4px;color:#475b46!important}
+.direction-entry.is-addressed .direction-status:before{content:"✓";display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#e5eee1;border:1px solid #ccd9c8;font-size:10px}
+.direction-entry.is-addressed .direction-check{box-shadow:0 0 0 2px rgba(113,128,107,.06)}
+
+/* The mode control is the one persistent mode indicator. */
+.edit-local-badge{display:none!important}
+
+/* Menu preview should show its real food photography. */
+.page-card[data-open-page="Menu"] .page-preview{background-color:#dfd8c9!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important}
+
+/* Mobile review is a real mobile website viewport, not a shrunken desktop canvas. */
+@media(max-width:640px){
+  .left{left:0!important;width:min(300px,90vw)!important;padding-left:18px!important;padding-right:14px!important;overflow-x:hidden!important;transition:transform .24s var(--ease)!important}
+  .left.open{transform:translateX(0)!important}
+  .left .nav button{padding-left:12px!important;padding-right:10px!important}
+  .context{transition:transform .24s var(--ease)!important}
+
+  .overview-body,.pages-body,.stage-body,.settings-body{padding-bottom:118px!important}
+  .context-view{padding-bottom:110px!important}
+  .mobile-dock{bottom:max(10px,env(safe-area-inset-bottom))!important}
+  .toast{bottom:78px!important}
+
+  [data-view-panel="review"] .stage{padding:0!important}
+  .resize-width{left:50%!important;top:auto!important;bottom:12px!important;transform:translateX(-50%)!important;width:min(270px,72vw)!important;z-index:42!important}
+  .resize-height{display:none!important}
+  .device-wrap{max-width:none!important;max-height:none!important}
+  .device{border-radius:var(--frame-radius,34px)!important}
+}
+</style></head>
 <body>
 <div class="shell">
   <header class="top">
@@ -664,14 +705,14 @@ function showView(name){
   qsa('[data-context]').forEach(v=>v.classList.toggle('active',v.dataset.context===name));
   const labels={overview:'Project overview',pages:'Pages',settings:'Settings',direction:'Direction · brief',build:'Build · history',review:'Review · Revision 01',launch:'Launch'};
   qs('#projectMeta').textContent=labels[name]||'Review · Revision 01';
-  requestAnimationFrame(syncNavSelection);
+  syncNavSelection();
   closeDrawers();
 }
 qsa('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
 qsa('[data-view-jump]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.viewJump)));
 qsa('[data-stage]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.stage)));
 qsa('[data-open-page]').forEach(b=>b.addEventListener('click',()=>{showView('review');selectPage(b.dataset.openPage)}));
-requestAnimationFrame(syncNavSelection);
+syncNavSelection();
 
 const settingsForm=qs('#settingsForm'),settingsKey='fourthform-mori-settings-v1';
 try{
@@ -731,10 +772,10 @@ qsa('[data-mode]').forEach(b=>b.addEventListener('click',()=>{
   asset.setAttribute('aria-disabled',browse?'true':'false');
   asset.draggable=!browse;
   applyEditMode();
-  notify(currentMode==='Edit site'?'Editing locally':browse?'Browse mode':'Review mode');
+
 }));
 const widthRange=qs('#widthRange'),heightRange=qs('#heightRange'),stage=qs('.stage');
-let viewportWidth=1024,viewportHeight=576;
+let viewportWidth=1024,viewportHeight=576;if(window.matchMedia('(max-width:640px)').matches){widthRange.value='390';heightRange.value='600';viewportWidth=390;viewportHeight=600;}
 function updateViewport(){
   viewportWidth=+widthRange.value;viewportHeight=+heightRange.value;
   qs('#widthValue').textContent=viewportWidth+' px';qs('#heightValue').textContent=viewportHeight+' px';
@@ -756,16 +797,24 @@ function updateViewport(){
   deviceWrap.style.setProperty('--tablet-chrome',tablet.toFixed(3));
   deviceWrap.style.setProperty('--laptop-chrome',laptop.toFixed(3));
   device.style.setProperty('--notch-opacity',phone.toFixed(3));
-  const availW=Math.max(110,stage.clientWidth-172),availH=Math.max(120,stage.clientHeight-154);
+  const compact=window.matchMedia('(max-width:640px)').matches;
+  const availW=Math.max(110,stage.clientWidth-(compact?24:172)),availH=Math.max(120,stage.clientHeight-(compact?76:154));
   const scale=Math.min(1,availW/outerWidth,availH/outerHeight);
   deviceWrap.style.setProperty('--fit-scale',scale);
   const rect=stage.getBoundingClientRect(),dispW=outerWidth*scale,dispH=outerHeight*scale;
-  const centerX=rect.width/2,centerY=77+(rect.height-154)/2;
+  const centerX=rect.width/2,centerY=compact?Math.max(dispH/2+8,(rect.height-62)/2):77+(rect.height-154)/2;
   deviceWrap.style.left=centerX+'px';deviceWrap.style.top=centerY+'px';
-  qs('.resize-width').style.left=Math.max(8,Math.min(rect.width-260,centerX-122))+'px';
-  qs('.resize-width').style.top=Math.max(8,centerY-dispH/2-58)+'px';
-  qs('.resize-height').style.left=Math.min(rect.width-65,centerX+dispW/2+19)+'px';
-  qs('.resize-height').style.top=Math.max(64,centerY-82)+'px';
+  if(compact){
+    qs('.resize-width').style.left='50%';
+    qs('.resize-width').style.top='auto';
+    qs('.resize-height').style.left='auto';
+    qs('.resize-height').style.top='auto';
+  }else{
+    qs('.resize-width').style.left=Math.max(8,Math.min(rect.width-260,centerX-122))+'px';
+    qs('.resize-width').style.top=Math.max(8,centerY-dispH/2-58)+'px';
+    qs('.resize-height').style.left=Math.min(rect.width-65,centerX+dispW/2+19)+'px';
+    qs('.resize-height').style.top=Math.max(64,centerY-82)+'px';
+  }
 }
 widthRange.addEventListener('input',updateViewport);heightRange.addEventListener('input',updateViewport);
 new ResizeObserver(updateViewport).observe(stage);updateViewport();
