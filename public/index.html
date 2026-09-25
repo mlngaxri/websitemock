@@ -668,6 +668,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .previewStage.portalFloating{position:fixed;z-index:1001;max-width:none;margin:0;will-change:top,left,width,height,padding}
 .previewStage.portalFloating{overflow:hidden;background:#22211e}
 .previewStage.portalFloating .previewShell{display:flex;flex-direction:column;max-width:none}
+.previewStage.portalFloating .previewShell{margin-left:0;margin-right:0}
 .previewStage.portalFloating .previewTop{flex:0 0 auto}
 .previewStage.portalFloating .portalFrame{flex:1 1 auto;height:auto!important;min-height:0!important;max-height:none!important}
 .previewStage.portalFloating:not(.portalReady) .portalFrame{pointer-events:none}
@@ -1106,7 +1107,12 @@ html.lenis{scroll-behavior:auto}
     const offset=innerWidth<=760?62:68;
     const y=window.scrollY+target.getBoundingClientRect().top-offset;
     if(lenis)lenis.scrollTo(y,{immediate:true,force:true});
-    else window.scrollTo({top:y,behavior:'auto'});
+    else {
+      const previous=document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior='auto';
+      window.scrollTo({top:y,behavior:'instant'});
+      document.documentElement.style.scrollBehavior=previous;
+    }
     history.pushState(null,'',`#${target.id}`);
     window.ScrollTrigger?.refresh();
   };
