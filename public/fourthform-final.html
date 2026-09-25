@@ -643,6 +643,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .formCard:after{animation:none}
 .step p,.priceLine p,.priceSecondary p,.first p{font-size:14px}
 .previewTop{font-size:11px;letter-spacing:.04em}
+.previewStage{position:relative;isolation:isolate;overflow:hidden;padding:clamp(20px,4.4vw,56px);border:1px solid #38362f;border-radius:23px;background:radial-gradient(ellipse 76% 66% at 50% 46%,rgba(188,155,104,.29),transparent 78%),#22211e;box-shadow:inset 0 1px rgba(255,255,255,.1),0 24px 70px rgba(33,30,24,.14)}
+.previewStage:before{content:"";position:absolute;z-index:0;inset:8% 9% 5%;border-radius:40%;background:radial-gradient(ellipse at 50% 48%,rgba(252,227,176,.68) 0%,rgba(236,195,127,.42) 36%,rgba(146,116,77,.10) 70%,transparent 85%);filter:blur(46px);pointer-events:none}
+.previewStage:after{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(140deg,rgba(255,255,255,.035),transparent 45%,rgba(0,0,0,.13));pointer-events:none}
+.previewStage .previewShell{position:relative;z-index:1;border-color:rgba(255,241,214,.58);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 52px rgba(255,212,145,.35),0 35px 75px rgba(0,0,0,.44)}
 .previewOpen{display:inline-flex;margin-top:18px;font-size:14px;color:var(--body);border-bottom:1px solid var(--line);padding-bottom:3px}
 .portalHead .body{margin-bottom:0}
 .states{height:auto;padding:145px 0 155px}.statesPin{height:auto;min-height:0;overflow:visible;background:none}
@@ -658,7 +662,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .pricingHead .body{max-width:400px}
 html.lenis{scroll-behavior:auto}
 @media(max-width:1050px){.heroGrid,.statesGrid{grid-template-columns:1fr}.hero .display{font-size:clamp(60px,8.7vw,100px)}.statesGrid{gap:46px}.stateObj{width:min(760px,100%);margin:auto}}
-@media(max-width:760px){.hero .display{font-size:clamp(50px,12.7vw,72px)}.hero .body,.body,.states .body{font-size:16px}.heroNote{margin-top:25px}.heroSite{max-width:100%}.states{padding:96px 0}.stateObj{height:410px;display:block}.stateCard{position:absolute;inset:0;height:100%}.stateMon,.stateSat{transform:none!important}.stateObj[data-state="weekday"] .stateSat{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateMon{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateSat{opacity:1!important;visibility:visible}.previewOpen{font-size:14px}.priceSecondary span,.first span{font-size:14px}}
+@media(max-width:760px){.hero .display{font-size:clamp(50px,12.7vw,72px)}.hero .body,.body,.states .body{font-size:16px}.heroNote{margin-top:25px}.heroSite{max-width:100%}.states{padding:96px 0}.stateObj{height:410px;display:block}.stateCard{position:absolute;inset:0;height:100%}.stateMon,.stateSat{transform:none!important}.stateObj[data-state="weekday"] .stateSat{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateMon{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateSat{opacity:1!important;visibility:visible}.previewStage{padding:14px;border-radius:18px}.previewStage:before{inset:12% 2%;filter:blur(29px)}.previewStage .previewShell{margin:0;box-shadow:0 0 34px rgba(255,212,145,.26),0 18px 42px rgba(0,0,0,.36)}.previewOpen{font-size:14px}.priceSecondary span,.first span{font-size:14px}}
 @media(max-width:520px){.hero .display{font-size:clamp(48px,12.3vw,62px)}.stateObj{height:330px}.hero .body{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.stateSat,.stateMon{transition:none}}
 </style></head>
@@ -666,7 +670,7 @@ html.lenis{scroll-behavior:auto}
 <a class="skipLink" href="#top">Skip to content</a>
 <nav class="nav" aria-label="Main navigation"><a class="wordmark" href="#top" aria-label="fourthform, back to top">fourthform</a><div class="navlinks"><a href="#process">Process</a><a href="#portal">Portal</a><a href="#states">States</a><a href="#pricing">Pricing</a></div><a class="btn darkbtn" href="#pricing">See pricing</a></nav>
 <main id="top">
-<section class="heroWrap"><div class="hero"><div class="container heroGrid"><div class="heroCopy"><h1 class="display"><span class="heroLine"><span>Websites,</span></span><span class="heroLine"><span><em>brought into<br>form.</em></span></span></h1><p class="body">Shape, review and launch your website in one place. The site stays in view through every decision.</p><div class="heroActions"><a class="btn darkbtn" href="#pricing">See how it works</a><a class="textlink" href="#portal">Explore the portal ↗</a></div><span class="heroNote">Three revision rounds included with every Site.</span></div><div class="heroStage" id="heroStage">
+<section class="heroWrap"><div class="hero"><div class="container heroGrid"><div class="heroCopy"><h1 class="display"><span class="heroLine"><span>Websites,</span></span><span class="heroLine"><span><em>brought into<br>form.</em></span></span></h1><p class="body">A custom website, built with you and reviewed on the page before launch.</p><div class="heroActions"><a class="btn darkbtn" href="#process">See how it works</a><a class="textlink" href="#portal">Explore the portal ↗</a></div></div><div class="heroStage" id="heroStage">
   <div class="formGlow" id="formGlow" aria-hidden="true"></div>
   <div class="formWorld" id="formWorld" aria-hidden="true">
     <div class="orbit orbitA"></div>
@@ -744,12 +748,10 @@ html.lenis{scroll-behavior:auto}
   <div class="depthLegend" aria-hidden="true"><span>Direction</span><i></i><span>Live</span></div>
   <span class="stageCaption">One website, taking form.</span>
 </div></div></div></section>
-<section class="manifesto"><div class="container manifestoGrid"><span class="kicker">The idea</span><div><h2 class="display">From brief to live,<br><em>in one place.</em></h2><p class="body">The website stays at the centre. Direction, review, revisions and launch happen around it, without disappearing into email threads and scattered folders.</p></div></div></section>
-<section class="process" id="process"><div class="container"><div class="sectionHead"><span class="kicker">Process</span><h2 class="display">Four clear stages.<br><em>One continuous place.</em></h2></div><div class="rail"><div class="line" aria-hidden="true"><i class="progress"></i></div><div class="step"><span>01</span><h3>Direction</h3><p>Tell us what the site needs to do.</p></div><div class="step"><span>02</span><h3>Build</h3><p>See your direction take shape.</p></div><div class="step"><span>03</span><h3>Review</h3><p>Comment on the actual website.</p></div><div class="step"><span>04</span><h3>Launch</h3><p>Approve the site and make it live.</p></div></div></div></section>
-<section class="portalSec" id="portal"><div class="container"><div class="portalHead"><h2 class="display">Review the site itself.<br><em>Not screenshots in email.</em></h2><p class="body">Explore a restricted preview of the Fourthform workspace. Switch pages, resize the website and leave a Direction on the page.</p></div><div class="previewShell"><div class="previewTop"><span>Interactive portal preview</span><span>Fictional project · no account needed</span></div><iframe class="portalFrame" src="/fourthform-portal.html" title="Interactive Fourthform portal preview" loading="lazy"></iframe></div><a class="previewOpen" href="/fourthform-portal.html" target="_blank" rel="noopener">Open the full preview ↗</a></div></section>
+<section class="process" id="process"><div class="container"><div class="sectionHead"><span class="kicker">Process</span><h2 class="display">From direction<br><em>to launch.</em></h2></div><div class="rail"><div class="line" aria-hidden="true"><i class="progress"></i></div><div class="step"><span>01</span><h3>Direction</h3><p>Tell us what the site needs to do.</p></div><div class="step"><span>02</span><h3>Build</h3><p>See it take shape.</p></div><div class="step"><span>03</span><h3>Review</h3><p>Comment directly on the site.</p></div><div class="step"><span>04</span><h3>Launch</h3><p>Approve and go live.</p></div></div></div></section>
+<section class="portalSec" id="portal"><div class="container"><div class="portalHead"><h2 class="display">Review the site<br><em>on the site.</em></h2><p class="body">Switch pages, resize the preview and leave feedback exactly where it belongs.</p></div><div class="previewStage"><div class="previewShell"><div class="previewTop"><span>Interactive portal preview</span><span>Sample project · no sign-in</span></div><iframe class="portalFrame" src="/fourthform-portal.html" title="Interactive Fourthform portal preview" loading="lazy"></iframe></div></div><a class="previewOpen" href="/fourthform-portal.html" target="_blank" rel="noopener">Open the full preview ↗</a></div></section>
 <section class="states" id="states"><div class="statesPin"><div class="container statesGrid"><div><span class="kicker">States / Pro</span><h2 class="display">The same site.<br><em>A different moment.</em></h2><p class="body">Schedule a version of your website for a particular day, then return to the default automatically.</p><div class="stateControls" role="group" aria-label="Preview Mori House website state"><button type="button" aria-pressed="true" data-state="weekday">Weekday</button><button type="button" aria-pressed="false" data-state="saturday">Saturday</button></div></div><div class="stateObj" data-state="weekday"><div class="stateCard stateMon"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · WEEKDAY</small><h3>Dinner,<br>unhurried.</h3><p>Tuesday to Friday, from the first drink to the last course.</p></div><div class="mimage"></div></div></div><div class="stateCard stateSat sat"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · SATURDAY</small><h3>A longer lunch.<br>More time at the table.</h3><p>Saturday lunch extends into the afternoon before evening service.</p></div><div class="mimage"></div></div></div></div></div></div></section>
 <section class="pricing" id="pricing"><div class="container"><div class="pricingHead"><h2 class="display">One website.<br><em>A$1,500.</em></h2><p class="body">Start with A$200. Pay the remaining A$1,300 when you approve the finished site. Three revision rounds are included.</p></div><div class="priceLine"><span>Site</span><strong>A$1,500 <small>once</small></strong><p>Up to five custom pages, responsive design, content editing, forms, initial SEO, analytics, Core and launch.</p></div><div class="priceSecondary"><div><span>After launch / Core</span><strong>Included</strong><p>Hosting, editing, a custom domain connection and basic analytics.</p></div><div><span>Optional / Pro</span><strong>A$39 / month</strong><p>Scheduled States, deeper analytics, heatmaps and automated recommendations.</p></div></div><div class="first"><span>Just opened?</span><p>New businesses may qualify for Fourthform First. Same standard, smaller one-page scope.</p><strong>A$199</strong></div></div></section>
-<section class="final"><div class="container finalGrid"><h2 class="display">Bring it<br><em>into form.</em></h2><div><p class="body">Your references, rough ideas and existing content all have a place in the first Direction.</p><a class="btn darkbtn" href="#portal">Explore the workspace</a></div></div></section>
 </main>
 <footer class="footer"><div class="container"><b>fourthform</b><span>Websites, brought into form.</span><span>Brisbane, Australia</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
@@ -777,7 +779,7 @@ html.lenis{scroll-behavior:auto}
     gsap.timeline({defaults:{ease:'power3.out'}})
       .from('.heroLine>span',{autoAlpha:0,y:28,duration:.95,stagger:.12},0)
       .from('.heroCopy .body',{autoAlpha:0,y:22,duration:.72},.24)
-      .from('.heroActions,.heroNote',{autoAlpha:0,y:15,duration:.65,stagger:.08},.38)
+      .from('.heroActions',{autoAlpha:0,y:15,duration:.65},.38)
       .from('.formWorld',{autoAlpha:0,duration:1.1},.1)
       .from('.heroSite',{autoAlpha:0,y:26,scale:.98,duration:1.05},.17)
       .from('.formMeta,.stageCaption',{autoAlpha:0,y:8,duration:.6,stagger:.06},.68);
@@ -792,17 +794,15 @@ html.lenis{scroll-behavior:auto}
         y:26,autoAlpha:.78,duration:.9,ease:'power3.out',...options,
         scrollTrigger:{trigger,start:'top 78%',once:true}
       });
-      enter('.manifesto h2,.manifesto p','.manifesto',{stagger:.12});
       enter('.sectionHead .display','.process');
       enter('.step','.rail',{stagger:.12,y:20,duration:.7});
       gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.rail',start:'top 80%',end:'bottom 45%',scrub:true}});
       enter('.portalHead .display,.portalHead .body','.portalSec',{stagger:.12});
-      gsap.from('.previewShell',{y:42,scale:.975,autoAlpha:.85,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:'.portalSec',start:'top 58%',once:true}});
+      gsap.from('.previewStage',{y:34,autoAlpha:.86,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:'.portalSec',start:'top 58%',once:true}});
       enter('.states .display,.states .body,.stateControls','.states',{stagger:.1});
       gsap.from('.stateObj',{x:32,autoAlpha:.7,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.states',start:'top 60%',once:true}});
       enter('.pricingHead .display,.pricingHead .body','.pricing',{stagger:.1});
       enter('.priceLine','.priceLine',{y:22});
-      enter('.finalGrid>*','.final',{stagger:.12});
       addEventListener('load',()=>ScrollTrigger.refresh(),{once:true});
       document.fonts?.ready.then(()=>ScrollTrigger.refresh());
     }
