@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
 <link rel="prefetch" href="/fourthform-portal.html" as="document">
 <style>
 :root{--paper:#F3F1EB;--surface:#FAF9F5;--ink:#171715;--body:#6F6C64;--muted:#918E86;--line:#D8D5CC;--dark:#20201D;--cream:#F4F1E9;--accent:#665CF6;--sans:"Instrument Sans",sans-serif;--serif:"Instrument Serif",serif;--ease:cubic-bezier(.22,1,.36,1)}
@@ -653,7 +654,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .stateMon{transition:opacity .45s ease,visibility .45s ease}
 .stateObj[data-state="saturday"] .stateSat{opacity:1;visibility:visible;pointer-events:auto}
 .stateObj[data-state="saturday"] .stateMon{opacity:0;visibility:hidden;pointer-events:none}
+.stateObj .mimage{transform-origin:center center}
 .pricingHead .body{max-width:400px}
+html.lenis{scroll-behavior:auto}
 @media(max-width:1050px){.heroGrid,.statesGrid{grid-template-columns:1fr}.hero .display{font-size:clamp(60px,8.7vw,100px)}.statesGrid{gap:46px}.stateObj{width:min(760px,100%);margin:auto}}
 @media(max-width:760px){.hero .display{font-size:clamp(50px,12.7vw,72px)}.hero .body,.body,.states .body{font-size:16px}.heroNote{margin-top:25px}.heroSite{max-width:100%}.states{padding:96px 0}.stateObj{height:410px;display:block}.stateCard{position:absolute;inset:0;height:100%}.stateMon,.stateSat{transform:none!important}.stateObj[data-state="weekday"] .stateSat{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateMon{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateSat{opacity:1!important;visibility:visible}.previewOpen{font-size:14px}.priceSecondary span,.first span{font-size:14px}}
 @media(max-width:520px){.hero .display{font-size:clamp(48px,12.3vw,62px)}.stateObj{height:330px}.hero .body{font-size:16px}}
@@ -751,28 +754,70 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 <footer class="footer"><div class="container"><b>fourthform</b><span>Websites, brought into form.</span><span>Brisbane, Australia</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
 <script>
 (()=>{
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!reduce&&window.gsap){
-    gsap.from('.heroLine>span',{opacity:0,y:20,duration:.8,stagger:.08,ease:'power3.out'});
-    gsap.from('.heroCopy .body,.heroActions,.heroNote',{opacity:0,y:15,duration:.7,stagger:.08,delay:.15,ease:'power3.out'});
-    gsap.from('.heroSite',{opacity:0,y:28,duration:1,delay:.15,ease:'power3.out'});
-    if(window.ScrollTrigger){
-      gsap.registerPlugin(ScrollTrigger);
-      if(innerWidth>1050){
-        gsap.timeline({scrollTrigger:{trigger:'.heroWrap',start:'top top',end:'bottom bottom',scrub:1}})
-          .to('.heroCopy',{opacity:.18,y:-20,ease:'none'},0)
-          .to('.heroSite',{width:'min(950px,88vw)',height:'min(620px,66vh)',borderRadius:12,y:18,ease:'none'},0);
+  const finePointer=matchMedia('(pointer: fine)').matches;
+  const canAnimate=!reduce&&!!window.gsap;
+  let lenis;
+
+  if(canAnimate){
+    if(window.ScrollTrigger)gsap.registerPlugin(ScrollTrigger);
+    // Wheel smoothing is limited to desktop. Touch scrolling and reduced motion stay native.
+    if(finePointer&&innerWidth>760&&window.Lenis){
+      lenis=new Lenis({lerp:.085,smoothWheel:true,wheelMultiplier:.9,anchors:true,allowNestedScroll:true,autoRaf:!window.ScrollTrigger});
+      if(window.ScrollTrigger){
+        lenis.on('scroll',ScrollTrigger.update);
+        gsap.ticker.add(time=>lenis.raf(time*1000));
+        gsap.ticker.lagSmoothing(0);
       }
-      gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.rail',start:'top 80%',end:'bottom 48%',scrub:true}});
+    }
+
+    gsap.timeline({defaults:{ease:'power3.out'}})
+      .from('.heroLine>span',{autoAlpha:0,y:28,duration:.95,stagger:.12},0)
+      .from('.heroCopy .body',{autoAlpha:0,y:22,duration:.72},.24)
+      .from('.heroActions,.heroNote',{autoAlpha:0,y:15,duration:.65,stagger:.08},.38)
+      .from('.formWorld',{autoAlpha:0,duration:1.1},.1)
+      .from('.heroSite',{autoAlpha:0,y:26,scale:.98,duration:1.05},.17)
+      .from('.formMeta,.stageCaption',{autoAlpha:0,y:8,duration:.6,stagger:.06},.68);
+
+    if(window.ScrollTrigger){
+      gsap.matchMedia().add('(min-width: 1051px)',()=>{
+        gsap.timeline({scrollTrigger:{trigger:'.heroWrap',start:'top top',end:'bottom bottom',scrub:1.1,invalidateOnRefresh:true}})
+          .to('.heroCopy',{autoAlpha:.18,y:-22,ease:'none'},0)
+          .to('.heroSite',{width:'min(950px,88vw)',height:'min(620px,66vh)',borderRadius:12,ease:'none'},0);
+      });
+      const enter=(targets,trigger,options={})=>gsap.from(targets,{
+        y:26,autoAlpha:.78,duration:.9,ease:'power3.out',...options,
+        scrollTrigger:{trigger,start:'top 78%',once:true}
+      });
+      enter('.manifesto h2,.manifesto p','.manifesto',{stagger:.12});
+      enter('.sectionHead .display','.process');
+      enter('.step','.rail',{stagger:.12,y:20,duration:.7});
+      gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.rail',start:'top 80%',end:'bottom 45%',scrub:true}});
+      enter('.portalHead .display,.portalHead .body','.portalSec',{stagger:.12});
+      gsap.from('.previewShell',{y:42,scale:.975,autoAlpha:.85,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:'.portalSec',start:'top 58%',once:true}});
+      enter('.states .display,.states .body,.stateControls','.states',{stagger:.1});
+      gsap.from('.stateObj',{x:32,autoAlpha:.7,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.states',start:'top 60%',once:true}});
+      enter('.pricingHead .display,.pricingHead .body','.pricing',{stagger:.1});
+      enter('.priceLine','.priceLine',{y:22});
+      enter('.finalGrid>*','.final',{stagger:.12});
+      addEventListener('load',()=>ScrollTrigger.refresh(),{once:true});
+      document.fonts?.ready.then(()=>ScrollTrigger.refresh());
     }
   }
+
   const state=document.querySelector('.stateObj');
   const buttons=[...document.querySelectorAll('.stateControls button')];
   buttons.forEach(button=>button.addEventListener('click',()=>{
+    if(state.dataset.state===button.dataset.state)return;
     state.dataset.state=button.dataset.state;
     buttons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+    if(!canAnimate)return;
+    const next=state.querySelector(button.dataset.state==='saturday'?'.stateSat':'.stateMon');
+    gsap.fromTo(next.querySelector('.mcopy'),{y:18,autoAlpha:.65},{y:0,autoAlpha:1,duration:.65,ease:'power3.out',overwrite:true});
+    gsap.fromTo(next.querySelector('.mimage'),{scale:1.035},{scale:1,duration:.9,ease:'power2.out',overwrite:true});
   }));
 })();
 </script>
@@ -804,7 +849,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   let targetX=0,targetY=0,x=0,y=0,scroll=0,visible=true,hover=0;
   function scrollProgress(){
     const r=heroWrap?.getBoundingClientRect();
-    if(!r||innerWidth<=1050){scroll=0;return}
+    if(reduce||!r||innerWidth<=1050){scroll=0;return}
     const travel=Math.max(1,r.height-innerHeight);
     scroll=clamp(-r.top/travel,0,1);
   }
@@ -828,8 +873,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 
   let last=performance.now();
   function tick(now){
-    if(!visible){setTimeout(()=>requestAnimationFrame(tick),250);return}
-    requestAnimationFrame(tick);
+    if(!visible){if(!reduce)setTimeout(()=>requestAnimationFrame(tick),250);return}
+    if(!reduce)requestAnimationFrame(tick);
     const dt=Math.min(.035,(now-last)/1000);last=now;
     const spring=1-Math.pow(.0007,dt);
     x+=(targetX-x)*spring;
@@ -883,8 +928,5 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   }
   requestAnimationFrame(tick);
 
-  if(window.gsap&&!reduce){
-    gsap.from(cards,{opacity:0,y:34,scale:.78,rotationX:12,duration:1.15,stagger:.065,ease:'expo.out',delay:.08});
-  }
 })();
 </script></body></html>
