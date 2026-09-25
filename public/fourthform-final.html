@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css"><link rel="prefetch" href="/fourthform-portal.html" as="document">
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
+<link rel="prefetch" href="/fourthform-portal.html" as="document">
 <style>
 :root{--paper:#F3F1EB;--surface:#FAF9F5;--ink:#171715;--body:#6F6C64;--muted:#918E86;--line:#D8D5CC;--dark:#20201D;--cream:#F4F1E9;--accent:#665CF6;--sans:"Instrument Sans",sans-serif;--serif:"Instrument Serif",serif;--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box}html{background:var(--paper);scroll-behavior:auto}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.015;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E")}a{color:inherit;text-decoration:none}.container{width:min(1280px,calc(100% - 56px));margin:0 auto}
@@ -623,11 +624,49 @@ img,video,iframe{max-width:100%}
   .formCard:after{animation:none}
   .formWorld,.heroSiteWrap{transform:none!important}
 }
+</style><style id="ff-shiro-refinement">
+/* Keep the website as the visual centre while making copy and controls legible. */
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.skipLink{position:fixed;top:-100px;left:16px;z-index:200;background:var(--ink);color:var(--surface);padding:10px 16px}
+.skipLink:focus{top:12px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.navlinks a,.btn,.textlink{font-size:14px}
+.navlinks a{transition:color .2s ease}.navlinks a:hover{color:var(--ink)}
+.darkbtn:hover{background:#343430}
+.kicker,.step span,.priceLine>span{font-size:12px}
+.heroGrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,5vw,72px)}
+.heroCopy{min-width:0}.hero .display{font-size:clamp(58px,6vw,92px);line-height:.96;max-width:660px}
+.heroLine{overflow:visible;padding:0;margin:0}.hero .body{max-width:440px;margin-top:25px}
+.heroNote{display:block;width:max-content;max-width:100%;border-top:1px solid var(--line);padding-top:12px;margin-top:30px;color:var(--muted);font-size:12px}
+.heroStage{min-width:0}.heroSite{max-width:100%}
+.formCard:after{animation:none}
+.step p,.priceLine p,.priceSecondary p,.first p{font-size:14px}
+.previewTop{font-size:11px;letter-spacing:.04em}
+.previewOpen{display:inline-flex;margin-top:18px;font-size:14px;color:var(--body);border-bottom:1px solid var(--line);padding-bottom:3px}
+.portalHead .body{margin-bottom:0}
+.states{height:auto;padding:145px 0 155px}.statesPin{height:auto;min-height:0;overflow:visible;background:none}
+.stateControls{display:inline-flex;gap:4px;border:1px solid #68655d;border-radius:999px;padding:4px;margin-top:32px}
+.stateControls button{appearance:none;border:0;border-radius:999px;background:transparent;color:#cbc5ba;font:500 13px var(--sans);padding:10px 18px;cursor:pointer;transition:background .25s,color .25s}
+.stateControls button[aria-pressed="true"]{background:#f3f1eb;color:#20201d}
+.stateControls button:hover:not([aria-pressed="true"]){color:white}
+.stateObj{height:575px}.stateSat{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease,visibility .45s ease}
+.stateMon{transition:opacity .45s ease,visibility .45s ease}
+.stateObj[data-state="saturday"] .stateSat{opacity:1;visibility:visible;pointer-events:auto}
+.stateObj[data-state="saturday"] .stateMon{opacity:0;visibility:hidden;pointer-events:none}
+.stateObj .mimage{transform-origin:center center}
+.pricingHead .body{max-width:400px}
+html.lenis{scroll-behavior:auto}
+@media(max-width:1050px){.heroGrid,.statesGrid{grid-template-columns:1fr}.hero .display{font-size:clamp(60px,8.7vw,100px)}.statesGrid{gap:46px}.stateObj{width:min(760px,100%);margin:auto}}
+@media(max-width:760px){.hero .display{font-size:clamp(50px,12.7vw,72px)}.hero .body,.body,.states .body{font-size:16px}.heroNote{margin-top:25px}.heroSite{max-width:100%}.states{padding:96px 0}.stateObj{height:410px;display:block}.stateCard{position:absolute;inset:0;height:100%}.stateMon,.stateSat{transform:none!important}.stateObj[data-state="weekday"] .stateSat{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateMon{opacity:0!important;visibility:hidden}.stateObj[data-state="saturday"] .stateSat{opacity:1!important;visibility:visible}.previewOpen{font-size:14px}.priceSecondary span,.first span{font-size:14px}}
+@media(max-width:520px){.hero .display{font-size:clamp(48px,12.3vw,62px)}.stateObj{height:330px}.hero .body{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.stateSat,.stateMon{transition:none}}
 </style></head>
 <body>
-<nav class="nav"><a class="wordmark" href="#top">fourthform</a><div class="navlinks"><a href="#process">Process</a><a href="#portal">Portal</a><a href="#states">States</a><a href="#pricing">Pricing</a></div><a class="btn darkbtn" href="#pricing">Start a site</a></nav>
+<a class="skipLink" href="#top">Skip to content</a>
+<nav class="nav" aria-label="Main navigation"><a class="wordmark" href="#top" aria-label="fourthform, back to top">fourthform</a><div class="navlinks"><a href="#process">Process</a><a href="#portal">Portal</a><a href="#states">States</a><a href="#pricing">Pricing</a></div><a class="btn darkbtn" href="#pricing">See pricing</a></nav>
 <main id="top">
-<section class="heroWrap"><div class="hero"><div class="container heroGrid"><div class="heroCopy"><h1 class="display"><span class="heroLine"><span>Websites,</span></span><span class="heroLine"><span><em>brought into form.</em></span></span></h1><p class="body">From the first direction to the live site, Fourthform gives you one place to shape, review, launch and keep your website current.</p><div class="heroActions"><a class="btn darkbtn" href="#pricing">Start a site</a><a class="textlink" href="#portal">Explore the portal ↘</a></div></div><div class="heroStage" id="heroStage">
+<section class="heroWrap"><div class="hero"><div class="container heroGrid"><div class="heroCopy"><h1 class="display"><span class="heroLine"><span>Websites,</span></span><span class="heroLine"><span><em>brought into<br>form.</em></span></span></h1><p class="body">Shape, review and launch your website in one place. The site stays in view through every decision.</p><div class="heroActions"><a class="btn darkbtn" href="#pricing">See how it works</a><a class="textlink" href="#portal">Explore the portal ↗</a></div><span class="heroNote">Three revision rounds included with every Site.</span></div><div class="heroStage" id="heroStage">
   <div class="formGlow" id="formGlow" aria-hidden="true"></div>
   <div class="formWorld" id="formWorld" aria-hidden="true">
     <div class="orbit orbitA"></div>
@@ -706,18 +745,81 @@ img,video,iframe{max-width:100%}
   <span class="stageCaption">One website, taking form.</span>
 </div></div></div></section>
 <section class="manifesto"><div class="container manifestoGrid"><span class="kicker">The idea</span><div><h2 class="display">From brief to live,<br><em>in one place.</em></h2><p class="body">The website stays at the centre. Direction, review, revisions and launch happen around it, without disappearing into email threads and scattered folders.</p></div></div></section>
-<section class="process" id="process"><div class="container"><div class="sectionHead"><span class="kicker">Process</span><h2 class="display">Four clear stages.<br><em>Nothing to decode.</em></h2></div><div class="rail"><div class="line"><i class="progress"></i></div><div class="step"><span>01</span><h3>Direction</h3><p>Show us what you mean.</p></div><div class="step"><span>02</span><h3>Build</h3><p>We turn it into the site.</p></div><div class="step"><span>03</span><h3>Review</h3><p>Comment on the real website.</p></div><div class="step"><span>04</span><h3>Live</h3><p>Approve, connect and launch.</p></div></div></div></section>
-<section class="portalSec" id="portal"><div class="container"><div class="portalHead"><h2 class="display">The website stays<br><em>in the middle.</em></h2><p class="body">This is the restricted Fourthform portal preview. Resize the site, add a Direction, or try the replacement interaction.</p></div><div class="previewShell"><div class="previewTop"><span>Interactive portal preview</span><span>Fixed demo data · no account required</span></div><iframe class="portalFrame" src="/fourthform-portal.html" title="Interactive Fourthform portal preview" loading="eager"></iframe></div><a class="previewOpen" href="/fourthform-portal.html" target="_blank" rel="noopener">Open portal preview full screen ↗</a></div></section>
-<section class="states" id="states"><div class="statesPin"><div class="container statesGrid"><div><span class="kicker">States · Pro</span><h2 class="display">Monday isn’t<br><em>Saturday.</em></h2><p class="body">Your website can change with the moment, then return to default automatically.</p><div class="stateLabel"><span>Monday</span><span>Saturday</span></div></div><div class="stateObj"><div class="stateCard stateMon"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · MONDAY</small><h3>A table worth<br>staying for.</h3><p>Dinner service from 5:30 PM.</p></div><div class="mimage"></div></div></div><div class="stateCard stateSat sat"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · SATURDAY</small><h3>A longer lunch.<br>More time at the table.</h3><p>Saturday lunch extends into the afternoon before evening service.</p></div><div class="mimage"></div></div></div></div></div></div></section>
-<section class="pricing" id="pricing"><div class="container"><div class="pricingHead"><h2 class="display">A website costs<br><em>A$1,500.</em></h2><p class="body">A$200 starts the project. A$1,300 is due when you approve the finished website for launch.</p></div><div class="priceLine"><span>Site</span><strong>A$1,500 <small>once</small></strong><p>Up to 5 custom pages, responsive design, forms, initial SEO, analytics, the client portal, Core and three revision rounds.</p></div><div class="priceSecondary"><div><span>Core</span><strong>Included</strong><p>Everything needed to own and manage the site after launch.</p></div><div><span>Pro</span><strong>A$39 / month</strong><p>States, deeper analytics, heatmaps and automated recommendations.</p></div></div><div class="first"><span>Fourthform First</span><p>For genuinely new businesses, a smaller one-page scope.</p><strong>A$199</strong></div></div></section>
-<section class="final"><div class="container finalGrid"><h2 class="display">Bring it<br><em>into form.</em></h2><div><p class="body">Start with the business, the references, the rough ideas and the things you already have.</p><a class="btn darkbtn" href="#pricing">Start a site</a></div></div></section>
+<section class="process" id="process"><div class="container"><div class="sectionHead"><span class="kicker">Process</span><h2 class="display">Four clear stages.<br><em>One continuous place.</em></h2></div><div class="rail"><div class="line" aria-hidden="true"><i class="progress"></i></div><div class="step"><span>01</span><h3>Direction</h3><p>Tell us what the site needs to do.</p></div><div class="step"><span>02</span><h3>Build</h3><p>See your direction take shape.</p></div><div class="step"><span>03</span><h3>Review</h3><p>Comment on the actual website.</p></div><div class="step"><span>04</span><h3>Launch</h3><p>Approve the site and make it live.</p></div></div></div></section>
+<section class="portalSec" id="portal"><div class="container"><div class="portalHead"><h2 class="display">Review the site itself.<br><em>Not screenshots in email.</em></h2><p class="body">Explore a restricted preview of the Fourthform workspace. Switch pages, resize the website and leave a Direction on the page.</p></div><div class="previewShell"><div class="previewTop"><span>Interactive portal preview</span><span>Fictional project · no account needed</span></div><iframe class="portalFrame" src="/fourthform-portal.html" title="Interactive Fourthform portal preview" loading="lazy"></iframe></div><a class="previewOpen" href="/fourthform-portal.html" target="_blank" rel="noopener">Open the full preview ↗</a></div></section>
+<section class="states" id="states"><div class="statesPin"><div class="container statesGrid"><div><span class="kicker">States / Pro</span><h2 class="display">The same site.<br><em>A different moment.</em></h2><p class="body">Schedule a version of your website for a particular day, then return to the default automatically.</p><div class="stateControls" role="group" aria-label="Preview Mori House website state"><button type="button" aria-pressed="true" data-state="weekday">Weekday</button><button type="button" aria-pressed="false" data-state="saturday">Saturday</button></div></div><div class="stateObj" data-state="weekday"><div class="stateCard stateMon"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · WEEKDAY</small><h3>Dinner,<br>unhurried.</h3><p>Tuesday to Friday, from the first drink to the last course.</p></div><div class="mimage"></div></div></div><div class="stateCard stateSat sat"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · SATURDAY</small><h3>A longer lunch.<br>More time at the table.</h3><p>Saturday lunch extends into the afternoon before evening service.</p></div><div class="mimage"></div></div></div></div></div></div></section>
+<section class="pricing" id="pricing"><div class="container"><div class="pricingHead"><h2 class="display">One website.<br><em>A$1,500.</em></h2><p class="body">Start with A$200. Pay the remaining A$1,300 when you approve the finished site. Three revision rounds are included.</p></div><div class="priceLine"><span>Site</span><strong>A$1,500 <small>once</small></strong><p>Up to five custom pages, responsive design, content editing, forms, initial SEO, analytics, Core and launch.</p></div><div class="priceSecondary"><div><span>After launch / Core</span><strong>Included</strong><p>Hosting, editing, a custom domain connection and basic analytics.</p></div><div><span>Optional / Pro</span><strong>A$39 / month</strong><p>Scheduled States, deeper analytics, heatmaps and automated recommendations.</p></div></div><div class="first"><span>Just opened?</span><p>New businesses may qualify for Fourthform First. Same standard, smaller one-page scope.</p><strong>A$199</strong></div></div></section>
+<section class="final"><div class="container finalGrid"><h2 class="display">Bring it<br><em>into form.</em></h2><div><p class="body">Your references, rough ideas and existing content all have a place in the first Direction.</p><a class="btn darkbtn" href="#portal">Explore the workspace</a></div></div></section>
 </main>
 <footer class="footer"><div class="container"><b>fourthform</b><span>Websites, brought into form.</span><span>Brisbane, Australia</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
 <script>
-(()=>{const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!window.gsap||!window.ScrollTrigger||reduce)return;gsap.registerPlugin(ScrollTrigger);const lenis=new Lenis({lerp:.09,smoothWheel:true,wheelMultiplier:.88,anchors:true,autoRaf:false});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);const intro=gsap.timeline({defaults:{ease:'power4.out'}});intro.from('.heroLine>span',{yPercent:112,duration:1.05,stagger:.07}).from('.heroCopy .body',{opacity:0,y:18,duration:.72},.24).from('.heroActions',{opacity:0,y:14,duration:.62},.34).from('.formSculpture',{opacity:0,duration:1.1,ease:'expo.out'},.02).from('.heroSite',{opacity:0,y:52,scale:.955,duration:1.1,ease:'expo.out'},.12).from('.formMeta,.stageCaption',{opacity:0,y:8,duration:.65,stagger:.04},.68);if(innerWidth>1050){gsap.timeline({scrollTrigger:{trigger:'.heroWrap',start:'top top',end:'bottom bottom',scrub:1.1}}).to('.heroCopy',{opacity:.12,y:-24,ease:'none'},0).to('.heroSite',{width:'min(1040px,92vw)',height:'min(680px,69vh)',borderRadius:10,y:28,ease:'none'},0)};gsap.from('.manifesto h2',{y:42,opacity:0,duration:1,ease:'power4.out',scrollTrigger:{trigger:'.manifesto',start:'top 72%'}});gsap.from('.manifesto p',{y:22,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.manifesto',start:'top 64%'}});gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.process',start:'top 62%',end:'bottom 58%',scrub:1}});gsap.from('.step',{y:24,opacity:0,stagger:.08,duration:.72,ease:'power3.out',scrollTrigger:{trigger:'.rail',start:'top 80%'}});gsap.fromTo('.previewShell',{scale:.945,y:62,opacity:.45},{scale:1,y:0,opacity:1,ease:'none',scrollTrigger:{trigger:'.portalSec',start:'top 72%',end:'top 22%',scrub:1.05}});if(innerWidth>760){const states=gsap.timeline({scrollTrigger:{trigger:'.states',start:'top top',end:'+=105%',scrub:1,pin:'.statesPin',anticipatePin:1}});states.to('.stateMon',{opacity:0,scale:.985,ease:'none'},.12).fromTo('.stateSat',{opacity:0,scale:1.015},{opacity:1,scale:1,ease:'none'},.18).to('.stateLabel span:first-child',{opacity:.28},.18).to('.stateLabel span:last-child',{opacity:1},.18)}gsap.from('.priceLine',{clipPath:'inset(0 100% 0 0)',duration:1.05,ease:'power4.inOut',scrollTrigger:{trigger:'.pricing',start:'top 72%'}});gsap.from('.finalGrid>*',{y:32,opacity:0,stagger:.08,duration:.9,ease:'power4.out',scrollTrigger:{trigger:'.final',start:'top 70%'}});addEventListener('load',()=>ScrollTrigger.refresh(true),{once:true})})();
+(()=>{
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer=matchMedia('(pointer: fine)').matches;
+  const canAnimate=!reduce&&!!window.gsap;
+  let lenis;
+
+  if(canAnimate){
+    if(window.ScrollTrigger)gsap.registerPlugin(ScrollTrigger);
+    // Wheel smoothing is limited to desktop. Touch scrolling and reduced motion stay native.
+    if(finePointer&&innerWidth>760&&window.Lenis){
+      lenis=new Lenis({lerp:.085,smoothWheel:true,wheelMultiplier:.9,anchors:true,allowNestedScroll:true,autoRaf:!window.ScrollTrigger});
+      if(window.ScrollTrigger){
+        lenis.on('scroll',ScrollTrigger.update);
+        gsap.ticker.add(time=>lenis.raf(time*1000));
+        gsap.ticker.lagSmoothing(0);
+      }
+    }
+
+    gsap.timeline({defaults:{ease:'power3.out'}})
+      .from('.heroLine>span',{autoAlpha:0,y:28,duration:.95,stagger:.12},0)
+      .from('.heroCopy .body',{autoAlpha:0,y:22,duration:.72},.24)
+      .from('.heroActions,.heroNote',{autoAlpha:0,y:15,duration:.65,stagger:.08},.38)
+      .from('.formWorld',{autoAlpha:0,duration:1.1},.1)
+      .from('.heroSite',{autoAlpha:0,y:26,scale:.98,duration:1.05},.17)
+      .from('.formMeta,.stageCaption',{autoAlpha:0,y:8,duration:.6,stagger:.06},.68);
+
+    if(window.ScrollTrigger){
+      gsap.matchMedia().add('(min-width: 1051px)',()=>{
+        gsap.timeline({scrollTrigger:{trigger:'.heroWrap',start:'top top',end:'bottom bottom',scrub:1.1,invalidateOnRefresh:true}})
+          .to('.heroCopy',{autoAlpha:.18,y:-22,ease:'none'},0)
+          .to('.heroSite',{width:'min(950px,88vw)',height:'min(620px,66vh)',borderRadius:12,ease:'none'},0);
+      });
+      const enter=(targets,trigger,options={})=>gsap.from(targets,{
+        y:26,autoAlpha:.78,duration:.9,ease:'power3.out',...options,
+        scrollTrigger:{trigger,start:'top 78%',once:true}
+      });
+      enter('.manifesto h2,.manifesto p','.manifesto',{stagger:.12});
+      enter('.sectionHead .display','.process');
+      enter('.step','.rail',{stagger:.12,y:20,duration:.7});
+      gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.rail',start:'top 80%',end:'bottom 45%',scrub:true}});
+      enter('.portalHead .display,.portalHead .body','.portalSec',{stagger:.12});
+      gsap.from('.previewShell',{y:42,scale:.975,autoAlpha:.85,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:'.portalSec',start:'top 58%',once:true}});
+      enter('.states .display,.states .body,.stateControls','.states',{stagger:.1});
+      gsap.from('.stateObj',{x:32,autoAlpha:.7,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.states',start:'top 60%',once:true}});
+      enter('.pricingHead .display,.pricingHead .body','.pricing',{stagger:.1});
+      enter('.priceLine','.priceLine',{y:22});
+      enter('.finalGrid>*','.final',{stagger:.12});
+      addEventListener('load',()=>ScrollTrigger.refresh(),{once:true});
+      document.fonts?.ready.then(()=>ScrollTrigger.refresh());
+    }
+  }
+
+  const state=document.querySelector('.stateObj');
+  const buttons=[...document.querySelectorAll('.stateControls button')];
+  buttons.forEach(button=>button.addEventListener('click',()=>{
+    if(state.dataset.state===button.dataset.state)return;
+    state.dataset.state=button.dataset.state;
+    buttons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+    if(!canAnimate)return;
+    const next=state.querySelector(button.dataset.state==='saturday'?'.stateSat':'.stateMon');
+    gsap.fromTo(next.querySelector('.mcopy'),{y:18,autoAlpha:.65},{y:0,autoAlpha:1,duration:.65,ease:'power3.out',overwrite:true});
+    gsap.fromTo(next.querySelector('.mimage'),{scale:1.035},{scale:1,duration:.9,ease:'power2.out',overwrite:true});
+  }));
+})();
 </script>
 <script id="ff-hero-3d-script">
 (()=>{
@@ -747,7 +849,7 @@ img,video,iframe{max-width:100%}
   let targetX=0,targetY=0,x=0,y=0,scroll=0,visible=true,hover=0;
   function scrollProgress(){
     const r=heroWrap?.getBoundingClientRect();
-    if(!r||innerWidth<=1050){scroll=0;return}
+    if(reduce||!r||innerWidth<=1050){scroll=0;return}
     const travel=Math.max(1,r.height-innerHeight);
     scroll=clamp(-r.top/travel,0,1);
   }
@@ -771,8 +873,8 @@ img,video,iframe{max-width:100%}
 
   let last=performance.now();
   function tick(now){
-    requestAnimationFrame(tick);
-    if(!visible)return;
+    if(!visible){if(!reduce)setTimeout(()=>requestAnimationFrame(tick),250);return}
+    if(!reduce)requestAnimationFrame(tick);
     const dt=Math.min(.035,(now-last)/1000);last=now;
     const spring=1-Math.pow(.0007,dt);
     x+=(targetX-x)*spring;
@@ -787,8 +889,8 @@ img,video,iframe{max-width:100%}
     cards.forEach((card,i)=>{
       const c=layouts[i];
       const phase=time+i*.94;
-      const breathe=reduce?0:Math.sin(phase)*7*disperse;
-      const breatheY=reduce?0:Math.cos(phase*.78)*6*disperse;
+      const breathe=reduce?0:Math.sin(phase)*4*disperse*hover;
+      const breatheY=reduce?0:Math.cos(phase*.78)*4*disperse*hover;
       const side=i%2?1:-1;
 
       const targetPx=c.x*disperse*scale + breathe + x*side*(12+i*1.5)*disperse;
@@ -796,7 +898,7 @@ img,video,iframe{max-width:100%}
       const targetPz=(c.z*disperse + (-14*i)*p)*scale;
       const rx=c.rx*disperse + y*(2.5+i*.3)*disperse;
       const ry=c.ry*disperse + x*(3+i*.45)*disperse;
-      const rz=c.rz*disperse + Math.sin(phase*.6)*1.4*disperse;
+      const rz=c.rz*disperse + Math.sin(phase*.6)*disperse*hover;
       const s=(c.s+(1-c.s)*p)*(1+hover*.008*(i===2?1:0));
 
       card.style.transform=`translate(-50%,-50%) translate3d(${targetPx}px,${targetPy}px,${targetPz}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`;
@@ -809,7 +911,7 @@ img,video,iframe{max-width:100%}
     world.style.setProperty('--world-ry',(8+x*7.5*disperse)+'deg');
 
     orbits.forEach((o,i)=>{
-      const a=(time*(i%2?-.55:.42)+i*.8)*disperse;
+      const a=((hover?time*(i%2?-.55:.42):0)+i*.8)*disperse;
       o.style.opacity=String(.78*disperse);
       o.style.filter=`brightness(${1+x*.06})`;
       o.style.setProperty('--orbit-a',a+'rad');
@@ -826,8 +928,5 @@ img,video,iframe{max-width:100%}
   }
   requestAnimationFrame(tick);
 
-  if(window.gsap&&!reduce){
-    gsap.from(cards,{opacity:0,y:34,scale:.78,rotationX:12,duration:1.15,stagger:.065,ease:'expo.out',delay:.08});
-  }
 })();
 </script></body></html>
