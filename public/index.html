@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
+<link rel="stylesheet" href="/vendor/lenis.css">
 <link rel="prefetch" href="/fourthform-portal.html" as="document">
 <style>
 :root{--paper:#F3F1EB;--surface:#FAF9F5;--ink:#171715;--body:#6F6C64;--muted:#918E86;--line:#D8D5CC;--dark:#20201D;--cream:#F4F1E9;--accent:#665CF6;--sans:"Instrument Sans",sans-serif;--serif:"Instrument Serif",serif;--ease:cubic-bezier(.22,1,.36,1)}
@@ -633,6 +633,13 @@ html{scroll-behavior:smooth}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .navlinks a,.btn,.textlink{font-size:14px}
 .navlinks a{transition:color .2s ease}.navlinks a:hover{color:var(--ink)}
+.navToggle{display:none;align-items:center;justify-content:center;min-height:38px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink);font:500 12px var(--sans);cursor:pointer}
+.navCurtain[hidden]{display:none}
+.navCurtain{position:fixed;inset:0;z-index:2000;display:flex;overflow:hidden;pointer-events:auto;touch-action:none}
+.navCurtain i{display:block;flex:1 1 0;min-width:0;height:101%;background:#24231f;transform:translateY(-102%);transition:transform .64s cubic-bezier(.76,0,.24,1);box-shadow:1px 0 0 #24231f}
+@media(max-width:1050px){.nav{grid-template-columns:1fr auto auto;gap:10px}.navToggle{display:inline-flex}.nav>.btn{grid-column:auto}.navlinks.is-open{display:grid;position:absolute;top:calc(100% + 6px);left:15px;right:15px;gap:0;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 16px 50px rgba(23,23,21,.12)}.navlinks.is-open a{padding:12px 14px;font-size:14px;border-radius:7px}.navlinks.is-open a:hover{background:var(--paper)}}
+@media(max-width:360px){.nav{gap:5px}.navToggle{padding-inline:8px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){.navCurtain i{transition:none}}
 .darkbtn:hover{background:#343430}
 .kicker,.step span,.priceLine>span{font-size:12px}
 .heroGrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,5vw,72px)}
@@ -643,15 +650,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .formCard:after{animation:none}
 .step p,.priceLine p,.priceSecondary p,.first p{font-size:14px}
 .previewTop{font-size:11px;letter-spacing:.04em}
-.previewStage{position:relative;isolation:isolate;overflow:hidden;padding:clamp(20px,4.4vw,56px);border:1px solid #38362f;border-radius:23px;background:radial-gradient(ellipse 76% 66% at 50% 46%,rgba(188,155,104,.29),transparent 78%),#22211e;box-shadow:inset 0 1px rgba(255,255,255,.1),0 24px 70px rgba(33,30,24,.14)}
-.previewStage:before{content:"";position:absolute;z-index:0;inset:8% 9% 5%;border-radius:40%;background:radial-gradient(ellipse at 50% 48%,rgba(252,227,176,.68) 0%,rgba(236,195,127,.42) 36%,rgba(146,116,77,.10) 70%,transparent 85%);filter:blur(46px);pointer-events:none}
-.previewStage:after{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(140deg,rgba(255,255,255,.035),transparent 45%,rgba(0,0,0,.13));pointer-events:none}
-.previewStage .previewShell{position:relative;z-index:1;border-color:rgba(255,241,214,.58);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 52px rgba(255,212,145,.35),0 35px 75px rgba(0,0,0,.44)}
+.previewStage{position:relative;isolation:isolate;overflow:visible;padding:clamp(20px,4.4vw,56px);border:0;border-radius:23px;background:#22211e;box-shadow:0 24px 70px rgba(33,30,24,.14)}
+.previewStage.hasBacklightShape{background:transparent;box-shadow:none}
+.previewStage .previewShell{position:relative;z-index:2;border-color:rgba(255,241,214,.58);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 52px rgba(255,212,145,.35),0 35px 75px rgba(0,0,0,.44)}
 .previewStage .portalFrame{height:clamp(360px,72dvh,760px);min-height:0;max-height:none}
-.previewStage{background:radial-gradient(ellipse 76% 66% at 50% 46%,rgba(188,155,104,.29),transparent 78%),repeating-radial-gradient(ellipse at 52% 52%,rgba(248,224,180,.022) 0 2px,transparent 3px 9px),#22211e}
-.previewStage:after{background:radial-gradient(210px circle at var(--edge-x,50%) var(--edge-y,50%),rgba(251,216,166,.18),transparent 75%),linear-gradient(140deg,rgba(255,255,255,.035),transparent 45%,rgba(0,0,0,.13))}
-.backlightRipple{position:absolute;z-index:1;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity .35s ease}
-.previewStage .previewShell{z-index:2}
+.backlightRipple{position:absolute;z-index:0;inset:-20px;width:calc(100% + 40px);height:calc(100% + 40px);pointer-events:none;transition:opacity .35s ease}
 .portalHead{position:relative;z-index:2;margin-bottom:0;padding-bottom:62px;background:var(--surface)}
 .portalReveal{position:relative;overflow:clip;margin-top:-52px;padding-top:52px}
 .portalReveal.previewActive{overflow:visible}
@@ -663,7 +666,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .previewExit:hover{background:#373631}
 .previewExit[hidden]{display:none}
 .previewStage.portalFloating{position:fixed;z-index:1001;max-width:none;margin:0;will-change:top,left,width,height,padding}
+.previewStage.portalFloating{overflow:hidden;background:#22211e}
 .previewStage.portalFloating .previewShell{display:flex;flex-direction:column;max-width:none}
+.previewStage.portalFloating .previewShell{margin-left:0;margin-right:0}
 .previewStage.portalFloating .previewTop{flex:0 0 auto}
 .previewStage.portalFloating .portalFrame{flex:1 1 auto;height:auto!important;min-height:0!important;max-height:none!important}
 .previewStage.portalFloating:not(.portalReady) .portalFrame{pointer-events:none}
@@ -695,7 +700,8 @@ html.lenis{scroll-behavior:auto}
 </style></head>
 <body>
 <a class="skipLink" href="#top">Skip to content</a>
-<nav class="nav" aria-label="Main navigation"><a class="wordmark" href="#top" aria-label="fourthform, back to top">fourthform</a><div class="navlinks"><a href="#process">Process</a><a href="#portal">Portal</a><a href="#states">States</a><a href="#pricing">Pricing</a></div><a class="btn darkbtn" href="#pricing">See pricing</a></nav>
+<nav class="nav" aria-label="Main navigation"><a class="wordmark" href="#top" aria-label="fourthform, back to top">fourthform</a><div class="navlinks" id="sectionLinks"><a href="#process">Process</a><a href="#portal">Portal</a><a href="#states">States</a><a href="#pricing">Pricing</a></div><button class="navToggle" type="button" aria-controls="sectionLinks" aria-expanded="false">Sections</button><a class="btn darkbtn" href="#pricing">See pricing</a></nav>
+<div class="navCurtain" aria-hidden="true" hidden><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <main id="top">
 <section class="heroWrap"><div class="hero"><div class="container heroGrid"><div class="heroCopy"><h1 class="display"><span class="heroLine"><span>Websites,</span></span><span class="heroLine"><span><em>brought into<br>form.</em></span></span></h1><p class="body">A custom website, built with you and reviewed on the page before launch.</p><div class="heroActions"><a class="btn darkbtn" href="#process">See how it works</a><a class="textlink" href="#portal">Explore the portal ↗</a></div></div><div class="heroStage" id="heroStage">
   <div class="formGlow" id="formGlow" aria-hidden="true"></div>
@@ -781,9 +787,9 @@ html.lenis{scroll-behavior:auto}
 <section class="pricing" id="pricing"><div class="container"><div class="pricingHead"><h2 class="display">One website.<br><em>A$1,500.</em></h2><p class="body">Start with A$200. Pay the remaining A$1,300 when you approve the finished site. Three revision rounds are included.</p></div><div class="priceLine"><span>Site</span><strong>A$1,500 <small>once</small></strong><p>Up to five custom pages, responsive design, content editing, forms, initial SEO, analytics, Core and launch.</p></div><div class="priceSecondary"><div><span>After launch / Core</span><strong>Included</strong><p>Hosting, editing, a custom domain connection and basic analytics.</p></div><div><span>Optional / Pro</span><strong>A$39 / month</strong><p>Scheduled States, deeper analytics, heatmaps and automated recommendations.</p></div></div><div class="first"><span>Just opened?</span><p>New businesses may qualify for Fourthform First. Same standard, smaller one-page scope.</p><strong>A$199</strong></div></div></section>
 </main>
 <footer class="footer"><div class="container"><b>fourthform</b><span>Websites, brought into form.</span><span>Brisbane, Australia</span></div></footer>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
+<script src="/vendor/gsap.min.js"></script>
+<script src="/vendor/ScrollTrigger.min.js"></script>
+<script src="/vendor/lenis.min.js"></script>
 <script>
 (()=>{
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -873,6 +879,24 @@ html.lenis{scroll-behavior:auto}
   };
   startArrival();
 
+  const morphPreview=(stageTarget,shellTarget,duration,done)=>{
+    const apply=()=>{
+      Object.assign(stage.style,stageTarget);
+      Object.assign(shell.style,shellTarget);
+    };
+    if(reduce){apply();done();return}
+    const curve='cubic-bezier(.76,0,.24,1)';
+    stage.style.transition=`top ${duration}ms ${curve},left ${duration}ms ${curve},width ${duration}ms ${curve},height ${duration}ms ${curve},padding ${duration}ms ${curve},border-radius ${duration}ms ${curve},clip-path ${duration}ms ${curve}`;
+    shell.style.transition=`height ${duration}ms ${curve},border-radius ${duration}ms ${curve}`;
+    // Paint the exact starting bounds before changing any dimensions.
+    requestAnimationFrame(()=>requestAnimationFrame(apply));
+    setTimeout(()=>{
+      stage.style.removeProperty('transition');
+      shell.style.removeProperty('transition');
+      done();
+    },duration+70);
+  };
+
   const finishOpen=()=>{
     transitioning=false;
     const pad=framePadding();
@@ -923,15 +947,8 @@ html.lenis{scroll-behavior:auto}
 
     const pad=framePadding();
     const view=viewport();
-    if(canAnimate){
-      gsap.timeline({onComplete:finishOpen})
-        .to(stage,{top:view.top,left:view.left,width:view.width,height:view.height,padding:pad,borderRadius:0,clipPath:'inset(0px 0px 0px 0px)',duration:1.08,ease:'power3.inOut'},0)
-        .to(shell,{height:view.height-pad*2,borderRadius:view.width<=760?4:10,duration:1.08,ease:'power3.inOut'},0);
-    }else{
-      Object.assign(stage.style,{top:`${view.top}px`,left:`${view.left}px`,width:`${view.width}px`,height:`${view.height}px`,padding:`${pad}px`,borderRadius:'0px',clipPath:'inset(0px 0px 0px 0px)'});
-      shell.style.height=`${view.height-pad*2}px`;
-      finishOpen();
-    }
+    morphPreview({top:`${view.top}px`,left:`${view.left}px`,width:`${view.width}px`,height:`${view.height}px`,padding:`${pad}px`,borderRadius:'0px',clipPath:'inset(0px 0px 0px 0px)'},
+      {height:`${view.height-pad*2}px`,borderRadius:view.width<=760?'4px':'10px'},1080,finishOpen);
   };
 
   const finishClose=()=>{
@@ -964,11 +981,8 @@ html.lenis{scroll-behavior:auto}
     transitioning=true;
     stage.classList.remove('portalReady');
     const rect=slot.getBoundingClientRect();
-    if(canAnimate){
-      gsap.timeline({onComplete:finishClose})
-        .to(stage,{top:rect.top,left:rect.left,width:rect.width,height:rect.height,padding:restingPadding,borderRadius:restingRadius,clipPath:`inset(${revealClip(rect)}px 0px 0px 0px)`,duration:1.02,ease:'power3.inOut'},0)
-        .to(shell,{height:restingShellHeight,borderRadius:restingShellRadius,duration:1.02,ease:'power3.inOut'},0);
-    }else finishClose();
+    morphPreview({top:`${rect.top}px`,left:`${rect.left}px`,width:`${rect.width}px`,height:`${rect.height}px`,padding:`${restingPadding}px`,borderRadius:restingRadius,clipPath:`inset(${revealClip(rect)}px 0px 0px 0px)`},
+      {height:`${restingShellHeight}px`,borderRadius:restingShellRadius},1020,finishClose);
   };
 
   cover.addEventListener('click',openPreview);
@@ -1003,10 +1017,10 @@ html.lenis{scroll-behavior:auto}
     const drawEdge=()=>{
       context.clearRect(0,0,width,height);
       if(width<60||height<60)return;
-      const inset=8,radius=18,step=7;
+      const inset=26,radius=21,step=7;
       const wave=(x,y)=>{
         const distance=Math.hypot(x-pointerX,y-pointerY);
-        return Math.sin(distance*.09-phase)*Math.exp(-distance*distance/46000)*strength*6;
+        return Math.sin(distance*.065-phase)*Math.exp(-distance*distance/70000)*strength*13;
       };
       context.beginPath();
       context.moveTo(inset+radius,inset+wave(inset+radius,inset));
@@ -1019,14 +1033,17 @@ html.lenis{scroll-behavior:auto}
       for(let y=height-inset-radius;y>inset+radius;y-=step)context.lineTo(inset-wave(inset,y),y);
       context.quadraticCurveTo(inset,inset,inset+radius,inset);
       context.closePath();
-      context.strokeStyle='rgba(250,215,169,.22)';
-      context.lineWidth=2;
-      context.shadowColor='rgba(255,211,151,.57)';
-      context.shadowBlur=17;
-      context.stroke();
+      const fill=context.createLinearGradient(0,0,width,height);
+      fill.addColorStop(0,'#302e28');
+      fill.addColorStop(.48,'#22211e');
+      fill.addColorStop(1,'#1d1c1a');
+      context.fillStyle=fill;
+      context.shadowColor='rgba(178,143,96,.36)';
+      context.shadowBlur=32;
+      context.fill();
       context.shadowBlur=0;
-      context.strokeStyle='rgba(255,239,207,.40)';
-      context.lineWidth=.65;
+      context.strokeStyle='rgba(241,216,171,.36)';
+      context.lineWidth=1.2;
       context.stroke();
     };
     resetRipple=()=>{
@@ -1048,30 +1065,86 @@ html.lenis{scroll-behavior:auto}
     const resizeRipple=()=>{
       if(stage.classList.contains('portalFloating'))return;
       const ratio=Math.min(devicePixelRatio||1,2);
-      width=stage.clientWidth;height=stage.clientHeight;
+      width=stage.clientWidth+40;height=stage.clientHeight+40;
       ripple.width=Math.round(width*ratio);ripple.height=Math.round(height*ratio);
       context.setTransform(ratio,0,0,ratio,0,0);
       drawEdge();
+      stage.classList.add('hasBacklightShape');
     };
     new ResizeObserver(resizeRipple).observe(stage);
     if(!reduce&&finePointer){
       stage.addEventListener('pointermove',event=>{
         if(stage.classList.contains('portalFloating')||width<1||height<1)return;
         const box=stage.getBoundingClientRect();
-        pointerX=(event.clientX-box.left)*width/box.width;
-        pointerY=(event.clientY-box.top)*height/box.height;
-        stage.style.setProperty('--edge-x',`${pointerX/width*100}%`);
-        stage.style.setProperty('--edge-y',`${pointerY/height*100}%`);
+        pointerX=(event.clientX-box.left)*(width-40)/box.width+20;
+        pointerY=(event.clientY-box.top)*(height-40)/box.height+20;
         target=1;schedule();
       },{passive:true});
       stage.addEventListener('pointerleave',()=>{
         target=0;
-        stage.style.removeProperty('--edge-x');
-        stage.style.removeProperty('--edge-y');
         schedule();
       });
     }
   }
+
+  const navToggle=document.querySelector('.navToggle');
+  const sectionLinks=document.querySelector('.navlinks');
+  const curtain=document.querySelector('.navCurtain');
+  const strips=[...curtain.querySelectorAll('i')];
+  let navigating=false;
+  const closeNav=()=>{
+    sectionLinks.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded','false');
+  };
+  navToggle.addEventListener('click',()=>{
+    const open=sectionLinks.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded',String(open));
+  });
+  document.addEventListener('click',event=>{
+    if(!event.target.closest('.nav'))closeNav();
+  });
+  const jumpTo=target=>{
+    const offset=innerWidth<=760?62:68;
+    const y=window.scrollY+target.getBoundingClientRect().top-offset;
+    if(lenis)lenis.scrollTo(y,{immediate:true,force:true});
+    else {
+      const previous=document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior='auto';
+      window.scrollTo({top:y,behavior:'instant'});
+      document.documentElement.style.scrollBehavior=previous;
+    }
+    history.pushState(null,'',`#${target.id}`);
+    window.ScrollTrigger?.refresh();
+  };
+  const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+  document.querySelectorAll('.navlinks a[href^="#"],.nav>.btn[href^="#"]').forEach(link=>{
+    link.addEventListener('click',async event=>{
+      const target=document.querySelector(link.getAttribute('href'));
+      if(!target)return;
+      event.preventDefault();
+      if(navigating)return;
+      closeNav();
+      if(reduce){jumpTo(target);return}
+      navigating=true;
+      lenis?.stop();
+      curtain.hidden=false;
+      void curtain.offsetWidth;
+      strips.forEach((strip,index)=>{
+        strip.style.transitionDelay=`${index*50}ms`;
+        strip.style.transform='translateY(0)';
+      });
+      await wait(930);
+      jumpTo(target);
+      strips.forEach((strip,index)=>{
+        strip.style.transitionDelay=`${(strips.length-1-index)*50}ms`;
+        strip.style.transform='translateY(-102%)';
+      });
+      await wait(930);
+      curtain.hidden=true;
+      lenis?.start();
+      navigating=false;
+    });
+  });
 })();
 </script>
 <script id="ff-hero-3d-script">
