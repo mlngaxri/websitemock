@@ -647,6 +647,27 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .previewStage:before{content:"";position:absolute;z-index:0;inset:8% 9% 5%;border-radius:40%;background:radial-gradient(ellipse at 50% 48%,rgba(252,227,176,.68) 0%,rgba(236,195,127,.42) 36%,rgba(146,116,77,.10) 70%,transparent 85%);filter:blur(46px);pointer-events:none}
 .previewStage:after{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(140deg,rgba(255,255,255,.035),transparent 45%,rgba(0,0,0,.13));pointer-events:none}
 .previewStage .previewShell{position:relative;z-index:1;border-color:rgba(255,241,214,.58);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 52px rgba(255,212,145,.35),0 35px 75px rgba(0,0,0,.44)}
+.portalHead{position:relative;z-index:2;margin-bottom:0;padding-bottom:62px;background:var(--surface)}
+.portalReveal{position:relative;overflow:clip;margin-top:-52px;padding-top:52px}
+.portalReveal.previewActive{overflow:visible}
+.previewCover{position:absolute;z-index:2;inset:42px 0 0;display:grid;place-items:center;background:rgba(20,20,19,.19);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);cursor:pointer;transition:opacity .3s ease,visibility .3s ease}
+.previewCover span{display:inline-flex;align-items:center;gap:14px;padding:17px 21px;border:1px solid rgba(255,255,255,.32);border-radius:999px;background:rgba(24,24,22,.89);box-shadow:0 12px 36px rgba(0,0,0,.27);color:#faf9f5;font-size:14px;font-weight:500;letter-spacing:-.01em;transition:transform .3s var(--ease),background .3s ease}
+.previewCover span:after{content:"↗";font-size:17px;line-height:1}
+.previewCover:hover span,.previewCover:focus-visible span{transform:translateY(-3px);background:#34332f}
+.previewExit{display:inline-flex;align-items:center;justify-content:center;min-height:31px;padding:0 13px;border:1px solid var(--line);border-radius:7px;background:var(--ink);color:var(--surface);font:500 11px var(--sans);letter-spacing:.01em;cursor:pointer}
+.previewExit:hover{background:#373631}
+.previewExit[hidden]{display:none}
+.previewStage.portalFloating{position:fixed;z-index:1001;max-width:none;margin:0;will-change:top,left,width,height,padding}
+.previewStage.portalFloating .previewShell{display:flex;flex-direction:column;max-width:none}
+.previewStage.portalFloating .previewTop{flex:0 0 auto}
+.previewStage.portalFloating .portalFrame{flex:1 1 auto;height:auto!important;min-height:0!important;max-height:none!important}
+.previewStage.portalFloating:not(.portalReady) .portalFrame{pointer-events:none}
+.previewStage.is-expanded .previewCover{opacity:0;visibility:hidden;pointer-events:none}
+.previewStage.is-expanded .previewContext{display:none}
+html.portalMode,html.portalMode body{overflow:hidden!important;overscroll-behavior:none}
+html.portalMode body{padding-right:var(--portal-scrollbar,0px)}
+@media(max-width:760px){.portalHead{padding-bottom:40px}.portalReveal{margin-top:-30px;padding-top:30px}.previewCover{inset:40px 0 0}.previewCover span{font-size:12px;padding:14px 17px}.previewExit{min-height:29px}}
+@media(prefers-reduced-motion:reduce){.previewCover,.previewCover span{transition:none}}
 .previewOpen{display:inline-flex;margin-top:18px;font-size:14px;color:var(--body);border-bottom:1px solid var(--line);padding-bottom:3px}
 .portalHead .body{margin-bottom:0}
 .states{height:auto;padding:145px 0 155px}.statesPin{height:auto;min-height:0;overflow:visible;background:none}
@@ -749,7 +770,7 @@ html.lenis{scroll-behavior:auto}
   <span class="stageCaption">One website, taking form.</span>
 </div></div></div></section>
 <section class="process" id="process"><div class="container"><div class="sectionHead"><span class="kicker">Process</span><h2 class="display">From direction<br><em>to launch.</em></h2></div><div class="rail"><div class="line" aria-hidden="true"><i class="progress"></i></div><div class="step"><span>01</span><h3>Direction</h3><p>Tell us what the site needs to do.</p></div><div class="step"><span>02</span><h3>Build</h3><p>See it take shape.</p></div><div class="step"><span>03</span><h3>Review</h3><p>Comment directly on the site.</p></div><div class="step"><span>04</span><h3>Launch</h3><p>Approve and go live.</p></div></div></div></section>
-<section class="portalSec" id="portal"><div class="container"><div class="portalHead"><h2 class="display">Review the site<br><em>on the site.</em></h2><p class="body">Switch pages, resize the preview and leave feedback exactly where it belongs.</p></div><div class="previewStage"><div class="previewShell"><div class="previewTop"><span>Interactive portal preview</span><span>Sample project · no sign-in</span></div><iframe class="portalFrame" src="/fourthform-portal.html" title="Interactive Fourthform portal preview" loading="lazy"></iframe></div></div><a class="previewOpen" href="/fourthform-portal.html" target="_blank" rel="noopener">Open the full preview ↗</a></div></section>
+<section class="portalSec" id="portal"><div class="container"><div class="portalHead"><h2 class="display">Review the site<br><em>on the site.</em></h2><p class="body">Switch pages, resize the preview and leave feedback exactly where it belongs.</p></div><div class="portalReveal"><div class="previewStage"><div class="previewShell"><div class="previewTop"><span id="portalPreviewTitle">Interactive portal preview</span><span class="previewContext">Sample project · no sign-in</span><button class="previewExit" type="button" hidden>Exit preview</button></div><iframe class="portalFrame" src="/fourthform-portal.html" title="Interactive Fourthform portal preview" loading="lazy" tabindex="-1"></iframe><a class="previewCover" href="/fourthform-portal.html"><span>Click to preview portal</span></a></div></div></div><a class="previewOpen" href="/fourthform-portal.html" target="_blank" rel="noopener">Open the full preview ↗</a></div></section>
 <section class="states" id="states"><div class="statesPin"><div class="container statesGrid"><div><span class="kicker">States / Pro</span><h2 class="display">The same site.<br><em>A different moment.</em></h2><p class="body">Schedule a version of your website for a particular day, then return to the default automatically.</p><div class="stateControls" role="group" aria-label="Preview Mori House website state"><button type="button" aria-pressed="true" data-state="weekday">Weekday</button><button type="button" aria-pressed="false" data-state="saturday">Saturday</button></div></div><div class="stateObj" data-state="weekday"><div class="stateCard stateMon"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · WEEKDAY</small><h3>Dinner,<br>unhurried.</h3><p>Tuesday to Friday, from the first drink to the last course.</p></div><div class="mimage"></div></div></div><div class="stateCard stateSat sat"><div class="btop"></div><div class="morrow"><div class="mcopy"><small>MORI HOUSE · SATURDAY</small><h3>A longer lunch.<br>More time at the table.</h3><p>Saturday lunch extends into the afternoon before evening service.</p></div><div class="mimage"></div></div></div></div></div></div></section>
 <section class="pricing" id="pricing"><div class="container"><div class="pricingHead"><h2 class="display">One website.<br><em>A$1,500.</em></h2><p class="body">Start with A$200. Pay the remaining A$1,300 when you approve the finished site. Three revision rounds are included.</p></div><div class="priceLine"><span>Site</span><strong>A$1,500 <small>once</small></strong><p>Up to five custom pages, responsive design, content editing, forms, initial SEO, analytics, Core and launch.</p></div><div class="priceSecondary"><div><span>After launch / Core</span><strong>Included</strong><p>Hosting, editing, a custom domain connection and basic analytics.</p></div><div><span>Optional / Pro</span><strong>A$39 / month</strong><p>Scheduled States, deeper analytics, heatmaps and automated recommendations.</p></div></div><div class="first"><span>Just opened?</span><p>New businesses may qualify for Fourthform First. Same standard, smaller one-page scope.</p><strong>A$199</strong></div></div></section>
 </main>
@@ -798,7 +819,6 @@ html.lenis{scroll-behavior:auto}
       enter('.step','.rail',{stagger:.12,y:20,duration:.7});
       gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.rail',start:'top 80%',end:'bottom 45%',scrub:true}});
       enter('.portalHead .display,.portalHead .body','.portalSec',{stagger:.12});
-      gsap.from('.previewStage',{y:34,autoAlpha:.86,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:'.portalSec',start:'top 58%',once:true}});
       enter('.states .display,.states .body,.stateControls','.states',{stagger:.1});
       gsap.from('.stateObj',{x:32,autoAlpha:.7,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.states',start:'top 60%',once:true}});
       enter('.pricingHead .display,.pricingHead .body','.pricing',{stagger:.1});
@@ -819,6 +839,142 @@ html.lenis{scroll-behavior:auto}
     gsap.fromTo(next.querySelector('.mcopy'),{y:18,autoAlpha:.65},{y:0,autoAlpha:1,duration:.65,ease:'power3.out',overwrite:true});
     gsap.fromTo(next.querySelector('.mimage'),{scale:1.035},{scale:1,duration:.9,ease:'power2.out',overwrite:true});
   }));
+
+  const reveal=document.querySelector('.portalReveal');
+  const stage=reveal?.querySelector('.previewStage');
+  const shell=stage?.querySelector('.previewShell');
+  const frame=stage?.querySelector('.portalFrame');
+  const cover=stage?.querySelector('.previewCover');
+  const exitButton=stage?.querySelector('.previewExit');
+  if(!stage||!shell||!frame||!cover||!exitButton)return;
+
+  let arrival,slot,expanded=false,transitioning=false,returnFocus;
+  let restingShellHeight=0,restingPadding=0,restingRadius='',restingShellRadius='';
+  const background=[...document.querySelectorAll('.nav,main > section:not(.portalSec),.portalHead,.previewOpen,footer')];
+  const priorInert=new Map();
+  const framePadding=()=>innerWidth<=760?4:8;
+  const startArrival=()=>{
+    if(!canAnimate||!window.ScrollTrigger)return;
+    arrival=gsap.fromTo(stage,{y:-140,scale:.985},{
+      y:0,scale:1,ease:'none',
+      scrollTrigger:{trigger:reveal,start:'top 95%',end:'top 38%',scrub:1.15,invalidateOnRefresh:true}
+    });
+  };
+  startArrival();
+
+  const finishOpen=()=>{
+    transitioning=false;
+    const pad=framePadding();
+    Object.assign(stage.style,{top:'0px',left:'0px',width:`${innerWidth}px`,height:`${innerHeight}px`,padding:`${pad}px`});
+    shell.style.height=`${innerHeight-pad*2}px`;
+    stage.classList.add('portalReady');
+    frame.removeAttribute('tabindex');
+    exitButton.focus({preventScroll:true});
+  };
+  const openPreview=event=>{
+    event.preventDefault();
+    if(expanded||transitioning)return;
+    const rect=stage.getBoundingClientRect();
+    restingShellHeight=shell.getBoundingClientRect().height;
+    restingPadding=parseFloat(getComputedStyle(stage).paddingTop);
+    restingRadius=getComputedStyle(stage).borderRadius;
+    restingShellRadius=getComputedStyle(shell).borderRadius;
+    returnFocus=document.activeElement;
+    arrival?.scrollTrigger?.kill(false);
+    arrival?.kill();
+    arrival=null;
+    if(canAnimate)gsap.set(stage,{clearProps:'transform'});
+
+    slot=document.createElement('div');
+    slot.style.height=`${stage.offsetHeight}px`;
+    stage.before(slot);
+    reveal.classList.add('previewActive');
+    stage.classList.add('portalFloating','is-expanded');
+    Object.assign(stage.style,{
+      top:`${rect.top}px`,left:`${rect.left}px`,width:`${rect.width}px`,height:`${rect.height}px`,
+      padding:`${restingPadding}px`,borderRadius:restingRadius
+    });
+    shell.style.height=`${restingShellHeight}px`;
+    shell.style.borderRadius=restingShellRadius;
+    exitButton.hidden=false;
+    stage.setAttribute('role','dialog');
+    stage.setAttribute('aria-modal','true');
+    stage.setAttribute('aria-labelledby','portalPreviewTitle');
+    background.forEach(element=>{priorInert.set(element,element.inert);element.inert=true});
+    document.documentElement.style.setProperty('--portal-scrollbar',`${innerWidth-document.documentElement.clientWidth}px`);
+    document.documentElement.classList.add('portalMode');
+    lenis?.stop();
+    expanded=true;
+    transitioning=true;
+
+    const pad=framePadding();
+    if(canAnimate){
+      gsap.timeline({onComplete:finishOpen})
+        .to(stage,{top:0,left:0,width:innerWidth,height:innerHeight,padding:pad,borderRadius:0,duration:1.05,ease:'power3.inOut'},0)
+        .to(shell,{height:innerHeight-pad*2,borderRadius:innerWidth<=760?4:10,duration:1.05,ease:'power3.inOut'},0);
+    }else{
+      Object.assign(stage.style,{top:'0px',left:'0px',width:`${innerWidth}px`,height:`${innerHeight}px`,padding:`${pad}px`,borderRadius:'0px'});
+      shell.style.height=`${innerHeight-pad*2}px`;
+      finishOpen();
+    }
+  };
+
+  const finishClose=()=>{
+    stage.classList.remove('portalFloating','is-expanded','portalReady');
+    for(const property of ['top','left','width','height','padding','border-radius'])stage.style.removeProperty(property);
+    shell.style.removeProperty('height');
+    shell.style.removeProperty('border-radius');
+    exitButton.hidden=true;
+    frame.setAttribute('tabindex','-1');
+    stage.removeAttribute('role');
+    stage.removeAttribute('aria-modal');
+    stage.removeAttribute('aria-labelledby');
+    slot?.remove();
+    slot=null;
+    reveal.classList.remove('previewActive');
+    document.documentElement.classList.remove('portalMode');
+    document.documentElement.style.removeProperty('--portal-scrollbar');
+    background.forEach(element=>{element.inert=priorInert.get(element)});
+    priorInert.clear();
+    lenis?.start();
+    expanded=false;
+    transitioning=false;
+    startArrival();
+    window.ScrollTrigger?.refresh();
+    if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});
+  };
+  const closePreview=()=>{
+    if(!expanded||transitioning)return;
+    transitioning=true;
+    stage.classList.remove('portalReady');
+    const rect=slot.getBoundingClientRect();
+    if(canAnimate){
+      gsap.timeline({onComplete:finishClose})
+        .to(stage,{top:rect.top,left:rect.left,width:rect.width,height:rect.height,padding:restingPadding,borderRadius:restingRadius,duration:.9,ease:'power3.inOut'},0)
+        .to(shell,{height:restingShellHeight,borderRadius:restingShellRadius,duration:.9,ease:'power3.inOut'},0);
+    }else finishClose();
+  };
+
+  cover.addEventListener('click',openPreview);
+  exitButton.addEventListener('click',closePreview);
+  const handleKey=event=>{
+    if(event.key==='Escape'&&expanded){event.preventDefault();closePreview()}
+    if(event.key==='Tab'&&expanded&&document.activeElement&&!stage.contains(document.activeElement)){
+      event.preventDefault();exitButton.focus({preventScroll:true});
+    }
+  };
+  document.addEventListener('keydown',handleKey,true);
+  const bindFrameEscape=()=>{
+    try{frame.contentWindow.addEventListener('keydown',handleKey,true)}catch(error){}
+  };
+  frame.addEventListener('load',bindFrameEscape);
+  try{if(frame.contentDocument?.readyState==='complete')bindFrameEscape()}catch(error){}
+  addEventListener('resize',()=>{
+    if(!expanded||transitioning)return;
+    const pad=framePadding();
+    Object.assign(stage.style,{top:'0px',left:'0px',width:`${innerWidth}px`,height:`${innerHeight}px`,padding:`${pad}px`});
+    shell.style.height=`${innerHeight-pad*2}px`;
+  });
 })();
 </script>
 <script id="ff-hero-3d-script">
