@@ -655,7 +655,7 @@ body{
           <button class="pill" type="button" data-page="Visit">Visit</button>
         </div>
         <div class="rightbits">
-          <button class="pill" id="sendBtn" type="button">Send preview</button>
+          <button class="pill" id="sendBtn" type="button">Share sample</button>
         </div>
       </div>
       <div class="stage">
@@ -706,14 +706,14 @@ body{
     <section class="view" data-view-panel="settings">
       <div class="panel-head"><h1>Settings</h1><span>Project preferences</span></div>
       <div class="settings-body">
-        <div class="settings-intro"><div class="kicker">Form / Settings</div><h2>Project settings</h2><p>Choose when you receive updates about Mori House.</p></div>
+        <div class="settings-intro"><div class="kicker">Form / Settings</div><h2>Project settings</h2><p>Set preferences for this interactive sample. They stay in this browser.</p></div>
         <form id="settingsForm" class="settings-form">
           <div class="settings-block"><div><h3>Project</h3><p>The details attached to this preview.</p></div><div class="settings-fields">
             <label>Project name<input value="Mori House" readonly></label>
             <label>Project reference<input value="FF-MORI-01" readonly></label>
             <label>Time zone<select name="timezone"><option value="Australia/Brisbane">Brisbane (AEST)</option><option value="Australia/Sydney">Sydney (AEST/AEDT)</option><option value="Australia/Perth">Perth (AWST)</option></select></label>
           </div></div>
-          <div class="settings-block"><div><h3>Updates</h3><p>Choose which events appear in your project inbox.</p></div><div class="settings-fields">
+          <div class="settings-block"><div><h3>Updates</h3><p>Choose the kinds of updates you would want to see in a live project.</p></div><div class="settings-fields">
             <label class="settings-switch"><span><b>Build updates</b><small>Progress and internal check results.</small></span><input name="buildUpdates" type="checkbox" checked></label>
             <label class="settings-switch"><span><b>Revision updates</b><small>When a revised site is ready to review.</small></span><input name="revisionUpdates" type="checkbox" checked></label>
             <label class="settings-switch"><span><b>Launch updates</b><small>Steps required before the site goes live.</small></span><input name="launchUpdates" type="checkbox" checked></label>
@@ -802,12 +802,12 @@ body{
 <div class="modal-backdrop" id="submitModal" role="dialog" aria-modal="true" aria-labelledby="submitTitle">
   <div class="modal">
     <div class="modal-step active" data-modal-step="1"><small>Step 1 of 3</small><h2 id="submitTitle">Review the batch.</h2><p>Make sure this revision includes everything you want Fourthform to change.</p><div class="modal-list"><div>Hero image replacement</div><div>Heading tone adjustment</div></div><div class="modal-actions"><button class="top-button" data-close-modal>Cancel</button><button class="top-button primary" data-next-modal>Everything is included</button></div></div>
-    <div class="modal-step" data-modal-step="2"><small>Step 2 of 3</small><h2>Revision 01 / 03</h2><p>Submitting commits this batch as your first included revision round. Saving drafts never uses a round.</p><div class="modal-actions"><button class="top-button" data-prev-modal>Back</button><button class="top-button primary" data-next-modal>I understand</button></div></div>
+    <div class="modal-step" data-modal-step="2"><small>Step 2 of 3</small><h2>Revision 01 / 03</h2><p>In a live project, submitting would use the first of three included revision rounds. Here, it only updates this browser sample. Saving drafts never uses a round.</p><div class="modal-actions"><button class="top-button" data-prev-modal>Back</button><button class="top-button primary" data-next-modal>I understand</button></div></div>
     <div class="modal-step" data-modal-step="3"><small>Step 3 of 3</small><h2>Hold to submit.</h2><p>Press and hold for a moment. Release early to cancel.</p><div class="modal-actions"><button class="top-button" data-prev-modal>Back</button><button class="top-button primary hold" id="holdSubmit"><span>Hold to submit</span></button></div></div>
   </div>
 </div>
-<div class="modal-backdrop" id="previewModal" role="dialog" aria-modal="true"><div class="modal"><div class="modal-step active"><small>Preview link</small><h2>Share the site</h2><p>The link opens the published version. Changes saved on this device are visible here until they are published.</p><div class="modal-actions"><button class="top-button" data-close-preview>Close</button><button class="top-button primary" id="copyPreview">Copy link</button></div></div></div></div>
-<div class="modal-backdrop" id="reservationModal" role="dialog" aria-modal="true"><div class="modal"><div class="modal-step active"><small>Mori House</small><h2>Reservations</h2><p>Reservations open four weeks ahead. The booking link will be added before the website goes live.</p><div class="modal-actions"><button class="top-button primary" data-close-reservation>Close</button></div></div></div></div>
+<div class="modal-backdrop" id="previewModal" role="dialog" aria-modal="true"><div class="modal"><div class="modal-step active"><small>Preview link</small><h2>Share the sample</h2><p>This link opens the interactive Mori House sample. Changes saved here stay in this browser and are not shared through the link.</p><div class="modal-actions"><button class="top-button" data-close-preview>Close</button><button class="top-button primary" id="copyPreview">Copy link</button></div></div></div></div>
+<div class="modal-backdrop" id="reservationModal" role="dialog" aria-modal="true"><div class="modal"><div class="modal-step active"><small>Mori House</small><h2>Reservations</h2><p>This concept preview does not take bookings. A reservation link would be connected before a real site launches.</p><div class="modal-actions"><button class="top-button primary" data-close-reservation>Close</button></div></div></div></div>
 <div class="modal-backdrop" id="projectFilesModal" role="dialog" aria-modal="true"><div class="modal project-files-modal"><small>Project files</small><h2>Mori House imagery</h2><p>Images supplied with the initial direction and added during review. In Edit site, choose an image on the page, then select its replacement here.</p><div class="project-file-grid" id="projectFilesGrid"></div><p class="files-selection-status" id="filesSelectionStatus" aria-live="polite">Choose an image on the page to replace it</p><div class="modal-actions"><button class="top-button" data-close-files>Close</button><button class="top-button primary" id="filesUploadBtn">Add files</button></div></div></div>
 <div class="toast" id="toast" aria-live="polite"></div>
 
@@ -995,7 +995,7 @@ function selectPage(page){
   currentPage=page;
   qsa('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
   const site=qs('#site');
-  site.animate([{opacity:.55,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:280,easing:'cubic-bezier(.22,1,.36,1)'});
+  if(site.animate)site.animate([{opacity:.55,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:280,easing:'cubic-bezier(.22,1,.36,1)'});
   renderPage(page);
 }
 qsa('[data-page]').forEach(b=>b.addEventListener('click',()=>selectPage(b.dataset.page)));
@@ -1097,7 +1097,7 @@ function startHold(){
   const tick=now=>{const p=Math.min(1,(now-start)/800);hold.style.setProperty('--hold',(p*100)+'%');if(p<1)holdRaf=requestAnimationFrame(tick);else finishSubmit()};holdRaf=requestAnimationFrame(tick)
 }
 function cancelHold(){cancelAnimationFrame(holdRaf);hold.style.setProperty('--hold','0%')}
-function finishSubmit(){hold.style.setProperty('--hold','100%');setTimeout(()=>{closeModal('#submitModal');revisionSubmitted=true;renderDirections();saveLocal();qs('#submitBtn').textContent='Revision submitted';qs('#submitBtn').disabled=true;notify('Revision 01 submitted')},150)}
+function finishSubmit(){hold.style.setProperty('--hold','100%');setTimeout(()=>{closeModal('#submitModal');revisionSubmitted=true;renderDirections();saveLocal();qs('#submitBtn').textContent='Revision submitted';qs('#submitBtn').disabled=true;notify('Sample revision submitted in this browser')},150)}
 hold.addEventListener('pointerdown',startHold);['pointerup','pointerleave','pointercancel'].forEach(e=>hold.addEventListener(e,cancelHold));
 
 qs('#sendBtn').addEventListener('click',()=>openModal('#previewModal'));
@@ -1255,6 +1255,13 @@ const idleHint=qs('.hint');let hintTimer;
 function resetHint(){idleHint.classList.remove('idle');clearTimeout(hintTimer);if(currentView==='review')hintTimer=setTimeout(()=>idleHint.classList.add('idle'),6500)}
 ['pointerdown','pointermove','keydown','wheel','touchstart','scroll'].forEach(type=>document.addEventListener(type,resetHint,{passive:true,capture:true}));
 new MutationObserver(resetHint).observe(qs('[data-view-panel="review"]'),{attributes:true,attributeFilter:['class']});resetHint();
+const sampleParams=new URLSearchParams(location.search);
+const sampleView=sampleParams.get('view');
+if(['overview','direction','build','review','pages','settings','launch'].includes(sampleView))showView(sampleView);
+const samplePage=sampleParams.get('page');
+if(['Home','Menu','Visit'].includes(samplePage))selectPage(samplePage);
+const sampleMode={edit:'Edit site',browse:'Browse mode',review:'Review mode'}[sampleParams.get('mode')];
+if(sampleMode){currentMode=sampleMode;qs('#modeBtn').firstChild.textContent=sampleMode+' ';applyEditMode()}
 
 </script>
 </body></html>
